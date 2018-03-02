@@ -1,0 +1,31 @@
+{
+    "name": "flerex/linkedaccounts",
+    "type": "phpbb-extension",
+    "description": "A phpBB 3.2 extension that allows users to link accounts to switch between them with ease",
+    "homepage": "https://github.com/flerex/linkedaccounts",
+    "version": "0.1.0",
+    "time": "2018-3-01",
+    "keywords": ["flerex", "topic", "participants", "list"],
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Flerex",
+            "email": "flerex@icloud.com",
+            "homepage": "https://github.com/flerex/",
+            "role": "Lead Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "composer/installers": "~1.0"
+    },
+    "require-dev": {
+        "phpbb/epv": "dev-master"
+    },
+    "extra": {
+        "display-name": "Linked Accounts",
+        "soft-require": {
+            "phpbb/phpbb": "~3.2"
+        }
+    }
+}
