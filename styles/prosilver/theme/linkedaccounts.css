@@ -1,0 +1,28 @@
+#username_logged_in .dropdown-contents {
+	display: flex;
+	flex-direction: column;
+}
+
+#linked_accounts {
+	order: 1;
+	border-top: none;
+	background-color: #ECF1F3;
+	margin: 5px -5px -5px -5px;
+	padding: 5px 10px;
+}
+
+#linked_accounts + .separator {
+	display: none;
+}
+
+#linked_accounts + .separator + li {
+	border-top: 1px dotted #DCDCDC;
+}
+
+#linked_accounts li {
+	padding: 0;
+}
+
+#linked_accounts li:first-child {
+	margin-top: 0;
+}

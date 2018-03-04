@@ -1,1 +1,54 @@
-holi
+<!-- INCLUDE ucp_header.html -->
+
+<form id="ucp" method="post" action="{U_ACTION}"{S_FORM_ENCTYPE}>
+
+<h2>{L_LINKED_ACCOUNTS_MANAGEMENT}</h2>
+<div class="panel">
+	<div class="inner">
+		<p>{L_LINKED_ACCOUNTS_DESCRIPTION}</p>
+
+		<div class="action-bar bar-top">
+			
+			<a title="{L_LINK_ACCOUNT}" href="{U_LINK_ACCOUNT}" class="button">
+				<span>{L_LINK_ACCOUNT}</span> <i class="icon fa-user-plus fa-fw" aria-hidden="true"></i>
+			</a>
+		</div>
+
+		<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+		<table class="table1">
+			<thead>
+				<tr>
+					<th class="name">{L_ACCOUNT}</th>
+					<th class="center date">{L_LINKED_ON}</th>
+					<th class="center mark">{L_MARK}</th>
+				</tr>
+			</thead>
+			<tbody>
+			<!-- BEGIN linkedaccounts -->
+				<tr class="<!-- IF linkedaccounts.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+					<td><label for="{linkedaccounts.ID}">{linkedaccounts.NAME}</label></td>
+					<td class="center date">{linkedaccounts.DATE}</td>
+					<td class="center mark"><input type="checkbox" name="keys[]" value="{linkedaccounts.ID}" id="{linkedaccounts.ID}" /></td>
+				</tr>
+			<!-- BEGINELSE -->
+				<tr><td colspan="3" class="bg1" style="text-align: center">{L_NO_LINKED_ACCOUNTS}</td></tr>
+			<!-- END linkedaccounts -->
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<fieldset class="display-actions">
+	{S_HIDDEN_FIELDS}
+	<!-- IF .linkedaccounts -->
+	<input type="submit" name="unlink" value="{L_UNLINK_ACCOUNT}" class="button1" />
+	<div><a href="#" onclick="$('#ucp input:checkbox').prop('checked', true); return false;">{L_MARK_ALL}</a> &bull; <a href="#" onclick="$('#ucp input:checkbox').prop('checked', false); return false;">{L_UNMARK_ALL}</a></div>
+	<!-- ENDIF -->
+	{S_FORM_TOKEN}
+</fieldset>
+
+
+</form>
+
+<!-- INCLUDE ucp_footer.html -->

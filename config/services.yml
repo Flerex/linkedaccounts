@@ -1,8 +1,8 @@
 services:
     flerex.linkedaccounts.listener:
-        class: flerex\linkedaccounts\event\testing
+        class: flerex\linkedaccounts\event\main_listener
         arguments:
-            - '@auth'
             - '@user'
+            - '@template'
         tags:
             - { name: event.listener }
