@@ -6,6 +6,7 @@ services:
         arguments:
             - '@user'
             - '@template'
+            - '@controller.helper'
             - '@flerex.linkedaccounts.utils'
         tags:
             - { name: event.listener }
@@ -15,3 +16,9 @@ services:
             - '@user'
             - '@dbal.conn'
             - '%flerex.linkedaccounts.tables.links%'
+    flerex.linkedaccounts.switcher:
+        class: flerex\linkedaccounts\controller\switcher
+        arguments:
+            - '@user'
+            - '@auth'
+            - '@flerex.linkedaccounts.utils'

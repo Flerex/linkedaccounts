@@ -37,10 +37,13 @@ $lang = array_merge($lang, array(
 	'FIND_ACCOUNT'							=> 'Find account',
 	'CURRENT_PASSWORD_EXPLAIN_LINKACCOUNTS' => 'You must enter your current password if you wish to create a link to the previous account.',
 	'EMPTY_FIELDS'							=> 'Username and password cannot be empty.',
-	'INCORRECT_LINKED_ACCOUNT_CREDENTIALS' 	=> 'The account you are trying to link to does not match the introduced credentials.',
+	'INCORRECT_LINKED_ACCOUNT_CREDENTIALS'	=> 'The account you are trying to link to does not match the introduced credentials.',
 	'SAME_ACCOUNT'							=> 'You cannot link this account to itself!',
 	'INACTIVE_ACCOUNT'						=> 'The account you are trying to link to appears to be inactive.',
 	'BANNED_ACCOUNT'						=> 'The account you are trying to link to appears to be banned.',
 	'ALREADY_LINKED'						=> 'You are already linked to this account.',
 
+	// Switching process
+	'ACCOUNTS_SWITCHED'						=> 'Accounts switched successfuly',
+	'INVALID_LINKED_ACCOUNT'				=> 'You cannot switch to this account',
 ));

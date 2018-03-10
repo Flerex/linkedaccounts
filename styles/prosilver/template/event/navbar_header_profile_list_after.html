@@ -3,7 +3,7 @@
 <li id="linked_accounts">
 	<ul>
 		{% for account in switchable_account %}
-		<li><a href="#">{{ account.NAME }}</a></li>
+		<li><a href="{{ account.SWITCH_LINK }}">{{ account.NAME }}</a></li>
 		{% endfor %}
 	</ul>
 </li>

@@ -1,0 +1,5 @@
+flerex_linkedaccounts_switch:
+    path: /switchaccount/{account_id}
+    defaults: { _controller: flerex.linkedaccounts.switcher:handle }
+    requirements:
+        account_id: \d+

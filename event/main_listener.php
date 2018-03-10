@@ -13,6 +13,9 @@ class main_listener implements EventSubscriberInterface
 	/** @var \phpbb\user */
 	protected $user;
 
+	/** @var \phpbb\controller\helper */
+	protected $helper;
+
 	/** @var \flerex\linkedaccounts\service\utils */
 	protected $utils;
 
@@ -30,10 +33,19 @@ class main_listener implements EventSubscriberInterface
 		);
 	}
 
-	public function __construct(\phpbb\user $user, \phpbb\template\template $template, \flerex\linkedaccounts\service\utils $utils)
+	/**
+	 * Constructor
+	 *
+	 * @param \phpbb\user							$user
+	 * @param \phpbb\template\template				$template
+	 * @param \phpbb\controller\helper				$helper
+	 * @param \flerex\linkedaccounts\service\utils	$utils
+	 */
+	public function __construct(\phpbb\user $user, \phpbb\template\template $template, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils)
 	{
 		$this->template	= $template;
 		$this->user		= $user;
+		$this->helper	= $helper;
 		$this->utils	= $utils;
 	}
 
@@ -78,14 +90,10 @@ class main_listener implements EventSubscriberInterface
 		foreach($this->utils->get_linked_accounts() as $linked_account)
 		{
 			$this->template->assign_block_vars('switchable_account', array(
-				'SWITCH_LINK'	=> $linked_account['user_id'],
+				'SWITCH_LINK'	=> $this->helper->route('flerex_linkedaccounts_switch', array('account_id' => $linked_account['user_id'])),
 				'NAME'			=> get_username_string('no_profile', $linked_account['user_id'], $linked_account['username'], $linked_account['user_colour']),
 			));
 		}
 
 	}
 }
-
-// $this->user->session_kill(false);
-// $this->user->session_begin();
-// $this->user->session_create(2);

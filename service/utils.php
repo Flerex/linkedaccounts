@@ -32,13 +32,13 @@ class utils
 	public function get_linked_accounts()
 	{
 
-		$sql = 'SELECT u.user_id, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, l.created_at
+		$sql = 'SELECT u.user_id, u.user_type, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, l.created_at
 			FROM ' . USERS_TABLE . ' u
 			LEFT JOIN ' . $this->db->sql_escape($this->linkedacconts_table) . ' l
 			ON u.user_id = l.linked_user_id
 			WHERE l.user_id = ' . (int) $this->user->data['user_id'] . '
 			UNION
-			SELECT u.user_id, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, l.created_at
+			SELECT u.user_id, u.user_type, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, l.created_at
 			FROM ' . USERS_TABLE . ' u
 			LEFT JOIN ' . $this->db->sql_escape($this->linkedacconts_table) . ' l
 			ON u.user_id = l.user_id
@@ -86,7 +86,8 @@ class utils
 		$this->db->sql_query($sql);
 
 	}
-/**
+	
+	/**
 	 * Checks whether the account is already linked to the account
 	 * trying to be linking to
 	 *
@@ -106,6 +107,36 @@ class utils
 
 		$this->db->sql_freeresult($result);
 		return $found_something;
+
+	}
+
+	/**
+	 * Returns true if the passed account can be switched to
+	 *
+	 * @param int $account_id The id of the account
+	 *
+	 * @return bool
+	 *
+	 */
+	public function can_switch_to($account_id)
+	{
+
+		$is_linked = false;
+		foreach($this->get_linked_accounts() as $account)
+		{
+			if($account['user_id'] == $account_id && $account['user_type'] != 1)
+			{
+				$is_linked = true;
+				break;
+			}
+		}
+
+		if($is_linked && $this->user->check_ban($account_id, false, $row['user_email'], true) !== false)
+		{
+			return false;
+		}	
+
+		return $is_linked;
 
 	}
 }
