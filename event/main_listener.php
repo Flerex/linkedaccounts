@@ -13,6 +13,9 @@ class main_listener implements EventSubscriberInterface
 	/** @var \phpbb\user */
 	protected $user;
 
+	/** @var \flerex\linkedaccounts\service\utils */
+	protected $utils;
+
 	/**
 	 * Assign functions defined in this class to event listeners in the core
 	 *
@@ -27,10 +30,11 @@ class main_listener implements EventSubscriberInterface
 		);
 	}
 
-	public function __construct(\phpbb\user $user, \phpbb\template\template $template)
+	public function __construct(\phpbb\user $user, \phpbb\template\template $template, \flerex\linkedaccounts\service\utils $utils)
 	{
-		$this->template = $template;
-		$this->user = $user;
+		$this->template	= $template;
+		$this->user		= $user;
+		$this->utils	= $utils;
 	}
 
 	/**
@@ -71,9 +75,14 @@ class main_listener implements EventSubscriberInterface
 	 */
 	public function add_switchable_accounts($event)
 	{
-		$this->template->assign_block_vars('switchable_account', array(
-			'NAME' => 'QUE PASA YOU',
-		));
+		foreach($this->utils->get_linked_accounts() as $linked_account)
+		{
+			$this->template->assign_block_vars('switchable_account', array(
+				'SWITCH_LINK'	=> $linked_account['user_id'],
+				'NAME'			=> get_username_string('no_profile', $linked_account['user_id'], $linked_account['username'], $linked_account['user_colour']),
+			));
+		}
+
 	}
 }
 

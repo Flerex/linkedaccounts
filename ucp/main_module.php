@@ -180,7 +180,6 @@ class main_module
 
 		foreach($this->utils->get_linked_accounts() as $linked_account)
 		{
-
 			$this->template->assign_block_vars('linkedaccounts', array(
 				'ID' 					=> $linked_account['user_id'],
 				'NAME'					=> get_username_string('full', $linked_account['user_id'], $linked_account['username'], $linked_account['user_colour']),

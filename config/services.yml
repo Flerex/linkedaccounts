@@ -6,6 +6,7 @@ services:
         arguments:
             - '@user'
             - '@template'
+            - '@flerex.linkedaccounts.utils'
         tags:
             - { name: event.listener }
     flerex.linkedaccounts.utils:
