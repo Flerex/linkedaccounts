@@ -1,0 +1,2 @@
+parameters:
+    flerex.linkedaccounts.tables.links: '%core.table_prefix%flerex_linkedaccounts'

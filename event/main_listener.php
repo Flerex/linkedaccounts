@@ -7,8 +7,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class main_listener implements EventSubscriberInterface
 {
 
-	private $template;
-	private $user;
+	/** @var \phpbb\template\template */
+	protected $template;
+
+	/** @var \phpbb\user */
+	protected $user;
 
 	/**
 	 * Assign functions defined in this class to event listeners in the core

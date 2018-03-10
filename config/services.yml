@@ -1,3 +1,5 @@
+imports:
+    - { resource: tables.yml }
 services:
     flerex.linkedaccounts.listener:
         class: flerex\linkedaccounts\event\main_listener
@@ -6,3 +8,9 @@ services:
             - '@template'
         tags:
             - { name: event.listener }
+    flerex.linkedaccounts.utils:
+        class: flerex\linkedaccounts\service\utils
+        arguments:
+            - '@user'
+            - '@dbal.conn'
+            - '%flerex.linkedaccounts.tables.links%'

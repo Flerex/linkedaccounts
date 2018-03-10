@@ -2,6 +2,12 @@
 
 namespace flerex\linkedaccounts\ucp;
 
+// Required by EPV
+if (!defined('IN_PHPBB'))
+{
+   exit;
+}
+
 class main_module
 {
 
@@ -25,6 +31,8 @@ class main_module
 
 	protected $linkedacconts_table;
 
+	protected $utils;
+
 	public function main($id, $mode)
 	{
 		global $config, $request, $template, $user, $db, $phpbb_container;
@@ -40,6 +48,8 @@ class main_module
 		$this->phpbb_container 		= $phpbb_container;
 		$this->phpbb_root_path 		= $phpbb_root_path;
 		$this->linkedacconts_table 	= $this->table_prefix . 'flerex_linkedaccounts';
+
+		$this->utils				= $this->phpbb_container->get('flerex.linkedaccounts.utils');
 
 		switch($mode)
 		{
@@ -120,13 +130,12 @@ class main_module
 				{
 					trigger_error('BANNED_ACCOUNT');
 				}
-				else if($this->already_linked($row['user_id']))
+				else if($this->utils->already_linked($row['user_id']))
 				{
 					trigger_error('ALREADY_LINKED' . adm_back_link($this->u_action), E_USER_ERROR);
 				}
 				else
 				{
-					var_dump($row);
 					$sql = 'INSERT INTO ' . $this->linkedacconts_table . '
 					VALUES (' . $this->user->data['user_id'] . ', ' . $row['user_id'] . ', ' . (int) time() . ')';
 					$this->db->sql_query($sql);
@@ -164,12 +173,12 @@ class main_module
 
 			if(!empty($keys))
 			{
-				$this->remove_links($keys);
+				$this->utils->remove_links($keys);
 			}
 
 		}
 
-		foreach($this->get_linked_accounts() as $linked_account)
+		foreach($this->utils->get_linked_accounts() as $linked_account)
 		{
 
 			$this->template->assign_block_vars('linkedaccounts', array(
@@ -185,90 +194,5 @@ class main_module
 		));
 	}
 
-	/**
-	 * Obtain a list of the accounts linked
-	 * to the current user.
-	 *
-	 * @return array An array of (int) IDs
-	 */
-	private function get_linked_accounts()
-	{
-
-		$sql = 'SELECT u.user_id, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, l.created_at
-			FROM ' . USERS_TABLE . ' u
-			LEFT JOIN ' . $this->linkedacconts_table . ' l
-			ON u.user_id = l.linked_user_id
-			WHERE l.user_id = ' . (int) $this->user->data['user_id'] . '
-			UNION
-			SELECT u.user_id, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, l.created_at
-			FROM ' . USERS_TABLE . ' u
-			LEFT JOIN ' . $this->linkedacconts_table . ' l
-			ON u.user_id = l.user_id
-			WHERE l.linked_user_id = ' . (int) $this->user->data['user_id'];
-		
-		$result = $this->db->sql_query($sql);
-
-		$output = array();
-		while ($row = $this->db->sql_fetchrow($result))
-		{
-			$output[] = $row;
-		}
-
-		$this->db->sql_freeresult($result);
-
-		return $output;
-	}
-
-	/**
-	 * Unlinks the given accounts from the current user
-	 *
-	 * @param array $links An array with the accounts IDs
-	 * @return array An array of (int) IDs
-	 *
-	 */
-	private function remove_links($links)
-	{
-
-		$sql_where = '';
-		$len = count($links);
-		foreach($links as $key => $account)
-		{
-			$sql_where .= '(user_id = ' . (int) $this->db->sql_escape($account) . ' OR linked_user_id = ' . (int) $this->db->sql_escape($account) . ')';
-
-			if($key != $len - 1)
-			{
-				$sql_where .= ' OR ';
-			}
-		}
-
-		$sql = 'DELETE FROM ' . $this->linkedacconts_table . '
-			WHERE (user_id = ' . (int) $this->user->data['user_id'] . ' OR linked_user_id = ' . (int) $this->user->data['user_id'] . ')
-			AND (' . $sql_where . ')';
-
-		$this->db->sql_query($sql);
-
-	}
-/**
-	 * Checks whether the account is already linked to the account
-	 * trying to be linking to
-	 *
-	 * @param int $linked_id The id of the account to be linked
-	 * @return bool
-	 *
-	 */
-	private function already_linked($linked_id)
-	{
-
-		$sql = 'SELECT COUNT(user_id) AS already_linked FROM ' . $this->linkedacconts_table . '
-			WHERE (user_id = ' . (int) $this->user->data['user_id'] . ' AND linked_user_id = ' . (int) $this->db->sql_escape($linked_id) . ')
-			OR (user_id = ' . (int) $this->db->sql_escape($linked_id) . ' AND linked_user_id = ' . (int) $this->user->data['user_id'] . ')';
-
-		$result = $this->db->sql_query($sql);
-		$found_something = $this->db->sql_fetchfield('already_linked') != 0;
-
-		$this->db->sql_freeresult($result);
-		return $found_something;
-
-	}
 
 }
