@@ -11,7 +11,7 @@ if (!defined('IN_PHPBB'))
 class main_module
 {
 
-	protected const MODULE_BASENAME = '-flerex-linkedaccounts-ucp-main_module';
+	const MODULE_BASENAME = '-flerex-linkedaccounts-ucp-main_module';
 
 	public $u_action;
 	public $tpl_name;
