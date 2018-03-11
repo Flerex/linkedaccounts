@@ -26,8 +26,7 @@ class release_0_1_0_data extends \phpbb\db\migration\migration
 				'LINKED_ACCOUNTS',
 				array(
 					'module_basename' => '\flerex\linkedaccounts\ucp\main_module',
-					// 'modes' => array('management', 'link'),
-					// if “modes” is not provided, all modes are loaded
+					'modes' => array('management', 'link'),
 				),
 			)),
 
