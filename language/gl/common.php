@@ -32,18 +32,18 @@ $lang = array_merge($lang, array(
 	'SUCCESSFUL_UNLINKING' 					=> 'Contas desvinculadas satisfactoriamente.',
 
 	// UCP Linking Module
-	'LINKING_ACCOUNT'						=> 'Crear enlace',
+	'LINKING_ACCOUNT'						=> 'Crear vínculo',
 	'ACCOUNT_LINKING_EXPLAIN'				=> 'Aquí deberás introducir as credenciais da conta á que intentas vincularte.',
 	'FIND_ACCOUNT'							=> 'Procurar contas',
 	'CURRENT_PASSWORD_EXPLAIN_LINKACCOUNTS' => 'Debes introducir o teu contrasinal actual se desexas crear un vínculo á devandita.',
 	'EMPTY_FIELDS'							=> 'O nome de usuario e contrasinal non deben estar vacíos.',
-	'INCORRECT_LINKED_ACCOUNT_CREDENTIALS'	=> 'A conta que introduciches non se corresponde cos credentiais.',
+	'INCORRECT_LINKED_ACCOUNT_CREDENTIALS'	=> 'Os credenciais introducidos non se corresponden a ningunha conta.',
 	'SAME_ACCOUNT'							=> 'Non podes vincularte a ti mesmo!',
 	'INACTIVE_ACCOUNT'						=> 'A conta á que tratas de vincularte parece estar inactiva.',
 	'BANNED_ACCOUNT'						=> 'A conta á que tratas de vincularte parece estar prohibida.',
 	'ALREADY_LINKED'						=> 'Xa estabas vinculado a esta conta.',
 
 	// Switching process
-	'ACCOUNTS_SWITCHED'						=> 'Cambiouse de conta satisfactoriamente',
-	'INVALID_LINKED_ACCOUNT'				=> 'Non podes cambiar a esta conta',
+	'ACCOUNTS_SWITCHED'						=> 'Cambiouse de conta satisfactoriamente.',
+	'INVALID_LINKED_ACCOUNT'				=> 'Non se puido cambiar a esta conta.',
 ));

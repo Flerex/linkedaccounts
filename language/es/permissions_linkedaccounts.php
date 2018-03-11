@@ -19,5 +19,5 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 
-	'ACL_U_LINK_ACCOUNTS' => 'Pode vincular contas',
+	'ACL_U_LINK_ACCOUNTS' => 'Puede enlazar cuentas',
 ));
