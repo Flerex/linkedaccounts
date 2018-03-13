@@ -27,9 +27,10 @@ class main_listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.user_setup'	=> 'load_language_on_setup',
-			'core.permissions' 	=> 'add_permissions',
-			'core.page_header' 	=> 'add_switchable_accounts',
+			'core.user_setup'			=> 'load_language_on_setup',
+			'core.permissions'			=> 'add_permissions',
+			'core.page_header'			=> 'add_switchable_accounts',
+			'core.delete_user_after'	=> 'cleanup_table',
 		);
 	}
 
@@ -96,5 +97,15 @@ class main_listener implements EventSubscriberInterface
 			));
 		}
 
+	}
+
+	/**
+	 * Remove all links of a user when it is being deleted
+	 *
+	 * @param \phpbb\event\data $event The event object
+	 */
+	public function cleanup_table($event)
+	{
+		$this->utils->remove_links($event['user_ids']);
 	}
 }
