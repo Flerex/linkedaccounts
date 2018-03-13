@@ -3,6 +3,7 @@
 *
 * @package phpBB Extension - Linked Accounts
 * @copyright (c) 2018 Flerex
+* @author Nederlandse vertaling
 * Nederlandse vertaling @ Solidjeuh <https://www.muziekpromo.net>
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
