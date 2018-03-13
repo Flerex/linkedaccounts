@@ -5,10 +5,11 @@
 
 #linked_accounts {
 	order: 1;
-	border-top: none;
-	background-color: #ECF1F3;
 	margin: 5px -5px -5px -5px;
 	padding: 5px 10px;
+	border-top: none;
+	background-color: #ECF1F3;
+	font-weight: bold;
 }
 
 #linked_accounts + .separator {
@@ -20,9 +21,19 @@
 }
 
 #linked_accounts li {
+	padding: 5px 0;
+}
+
+#linked_accounts a {
 	padding: 0;
 }
 
 #linked_accounts li:first-child {
 	margin-top: 0;
+}
+
+#linked_accounts .avatar {
+	max-height: 25px;
+	width: auto;
+	margin-right: 5px;
 }
