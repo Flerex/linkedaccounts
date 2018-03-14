@@ -164,7 +164,7 @@ class utils
 	{
 
 		$is_linked = false;
-		$saved_account;
+		$saved_account = null;
 		foreach($this->get_linked_accounts() as $account)
 		{
 			if($account['user_id'] == $account_id)
@@ -173,8 +173,8 @@ class utils
 				break;
 			}
 		}
-		
-		if($saved_account && ($saved_account['user_type'] == 1 || $this->user->check_ban($account_id, false, $saved_account['user_email'], true) !== false))
+
+		if(!$saved_account || ($saved_account['user_type'] == 1 || $this->user->check_ban($account_id, false, $saved_account['user_email'], true) !== false))
 		{
 			return false;
 		}	
