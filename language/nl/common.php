@@ -52,16 +52,16 @@ $lang = array_merge($lang, array(
 	'INVALID_LINKED_ACCOUNT'				=> 'U kunt niet overschakelen naar dit account.',
 
 	// ACP Overview Module
-	'ADM_LINKED_ACCOUNTS_OVERVIEW'			=> 'Overview',
-	'ADM_LINKED_ACCOUNTS_OVERVIEW_EXPLAIN'	=> 'In this section you\'ll find some usage statistics along with a list with the users that have links to other accounts.',
-	'LINKED_ACCOUNTS_COUNT'					=> 'Users with links',
-	'LINKED_ACCOUNTS_COUNT_EXPLAIN'			=> 'Amount of accounts that have at least one link.',
-	'LINK_COUNT'							=> 'Links',
-	'LINK_COUNT_EXPLAIN'					=> 'Total amount of links created.',
-	'NO_ACCOUNTS_LINKED'					=> 'There are no accounts with links.',
+	'ADM_LINKED_ACCOUNTS_OVERVIEW'			=> 'Overzicht',
+	'ADM_LINKED_ACCOUNTS_OVERVIEW_EXPLAIN'	=> 'In deze sectie vindt u enkele gebruiker statistieken samen met een lijst met de gebruikers die koppelingen naar andere accounts hebben.',
+	'LINKED_ACCOUNTS_COUNT'					=> 'gebruikers met koppelingen',
+	'LINKED_ACCOUNTS_COUNT_EXPLAIN'			=> 'Aantal accounts met ten minste één koppeling.',
+	'LINK_COUNT'							=> 'Koppelingen',
+	'LINK_COUNT_EXPLAIN'					=> 'Totaal aantal gemaakte koppelingen.',
+	'NO_ACCOUNTS_LINKED'					=> 'Er zijn geen accounts met koppelingen.',
 	
 	// ACP Management Module
-	'ADM_LINKED_ACCOUNTS_MANAGEMENT'		=> 'Manage users',
-	'SELECT_USER'							=> 'Select user',
-	'MANAGING_USER'							=> 'User management :: %s',
+	'ADM_LINKED_ACCOUNTS_MANAGEMENT'		=> 'Beheer gebruikers',
+	'SELECT_USER'							=> 'Selecteer gebruiker',
+	'MANAGING_USER'							=> 'Gebruikers beheer :: %s',
 ));
