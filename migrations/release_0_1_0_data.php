@@ -18,7 +18,7 @@ class release_0_1_0_data extends \phpbb\db\migration\migration
 	{
 		return array(
 
-			array('module.add', array( 'ucp', 0, 'LINKED_ACCOUNTS')),
+			array('module.add', array('ucp', 0, 'LINKED_ACCOUNTS')),
 
 			// Add main_module to the parent module (UCP_PROFILE)
 			array('module.add', array(

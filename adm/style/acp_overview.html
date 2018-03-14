@@ -1,0 +1,54 @@
+<!-- INCLUDE overall_header.html -->
+
+<h1>{L_ADM_LINKED_ACCOUNTS_OVERVIEW}</h1>
+<p>{L_ADM_LINKED_ACCOUNTS_OVERVIEW_EXPLAIN}</p>
+
+<fieldset>
+	<legend>{L_STATISTICS}</legend>
+	<dl>
+		<dt><label>{L_LINKED_ACCOUNTS_COUNT}{L_COLON}</label><br /><span>{L_LINKED_ACCOUNTS_COUNT_EXPLAIN}</span></dt>
+		<dd><strong>{LINKED_ACCOUNTS_COUNT}</strong></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_LINK_COUNT}{L_COLON}</label><br /><span>{L_LINK_COUNT_EXPLAIN}</span></dt>
+		<dd><strong>{LINK_COUNT}</strong></dd>
+	</dl>
+</fieldset>
+
+
+<form method="post" action="{U_ACTION}">
+
+<table class="table1 zebra-table">
+	<caption>{L_LINKED_ACCOUNTS_LIST_CAPTION}</caption>
+	<thead>
+		<tr>
+			<th>{L_ACCOUNT}</th>
+			<th style="width: 10%">{L_LINK_COUNT}</th>
+			<th style="width: 7%; text-align: center;">{L_SELECT}</th>
+		</tr>
+	</thead>
+	<tbody>
+	<!-- BEGIN accounts -->
+		<tr class="<!-- IF accounts.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+			<td><a href="{accounts.URL_EDIT}">{accounts.USERNAME}</a></td>
+			<td>{accounts.LINK_COUNT}</td>
+			<td class="mark"><input type="radio" name="account" value="{accounts.ID}" id="{accounts.ID}" /></td>
+		</tr>
+	<!-- BEGINELSE -->
+		<tr class="big-column"><td colspan="3" class="bg1" style="text-align: center">{L_NO_ACCOUNTS_LINKED}</td></tr>
+	<!-- END accounts -->
+	</tbody>
+</table>
+<div class="pagination">
+<!-- IF .pagination -->
+	<!-- INCLUDE pagination.html -->
+<!-- ENDIF -->
+</div>
+
+<fieldset class="quick">
+	<input class="button2" type="submit" name="submituser" value="{L_MANAGE}" />
+</fieldset>
+
+</form>
+
+<!-- INCLUDE overall_footer.html -->

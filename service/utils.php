@@ -140,4 +140,66 @@ class utils
 		return true;
 
 	}
+
+	/**
+	 * Returns the amount of links created
+	 *
+	 * @return int
+	 *
+	 */
+	public function get_link_count()
+	{
+		$sql = 'SELECT COUNT(user_id) AS count FROM ' . $this->linkedacconts_table . ';';
+		$result = $this->db->sql_query($sql);
+		$count = $this->db->sql_fetchfield('count');
+
+		$this->db->sql_freeresult($result);
+		return $count;
+	}
+
+	/**
+	 * Returns the amount of accounts that
+	 * are part of a link
+	 *
+	 * @return int
+	 *
+	 */
+	public function get_account_count()
+	{
+		$sql = 'SELECT count(*) AS count FROM (SELECT user_id FROM ' . $this->linkedacconts_table . '
+		UNION SELECT linked_user_id FROM ' . $this->linkedacconts_table . ') AS t;';
+		
+		$result = $this->db->sql_query($sql);
+		$count = $this->db->sql_fetchfield('count');
+
+		$this->db->sql_freeresult($result);
+		return $count;
+	}
+
+	/**
+	 * Returns an array with the accounts
+	 * that are part of a link
+	 *
+	 * @return array
+	 *
+	 */
+	public function get_accounts($start, $limit)
+	{
+		$sql = 'SELECT u.user_id, u.user_colour, u.username, COUNT(u.user_id) AS link_count
+			FROM ' . USERS_TABLE . ' AS u JOIN ' . $this->linkedacconts_table . ' AS l
+			ON u.user_id = l.user_id OR u.user_id = l.linked_user_id
+			GROUP BY u.user_id';
+		
+		$result = $this->db->sql_query_limit($sql, $limit, $start);
+		$output = array();
+		
+		while ($row = $this->db->sql_fetchrow($result))
+		{
+			$output[] = $row;
+		}
+
+		$this->db->sql_freeresult($result);
+
+		return $output;
+	}
 }

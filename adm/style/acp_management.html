@@ -1,0 +1,23 @@
+<!-- INCLUDE overall_header.html -->
+
+<h1>{L_ADM_LINKED_ACCOUNTS_MANAGEMENT}</h1>
+
+<form id="select_user" method="post" action="{U_ACTION}">
+
+<fieldset>
+	<legend>{L_SELECT_USER}</legend>
+<dl>
+	<dt><label for="username">{L_ENTER_USERNAME}{L_COLON}</label></dt>
+	<dd><input class="text medium" type="text" id="username" name="username" /></dd>
+	<dd>[ <a href="{U_FIND_USERNAME}" onclick="find_username(this.href); return false;">{L_FIND_USERNAME}</a> ]</dd>
+</dl>
+
+<p class="quick">
+	<input type="submit" name="submituser" value="{L_SUBMIT}" class="button1" />
+</p>
+</fieldset>
+
+</form>
+
+
+<!-- INCLUDE overall_footer.html -->
