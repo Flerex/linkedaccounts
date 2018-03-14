@@ -1,0 +1,37 @@
+<!-- INCLUDE overall_header.html -->
+
+<h1>{PAGE_TITLE}</h1>
+
+<form method="post" action="{U_ACTION}">
+
+<table class="table1 zebra-table">
+	<caption>{L_LINKED_ACCOUNTS_LIST_CAPTION}</caption>
+	<thead>
+		<tr>
+			<th>{L_ACCOUNT}</th>
+			<th>{L_LINKED_ON}</th>
+			<th style="width: 7%; text-align: center;">{L_MARK}</th>
+		</tr>
+	</thead>
+	<tbody>
+	<!-- BEGIN accounts -->
+		<tr class="<!-- IF accounts.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+			<td><a href="{accounts.URL_EDIT}">{accounts.USERNAME}</a></td>
+			<td>{accounts.DATE}</td>
+			<td class="mark"><input type="checkbox" name="keys[]" value="{accounts.ID}" id="{accounts.ID}" /></td>
+		</tr>
+	<!-- BEGINELSE -->
+		<tr class="big-column"><td colspan="3" class="bg1" style="text-align: center">{L_NO_LINKED_ACCOUNTS}</td></tr>
+	<!-- END accounts -->
+	</tbody>
+</table>
+
+<fieldset class="quick">
+	{S_HIDDEN_FIELDS}
+	<input class="button2" type="submit" name="unlink" value="{L_UNLINK_ACCOUNT}" />
+	{S_FORM_TOKEN}
+</fieldset>
+
+</form>
+
+<!-- INCLUDE overall_footer.html -->

@@ -32,7 +32,7 @@
 		<tr class="<!-- IF accounts.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
 			<td><a href="{accounts.URL_EDIT}">{accounts.USERNAME}</a></td>
 			<td>{accounts.LINK_COUNT}</td>
-			<td class="mark"><input type="radio" name="account" value="{accounts.ID}" id="{accounts.ID}" /></td>
+			<td class="mark"><input type="radio" name="accountID" value="{accounts.ID}" id="{accounts.ID}" /></td>
 		</tr>
 	<!-- BEGINELSE -->
 		<tr class="big-column"><td colspan="3" class="bg1" style="text-align: center">{L_NO_ACCOUNTS_LINKED}</td></tr>
@@ -46,7 +46,9 @@
 </div>
 
 <fieldset class="quick">
+	{S_HIDDEN_FIELDS}
 	<input class="button2" type="submit" name="submituser" value="{L_MANAGE}" />
+	{S_FORM_TOKEN}
 </fieldset>
 
 </form>

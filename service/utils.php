@@ -23,26 +23,63 @@ class utils
 		$this->linkedacconts_table	= $linkedacconts_table;
 	}
 
+
+	/**
+	 * Get a user's ID by their
+	 * cleaned username or user id
+	 *
+	 * @param string|int The cleaned username
+	 * or user's id
+	 *
+	 * @return array The user
+	 */
+
+	public function get_user($key)
+	{
+
+		$sql = 'SELECT user_id, username, username_clean, user_colour
+			FROM ' . USERS_TABLE . ' ';
+
+		if(is_numeric($key))
+		{
+			$sql .= 'WHERE user_id = ' . $key . ';';
+		}
+		else
+		{
+			$sql .= 'WHERE username_clean = \'' . $this->db->sql_escape(utf8_clean_string($key)) . '\';';
+		}
+		
+		$result = $this->db->sql_query($sql);
+		$user = $this->db->sql_fetchrow();
+		$this->db->sql_freeresult($result);
+
+		return $user;
+	}
+
 	/**
 	 * Obtain a list of the accounts linked
 	 * to the current user.
 	 *
 	 * @return array An array of (int) IDs
 	 */
-	public function get_linked_accounts()
+	public function get_linked_accounts($id = null)
 	{
-
+		if(!$id)
+		{
+			$id = $this->user->data['user_id'];
+		}
+		
 		$sql = 'SELECT u.user_id, u.user_type, u.user_email, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, l.created_at
 			FROM ' . USERS_TABLE . ' u
 			LEFT JOIN ' . $this->db->sql_escape($this->linkedacconts_table) . ' l
 			ON u.user_id = l.linked_user_id
-			WHERE l.user_id = ' . (int) $this->user->data['user_id'] . '
+			WHERE l.user_id = ' . (int) $id . '
 			UNION
 			SELECT u.user_id, u.user_type, u.user_email, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, l.created_at
 			FROM ' . USERS_TABLE . ' u
 			LEFT JOIN ' . $this->db->sql_escape($this->linkedacconts_table) . ' l
 			ON u.user_id = l.user_id
-			WHERE l.linked_user_id = ' . (int) $this->user->data['user_id'];
+			WHERE l.linked_user_id = ' . (int) $id;
 		
 		$result = $this->db->sql_query($sql);
 
