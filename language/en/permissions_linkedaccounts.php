@@ -21,4 +21,5 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 
 	'ACL_U_LINK_ACCOUNTS' => 'Can link accounts',
+	'ACL_A_LINK_ACCOUNTS' => 'Can manage users\' account links',
 ));

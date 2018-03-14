@@ -20,7 +20,9 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 
+	// General translations
 	'LINKED_ACCOUNTS'						=> 'Cuentas enlazadas',
+	'ADM_LINKED_ACCOUNTS'					=> 'Cuentas enlazadas',
 	
 	// UCP Management Module
 	'LINKED_ACCOUNTS_MANAGEMENT'			=> 'Gestión de cuentas',
@@ -47,4 +49,18 @@ $lang = array_merge($lang, array(
 	// Switching process
 	'ACCOUNTS_SWITCHED'						=> 'Se ha cambiado de cuenta satisfactoriamente.',
 	'INVALID_LINKED_ACCOUNT'				=> 'No se ha podido realizar el cambio a esa cuenta.',
+	
+	// ACP Overview Module
+	'ADM_LINKED_ACCOUNTS_OVERVIEW'			=> 'Vista general',
+	'ADM_LINKED_ACCOUNTS_OVERVIEW_EXPLAIN'	=> 'En esta sección podrá encontrar estadísticas de uso junto con una lista de usuarios con enlaces a otras cuentas.',
+	'LINKED_ACCOUNTS_COUNT'					=> 'Usuarios con enlaces',
+	'LINKED_ACCOUNTS_COUNT_EXPLAIN'			=> 'Número de usuarios que tienen por lo menos un enlace.',
+	'LINK_COUNT'							=> 'Enlaces',
+	'LINK_COUNT_EXPLAIN'					=> 'Número de enlaces creados en total.',
+	'NO_ACCOUNTS_LINKED'					=> 'No hay usuarios que tengan enlaces.',
+	
+	// ACP Management Module
+	'ADM_LINKED_ACCOUNTS_MANAGEMENT'		=> 'Gestionar usuarios',
+	'SELECT_USER'							=> 'Seleccionar usuario',
+	'MANAGING_USER'							=> 'Gestión de usuario :: %s',
 ));
