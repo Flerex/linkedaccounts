@@ -82,7 +82,7 @@ class main_module
 		{
 			if (!check_form_key('flerex_linkedaccounts_ucp_link'))
 			{
-				trigger_error('FORM_INVALID');
+				trigger_error('FORM_INVALID', E_USER_WARNING);
 			}
 			
 			$username = $this->request->variable('username', '', true);
@@ -95,21 +95,21 @@ class main_module
 			{
 				if(empty($cur_password))
 				{
-					trigger_error('CUR_PASSWORD_EMPTY');
+					trigger_error('CUR_PASSWORD_EMPTY', E_USER_WARNING);
 				}
 
 				if (!$passwords_manager->check($cur_password, $this->user->data['user_password'])) {
-					trigger_error('CUR_PASSWORD_ERROR');
+					trigger_error('CUR_PASSWORD_ERROR', E_USER_WARNING);
 				}
 
 				if (empty($username) || empty($password))
 				{
-					trigger_error('EMPTY_FIELDS');
+					trigger_error('EMPTY_FIELDS', E_USER_WARNING);
 				}
 
 				if (utf8_clean_string($username) == $this->user->data['username_clean'])
 				{
-					trigger_error('SAME_ACCOUNT');
+					trigger_error('SAME_ACCOUNT', E_USER_WARNING);
 				}
 
 				$sql = 'SELECT user_id, user_password, user_email, user_type
@@ -120,19 +120,19 @@ class main_module
 				$row = $this->db->sql_fetchrow($result);
 
 				if (!$row || !$passwords_manager->check($password, $row['user_password'])) {
-					trigger_error('INCORRECT_LINKED_ACCOUNT_CREDENTIALS');
+					trigger_error('INCORRECT_LINKED_ACCOUNT_CREDENTIALS', E_USER_WARNING);
 				}
 				else if($row['user_type'] == 1)
 				{
-					trigger_error('INACTIVE_ACCOUNT');
+					trigger_error('INACTIVE_ACCOUNT', E_USER_WARNING);
 				}
 				else if($this->user->check_ban($row['user_id'], false, $row['user_email'], true) !== false) // we set $return to true because otherwise if the account to link was banned we would be kicked out of the current account
 				{
-					trigger_error('BANNED_ACCOUNT');
+					trigger_error('BANNED_ACCOUNT', E_USER_WARNING);
 				}
 				else if($this->utils->already_linked($row['user_id']))
 				{
-					trigger_error('ALREADY_LINKED' . adm_back_link($this->u_action), E_USER_ERROR);
+					trigger_error('ALREADY_LINKED' . adm_back_link($this->u_action), E_USER_WARNING);
 				}
 				else
 				{
@@ -166,7 +166,7 @@ class main_module
 		{
 			if (!check_form_key('flerex_linkedaccounts_ucp_management'))
 			{
-				trigger_error('FORM_INVALID');
+				trigger_error('FORM_INVALID', E_USER_WARNING);
 			}
 
 			$keys = $this->request->variable('keys', array(''));
