@@ -28,7 +28,7 @@ class utils
 	 * Get a user's ID by their
 	 * cleaned username or user id
 	 *
-	 * @param string|int The cleaned username
+	 * @param string|int $key The cleaned username
 	 * or user's id
 	 *
 	 * @return array The user
@@ -98,12 +98,17 @@ class utils
 	 * Unlinks the given accounts from the current user
 	 *
 	 * @param array $links An array with the accounts IDs
-	 * @return array An array of (int) IDs
+	 * @param int $account The id of the account whose links
+	 * to accounts in $links will be removed
 	 *
 	 */
-	public function remove_links($links)
+	public function remove_links($links, $account = null)
 	{
 
+		if(!$account)
+		{
+			$account = $this->user->data['user_id'];
+		}
 		$sql_where = '';
 		$len = count($links);
 		foreach($links as $key => $account)
@@ -117,7 +122,7 @@ class utils
 		}
 
 		$sql = 'DELETE FROM ' . $this->db->sql_escape($this->linkedacconts_table) . '
-			WHERE (user_id = ' . (int) $this->user->data['user_id'] . ' OR linked_user_id = ' . (int) $this->user->data['user_id'] . ')
+			WHERE (user_id = ' . (int) $account . ' OR linked_user_id = ' . (int) $account . ')
 			AND (' . $this->db->sql_escape($sql_where) . ')';
 
 		$this->db->sql_query($sql);

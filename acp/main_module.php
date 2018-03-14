@@ -165,9 +165,30 @@ class main_module
 				}
 
 				$this->template->assign_vars(array(
-					'PAGE_TITLE' => $title,
+					'PAGE_TITLE'		=> $title,
+					'CURRENT_ACCOUNT'	=> $user['user_id'],
 				));
+
+				return;
 			}
+
+		}
+		else if($this->request->is_set_post('unlink'))
+		{
+			if (!check_form_key('flerex_linkedaccounts_ucp_management'))
+			{
+				trigger_error('FORM_INVALID', E_USER_WARNING);
+			}
+
+			$keys = $this->request->variable('keys', array(''));
+			$current_account = (int) $this->request->variable('currentaccount', '');
+
+			if(!empty($keys))
+			{
+				$this->utils->remove_links($keys, $current_account);
+			}
+			trigger_error($this->user->lang('SUCCESSFUL_UNLINKING') . adm_back_link($this->u_action));
+
 
 		}
 
