@@ -34,7 +34,7 @@
 
 #linked_accounts img,
 #linked_accounts .avatar {
-	max-height: 25px;
+	max-height: 15px;
 	width: auto;
 	margin-right: 5px;
 }
