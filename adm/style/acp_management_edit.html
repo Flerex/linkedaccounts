@@ -1,38 +1,41 @@
-<!-- INCLUDE overall_header.html -->
+{% INCLUDE 'overall_header.html' %}
 
-<h1>{PAGE_TITLE}</h1>
+<h1>{{ PAGE_TITLE }}</h1>
 
-<form method="post" action="{U_ACTION}">
+<form method="post" action="{{ U_ACTION }}">
 
-<table class="table1 zebra-table">
-	<caption>{L_LINKED_ACCOUNTS_COUNT}</caption>
+<table id="list" class="table1 zebra-table">
+	<caption>{{ lang('LINKED_ACCOUNTS_COUNT') }}</caption>
 	<thead>
 		<tr>
-			<th>{L_ACCOUNT}</th>
-			<th>{L_LINKED_ON}</th>
-			<th style="width: 7%; text-align: center;">{L_MARK}</th>
+			<th>{{ lang('ACCOUNT') }}</th>
+			<th>{{ lang('LINKED_ON') }}</th>
+			<th style="width: 7%; text-align: center;">{{ lang('MARK') }}</th>
 		</tr>
 	</thead>
 	<tbody>
-	<!-- BEGIN accounts -->
-		<tr class="<!-- IF accounts.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
-			<td><a href="{accounts.URL_EDIT}">{accounts.USERNAME}</a></td>
-			<td>{accounts.DATE}</td>
-			<td class="mark"><input type="checkbox" name="keys[]" value="{accounts.ID}" id="{accounts.ID}" /></td>
+	{% for account in accounts %}
+		<tr class="{% if account.S_ROW_COUNT is even %}bg1{% else %}bg2{% endif %}">
+			<td><a href="{{ account.URL_EDIT }}">{{ account.USERNAME }}</a></td>
+			<td>{{ account.DATE }}</td>
+			<td class="mark"><input type="checkbox" name="keys[]" value="{{ account.ID }}" id="{{ account.ID }}" /></td>
 		</tr>
-	<!-- BEGINELSE -->
-		<tr class="big-column"><td colspan="3" class="bg1" style="text-align: center">{L_NO_LINKED_ACCOUNTS}</td></tr>
-	<!-- END accounts -->
+	{% else %}
+		<tr class="big-column"><td colspan="3" class="bg1" style="text-align: center">{{ lang('NO_LINKED_ACCOUNTS') }}</td></tr>
+	{% endfor %}
 	</tbody>
 </table>
 
+{% if accounts|length %}
 <fieldset class="quick">
-	{S_HIDDEN_FIELDS}
-	<input type="hidden" name="currentaccount" value="{CURRENT_ACCOUNT}" />
-	<input class="button2" type="submit" name="unlink" value="{L_UNLINK_ACCOUNT}" />
-	{S_FORM_TOKEN}
+	{{ S_HIDDEN_FIELDS }}
+	<input class="button1" type="submit" name="unlink" value="{{ lang('UNLINK_ACCOUNT') }}" />
+	<div><a href="#" onclick="$('#list input:checkbox').prop('checked', true); return false;">{{ lang('MARK_ALL') }}</a> &bull; <a href="#" onclick="$('#list input:checkbox').prop('checked', false); return false;">{{ lang('UNMARK_ALL') }}</a></div>
+	<input type="hidden" name="currentaccount" value="{{ CURRENT_ACCOUNT }}" />
+	{{ S_FORM_TOKEN }}
 </fieldset>
+{% endif %}
 
 </form>
 
-<!-- INCLUDE overall_footer.html -->
+{% INCLUDE 'overall_footer.html' %}
