@@ -1,6 +1,6 @@
 {% if switchable_account %}
 {% INCLUDECSS '@flerex_linkedaccounts/linkedaccounts.css' %}
-<li id="linked_accounts">
+<li id="linked_accounts" class="bg1">
 	<ul>
 		{% for account in switchable_account %}
 		<li><a href="{{ account.SWITCH_LINK }}">{{ account.AVATAR }}{{ account.NAME }}</a></li>
