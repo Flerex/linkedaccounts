@@ -143,8 +143,6 @@ class main_module
 			$username = utf8_clean_string($this->request->variable('account', '', true));
 			$user_id = (int) $this->request->variable('accountID', 0, true);
 
-			$user = array();
-
 			if($user_id || $username)
 			{
 

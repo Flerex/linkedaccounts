@@ -93,7 +93,6 @@ class main_module
 
 		if ($this->request->is_set_post('link'))
 		{
-			$errors = array();
 
 			if (!check_form_key('flerex_linkedaccounts_ucp_link'))
 			{
