@@ -49,7 +49,7 @@ class utils
 
 		if(is_numeric($key))
 		{
-			$sql .= 'WHERE user_id = ' . $key . ';';
+			$sql .= 'WHERE user_id = ' . (int) $key . ';';
 		}
 		else
 		{
