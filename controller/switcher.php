@@ -49,7 +49,12 @@ class switcher
 
 		$this->user->session_kill(false);
 		$this->user->session_begin();
-		$this->user->session_create($account_id);
+		$this->user->session_create(
+			$account_id,
+			false, // for security reasons we always set this to false (admin login)
+			(bool) $this->user->data['session_viewonline'],
+			(bool) $this->user->data['session_autologin']
+		);
 		
 		throw new \phpbb\exception\http_exception(200, 'ACCOUNTS_SWITCHED');
 
