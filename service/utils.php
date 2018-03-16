@@ -251,4 +251,28 @@ class utils
 
 		return $output;
 	}
+
+	/**
+	 * Creates a new link between
+	 * account1 and account2
+	 *
+	 * @param int $account1 ID of account1
+	 * @param int $account2 ID of account2
+	 *
+	 */
+	public function create_link($account1, $account2)
+	{
+		
+		$sql_arr = array(
+			'user_id'			=> (int) $account1,
+			'linked_user_id'	=> (int) $account2,
+			'created_at'		=> (int) time(),
+		);
+
+		$sql = 'INSERT INTO '
+			. $this->linkedacconts_table . ' '
+			. $this->db->sql_build_array('INSERT', $sql_arr);
+
+		$this->db->sql_query($sql);
+	}
 }

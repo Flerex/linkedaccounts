@@ -144,9 +144,8 @@ class main_module
 				}
 				else
 				{
-					$sql = 'INSERT INTO ' . $this->linkedacconts_table . '
-					VALUES (' . $this->user->data['user_id'] . ', ' . $row['user_id'] . ', ' . (int) time() . ')';
-					$this->db->sql_query($sql);
+					$this->utils->create_link($this->user->data['user_id'], $row['user_id']);
+
 					redirect(append_sid($this->phpbb_root_path . 'ucp.' . $this->phpEx, 'i=' . main_module::MODULE_BASENAME . '&amp;mode=management'));
 				}
 				$this->db->sql_freeresult($result);
