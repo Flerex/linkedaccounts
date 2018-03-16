@@ -86,8 +86,15 @@ class main_module
 	{
 		add_form_key('flerex_linkedaccounts_ucp_link');
 
+		$template_vars = array(
+			'U_ACTION'			=> $this->u_action,
+			'U_FIND_USERNAME'	=> append_sid("{$this->phpbb_root_path}memberlist.$this->phpEx", "mode=searchuser&amp;form=ucp&amp;field=username&amp;select_single=1"),
+		);
+
 		if ($this->request->is_set_post('link'))
 		{
+			$errors = array();
+
 			if (!check_form_key('flerex_linkedaccounts_ucp_link'))
 			{
 				trigger_error('FORM_INVALID', E_USER_WARNING);
@@ -103,56 +110,58 @@ class main_module
 			{
 				if(empty($cur_password))
 				{
-					trigger_error('CUR_PASSWORD_EMPTY', E_USER_WARNING);
+					$errors[] = $this->user->lang('CUR_PASSWORD_EMPTY');
 				}
-
-				if (!$passwords_manager->check($cur_password, $this->user->data['user_password'])) {
-					trigger_error('CUR_PASSWORD_ERROR', E_USER_WARNING);
+				else if (!$passwords_manager->check($cur_password, $this->user->data['user_password']))
+				{
+					$errors[] = $this->user->lang('CUR_PASSWORD_ERROR');
 				}
 
 				if (empty($username) || empty($password))
 				{
-					trigger_error('EMPTY_FIELDS', E_USER_WARNING);
+					$errors[] = $this->user->lang('EMPTY_FIELDS');
 				}
-
-				if (utf8_clean_string($username) == $this->user->data['username_clean'])
+				else if (utf8_clean_string($username) == $this->user->data['username_clean'])
 				{
-					trigger_error('SAME_ACCOUNT', E_USER_WARNING);
-				}
-
-				$row = $this->utils->get_user_auth_info($username);
-
-				if (!$row || !$passwords_manager->check($password, $row['user_password'])) {
-					trigger_error('INCORRECT_LINKED_ACCOUNT_CREDENTIALS', E_USER_WARNING);
-				}
-				else if($row['user_type'] == 1)
-				{
-					trigger_error('INACTIVE_ACCOUNT', E_USER_WARNING);
-				}
-				else if($this->user->check_ban($row['user_id'], false, $row['user_email'], true) !== false) // we set $return to true because otherwise if the account to link was banned we would be kicked out of the current account
-				{
-					trigger_error('BANNED_ACCOUNT', E_USER_WARNING);
-				}
-				else if($this->utils->already_linked($row['user_id']))
-				{
-					trigger_error('ALREADY_LINKED', E_USER_WARNING);
+					$errors[] = $this->user->lang('SAME_ACCOUNT');
 				}
 				else
 				{
-					$this->utils->create_link($this->user->data['user_id'], $row['user_id']);
+					$user = $this->utils->get_user_auth_info($username);
 
-					redirect(append_sid($this->phpbb_root_path . 'ucp.' . $this->phpEx, 'i=' . main_module::MODULE_BASENAME . '&amp;mode=management'));
+					if (!$user || !$passwords_manager->check($password, $user['user_password'])) {
+						$errors[] = $this->user->lang('INCORRECT_LINKED_ACCOUNT_CREDENTIALS');
+					}
+					else if($user['user_type'] == 1)
+					{
+						$errors[] = $this->user->lang('INACTIVE_ACCOUNT');
+					}
+					else if($this->user->check_ban($user['user_id'], false, $user['user_email'], true) !== false) // we set $return to true because otherwise if the account to link was banned we would be kicked out of the current account
+					{
+						$errors[] = $this->user->lang('BANNED_ACCOUNT');
+					}
+					else if($this->utils->already_linked($user['user_id']))
+					{
+						$errors[] = $this->user->lang('ALREADY_LINKED');
+					}
 				}
-				$this->db->sql_freeresult($result);
+
+				if(count($errors))
+				{
+					$template_vars['ERROR'] = implode('<br />', $errors);
+				}
+				else
+				{
+					$this->utils->create_link($this->user->data['user_id'], $user['user_id']);
+					redirect(append_sid($this->phpbb_root_path . 'ucp.' . $this->phpEx, 'i=' . main_module::MODULE_BASENAME . '&amp;mode=management'));					
+				}
+
 			}
 
 		}
 
 
-		$this->template->assign_vars(array(
-			'U_ACTION' => $this->u_action,
-			'U_FIND_USERNAME'	=> append_sid("{$this->phpbb_root_path}memberlist.$this->phpEx", "mode=searchuser&amp;form=ucp&amp;field=username&amp;select_single=1"),
-		));
+		$this->template->assign_vars($template_vars);
 
 	}
 
