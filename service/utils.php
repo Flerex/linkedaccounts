@@ -275,4 +275,29 @@ class utils
 
 		$this->db->sql_query($sql);
 	}
+
+	/**
+	 * Obtain auth information about
+	 * the given user by its username.
+	 * ID, username, password,
+	 * email and type
+	 *
+	 * @param string $usename The user's name
+	 *
+	 * @return array
+	 */
+	public function get_user_auth_info($username)
+	{
+		
+		$sql = 'SELECT user_id, user_password, user_email, user_type
+			FROM ' . USERS_TABLE . '
+			WHERE username_clean = \'' . $this->db->sql_escape(utf8_clean_string($username)) . '\'';
+
+		$result = $this->db->sql_query($sql);
+		$output = $this->db->sql_fetchrow($result);
+		
+		$this->db->sql_freeresult($result);
+
+		return $output;
+	}
 }

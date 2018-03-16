@@ -120,12 +120,7 @@ class main_module
 					trigger_error('SAME_ACCOUNT', E_USER_WARNING);
 				}
 
-				$sql = 'SELECT user_id, user_password, user_email, user_type
-					FROM ' . USERS_TABLE . '
-					WHERE username_clean = \'' . $this->db->sql_escape(utf8_clean_string($username)) . '\'';
-
-				$result = $this->db->sql_query($sql);
-				$row = $this->db->sql_fetchrow($result);
+				$row = $this->utils->get_user_auth_info($username);
 
 				if (!$row || !$passwords_manager->check($password, $row['user_password'])) {
 					trigger_error('INCORRECT_LINKED_ACCOUNT_CREDENTIALS', E_USER_WARNING);
@@ -140,7 +135,7 @@ class main_module
 				}
 				else if($this->utils->already_linked($row['user_id']))
 				{
-					trigger_error('ALREADY_LINKED' . adm_back_link($this->u_action), E_USER_WARNING);
+					trigger_error('ALREADY_LINKED', E_USER_WARNING);
 				}
 				else
 				{
@@ -199,6 +194,5 @@ class main_module
 			'U_LINK_ACCOUNT'	=> append_sid($this->phpbb_root_path . 'ucp.' . $this->phpEx, 'i=' . main_module::MODULE_BASENAME . '&amp;mode=link'),
 		));
 	}
-
 
 }
