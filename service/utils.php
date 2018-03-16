@@ -1,4 +1,11 @@
 <?php
+/**
+*
+* @package phpBB Extension - Linked Accounts
+* @copyright (c) 2018 Flerex
+* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+*
+*/
 
 namespace flerex\linkedaccounts\service;
 

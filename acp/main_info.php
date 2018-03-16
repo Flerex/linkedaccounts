@@ -1,4 +1,12 @@
 <?php
+/**
+*
+* Linked Accounts extension for phpBB 3.2
+*
+* @copyright (c) 2018 Flerex
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+*/
 
 namespace flerex\linkedaccounts\acp;
 
