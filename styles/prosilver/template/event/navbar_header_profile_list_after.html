@@ -3,7 +3,14 @@
 <li id="linked_accounts" class="bg1">
 	<ul>
 		{% for account in switchable_account %}
-		<li><a href="{{ account.SWITCH_LINK }}">{{ account.AVATAR }}{{ account.NAME }}</a></li>
+		<li><a href="{{ account.SWITCH_LINK }}">
+			{% if account.AVATAR %}
+				{{ account.AVATAR }}
+			{% else %}
+				<img src="{T_THEME_PATH}/images/no_avatar.gif" class="avatar" alt="">
+			{% endif %}
+			{{ account.NAME }}
+		</a></li>
 		{% endfor %}
 	</ul>
 </li>
