@@ -5,6 +5,7 @@ services:
         class: flerex\linkedaccounts\event\main_listener
         arguments:
             - '@user'
+            - '@auth'
             - '@template'
             - '@controller.helper'
             - '@flerex.linkedaccounts.utils'

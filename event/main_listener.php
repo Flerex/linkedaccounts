@@ -15,11 +15,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class main_listener implements EventSubscriberInterface
 {
 
-	/** @var \phpbb\template\template */
-	protected $template;
-
 	/** @var \phpbb\user */
 	protected $user;
+
+	/** @var \phpbb\auth\auth */
+	protected $auth;
+
+	/** @var \phpbb\template\template */
+	protected $template;
 
 	/** @var \phpbb\controller\helper */
 	protected $helper;
@@ -50,10 +53,11 @@ class main_listener implements EventSubscriberInterface
 	 * @param \phpbb\controller\helper				$helper
 	 * @param \flerex\linkedaccounts\service\utils	$utils
 	 */
-	public function __construct(\phpbb\user $user, \phpbb\template\template $template, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils)
+	public function __construct(\phpbb\user $user, \phpbb\auth\auth $auth, \phpbb\template\template $template, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils)
 	{
-		$this->template	= $template;
 		$this->user		= $user;
+		$this->auth		= $auth;
+		$this->template	= $template;
 		$this->helper	= $helper;
 		$this->utils	= $utils;
 	}
@@ -97,6 +101,7 @@ class main_listener implements EventSubscriberInterface
 	 */
 	public function add_switchable_accounts($event)
 	{
+		$this->template->assign_var('U_CAN_LINK_ACCOUNT', $this->auth->acl_get('u_link_accounts'));
 		foreach($this->utils->get_linked_accounts() as $linked_account)
 		{
 			$this->template->assign_block_vars('switchable_account', array(
