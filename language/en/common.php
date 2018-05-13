@@ -41,7 +41,7 @@ $lang = array_merge($lang, array(
 	'FIND_ACCOUNT'							=> 'Find account',
 	'CURRENT_PASSWORD_EXPLAIN_LINKACCOUNTS' => 'You must enter your current password if you wish to create a link to the previous account.',
 	'EMPTY_FIELDS'							=> 'Username and password cannot be empty.',
-	'INCORRECT_LINKED_ACCOUNT_CREDENTIALS'	=> 'The provided credentials don\'t match any account.',
+	'INCORRECT_LINKED_ACCOUNT_CREDENTIALS'	=> 'The provided credentials don’t match any account.',
 	'SAME_ACCOUNT'							=> 'You cannot link this account to itself!',
 	'INACTIVE_ACCOUNT'						=> 'The account you are trying to link to appears to be inactive.',
 	'BANNED_ACCOUNT'						=> 'The account you are trying to link to appears to be banned.',
@@ -53,7 +53,7 @@ $lang = array_merge($lang, array(
 
 	// ACP Overview Module
 	'ADM_LINKED_ACCOUNTS_OVERVIEW'			=> 'Overview',
-	'ADM_LINKED_ACCOUNTS_OVERVIEW_EXPLAIN'	=> 'In this section you\'ll find some usage statistics along with a list with the users that have links to other accounts.',
+	'ADM_LINKED_ACCOUNTS_OVERVIEW_EXPLAIN'	=> 'In this section you’ll find some usage statistics along with a list with the users that have links to other accounts.',
 	'LINKED_ACCOUNTS_COUNT'					=> 'Users with links',
 	'LINKED_ACCOUNTS_COUNT_EXPLAIN'			=> 'Amount of accounts that have at least one link.',
 	'LINK_COUNT'							=> 'Links',

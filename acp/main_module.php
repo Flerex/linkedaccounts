@@ -10,12 +10,6 @@
 
 namespace flerex\linkedaccounts\acp;
 
-// Required by EPV
-if (!defined('IN_PHPBB'))
-{
-	exit;
-}
-
 class main_module
 {
 
@@ -63,18 +57,18 @@ class main_module
 		switch($mode)
 		{
 			case 'overview':
+			default:
 				$this->tpl_name = 'acp_overview';
 				$this->page_title = $this->user->lang('ADM_LINKED_ACCOUNTS_OVERVIEW');
+				$this->mode_overview();
 				break;
 
 			case 'management':
 				$this->tpl_name = 'acp_management';
 				$this->page_title = $this->user->lang('ADM_LINKED_ACCOUNTS_MANAGEMENT');
+				$this->mode_management();
 				break;
-		}
-		
-		$this->{'mode_' . $mode}();
-	
+		}		
 	}
 
 
@@ -85,24 +79,8 @@ class main_module
 	{
 		add_form_key('flerex_linkedaccounts_ucp_management');
 
-		// if ($this->request->is_set_post('unlink'))
-		// {
-		// 	if (!check_form_key('flerex_linkedaccounts_ucp_management'))
-		// 	{
-		// 		trigger_error('FORM_INVALID');
-		// 	}
-
-		// 	$keys = $this->request->variable('keys', array(''));
-
-		// 	if(!empty($keys))
-		// 	{
-		// 		$this->utils->remove_links($keys);
-		// 	}
-
-		// }
-
-		$start = (int) $this->request->variable('start', 0);
-		$limit = (int) $this->request->variable('limit', main_module::ACCOUNTS_PER_PAGE);
+		$start = $this->request->variable('start', 0);
+		$limit = $this->request->variable('limit', main_module::ACCOUNTS_PER_PAGE);
 
 		$accounts = $this->utils->get_accounts($start, $limit);
 		foreach($accounts as $account)
@@ -141,7 +119,7 @@ class main_module
 			}
 
 			$username = utf8_clean_string($this->request->variable('account', '', true));
-			$user_id = (int) $this->request->variable('accountID', 0, true);
+			$user_id = $this->request->variable('accountID', 0);
 
 			if($user_id || $username)
 			{
@@ -187,7 +165,7 @@ class main_module
 			}
 
 			$keys = $this->request->variable('keys', array(''));
-			$current_account = (int) $this->request->variable('currentaccount', '');
+			$current_account = $this->request->variable('currentaccount', 0);
 
 			if(!empty($keys))
 			{

@@ -19,8 +19,6 @@ if (!defined('IN_PHPBB'))
 class main_module
 {
 
-	const MODULE_BASENAME = '-flerex-linkedaccounts-ucp-main_module';
-
 	public $u_action;
 	public $tpl_name;
 	public $page_title;
@@ -41,6 +39,8 @@ class main_module
 
 	protected $utils;
 
+	protected $module_basename;
+
 	public function main($id, $mode)
 	{
 		global $config, $request, $template, $user, $db, $phpbb_container;
@@ -58,6 +58,7 @@ class main_module
 		$this->linkedacconts_table 	= $this->table_prefix . 'flerex_linkedaccounts';
 
 		$this->utils				= $this->phpbb_container->get('flerex.linkedaccounts.utils');
+		$this->module_basename		= str_replace('\\', '-', $id);
 
 		switch($mode)
 		{
@@ -152,7 +153,7 @@ class main_module
 				else
 				{
 					$this->utils->create_link($this->user->data['user_id'], $user['user_id']);
-					redirect(append_sid($this->phpbb_root_path . 'ucp.' . $this->phpEx, 'i=' . main_module::MODULE_BASENAME . '&amp;mode=management'));					
+					redirect(append_sid($this->phpbb_root_path . 'ucp.' . $this->phpEx, 'i=' . $this->module_basename . '&amp;mode=management'));					
 				}
 
 			}
@@ -199,7 +200,7 @@ class main_module
 
 		$this->template->assign_vars(array(
 			'U_ACTION'			=> $this->u_action,
-			'U_LINK_ACCOUNT'	=> append_sid($this->phpbb_root_path . 'ucp.' . $this->phpEx, 'i=' . main_module::MODULE_BASENAME . '&amp;mode=link'),
+			'U_LINK_ACCOUNT'	=> append_sid($this->phpbb_root_path . 'ucp.' . $this->phpEx, 'i=' . $this->module_basename . '&amp;mode=link'),
 		));
 	}
 

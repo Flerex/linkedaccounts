@@ -49,11 +49,11 @@ class utils
 
 		if(is_numeric($key))
 		{
-			$sql .= 'WHERE user_id = ' . (int) $key . ';';
+			$sql .= 'WHERE user_id = ' . (int) $key;
 		}
 		else
 		{
-			$sql .= 'WHERE username_clean = \'' . $this->db->sql_escape(utf8_clean_string($key)) . '\';';
+			$sql .= 'WHERE username_clean = ' . $this->db->sql_escape(utf8_clean_string($key));
 		}
 		
 		$result = $this->db->sql_query($sql);
@@ -120,7 +120,7 @@ class utils
 		$len = count($links);
 		foreach($links as $key => $account)
 		{
-			$sql_where .= '(user_id = ' . (int) $this->db->sql_escape($account) . ' OR linked_user_id = ' . (int) $this->db->sql_escape($account) . ')';
+			$sql_where .= '(user_id = ' . (int) $account . ' OR linked_user_id = ' . (int) $account . ')';
 
 			if($key != $len - 1)
 			{
@@ -148,8 +148,8 @@ class utils
 	{
 
 		$sql = 'SELECT COUNT(user_id) AS already_linked FROM ' . $this->linkedacconts_table . '
-			WHERE (user_id = ' . (int) $this->user->data['user_id'] . ' AND linked_user_id = ' . (int) $this->db->sql_escape($linked_id) . ')
-			OR (user_id = ' . (int) $this->db->sql_escape($linked_id) . ' AND linked_user_id = ' . (int) $this->user->data['user_id'] . ')';
+			WHERE (user_id = ' . (int) $this->user->data['user_id'] . ' AND linked_user_id = ' . (int) $linked_id . ')
+			OR (user_id = ' . (int) $linked_id . ' AND linked_user_id = ' . (int) $this->user->data['user_id'] . ')';
 
 		$result = $this->db->sql_query($sql);
 		$found_something = $this->db->sql_fetchfield('already_linked') != 0;
@@ -169,8 +169,6 @@ class utils
 	 */
 	public function can_switch_to($account_id)
 	{
-
-		$is_linked = false;
 		$saved_account = null;
 		foreach($this->get_linked_accounts() as $account)
 		{
@@ -181,13 +179,12 @@ class utils
 			}
 		}
 
-		if(!$saved_account || ($saved_account['user_type'] == 1 || $this->user->check_ban($account_id, false, $saved_account['user_email'], true) !== false))
+		if(!$saved_account || ($saved_account['user_type'] == USER_INACTIVE || $this->user->check_ban($account_id, false, $saved_account['user_email'], true) !== false))
 		{
 			return false;
 		}	
 
 		return true;
-
 	}
 
 	/**
@@ -291,7 +288,7 @@ class utils
 		
 		$sql = 'SELECT user_id, user_password, user_email, user_type
 			FROM ' . USERS_TABLE . '
-			WHERE username_clean = \'' . $this->db->sql_escape(utf8_clean_string($username)) . '\'';
+			WHERE username_clean = ' . $this->db->sql_escape(utf8_clean_string($username));
 
 		$result = $this->db->sql_query($sql);
 		$output = $this->db->sql_fetchrow($result);

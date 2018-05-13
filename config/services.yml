@@ -4,7 +4,6 @@ services:
     flerex.linkedaccounts.listener:
         class: flerex\linkedaccounts\event\main_listener
         arguments:
-            - '@user'
             - '@auth'
             - '@template'
             - '@controller.helper'

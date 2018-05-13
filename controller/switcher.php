@@ -20,8 +20,8 @@ class switcher
 	/** @var \phpbb\auth\auth $auth, */
 	protected $auth;
 
-	/** @var \phpbb\controller\helper */
-	protected $helper;
+	/** @var \flerex\linkedaccounts\service\utils $utils */
+	protected $utils;
 
 	/**
 	 * Constructor
@@ -38,9 +38,8 @@ class switcher
 	/**
 	 * Demo controller for route /demo/{name}
 	 *
-	 * @param string $name
+	 * @param int $account_id
 	 * @throws \phpbb\exception\http_exception
-	 * @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	 */
 	public function handle($account_id)
 	{
