@@ -53,7 +53,7 @@ class utils
 		}
 		else
 		{
-			$sql .= 'WHERE username_clean = ' . $this->db->sql_escape(utf8_clean_string($key));
+			$sql .= "WHERE username_clean = '" . $this->db->sql_escape(utf8_clean_string($key)) . "'";
 		}
 		
 		$result = $this->db->sql_query($sql);
@@ -287,8 +287,8 @@ class utils
 	{
 		
 		$sql = 'SELECT user_id, user_password, user_email, user_type
-			FROM ' . USERS_TABLE . '
-			WHERE username_clean = ' . $this->db->sql_escape(utf8_clean_string($username));
+			FROM ' . USERS_TABLE . "
+			WHERE username_clean = '" . $this->db->sql_escape(utf8_clean_string($username)) . "'";
 
 		$result = $this->db->sql_query($sql);
 		$output = $this->db->sql_fetchrow($result);
