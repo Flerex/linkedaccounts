@@ -10,12 +10,12 @@
 	{% if ERROR %}<p class="error">{{ ERROR }}</p>{% endif %}
 	<dl>
 		<dt><label for="username">{{ lang('USERNAME') }}{{ lang('COLON') }}</label></dt>
-		<dd><input type="text" name="username" id="username" value="{{ USERNAME }}" class="inputbox" title="{{ lang('USERNAME') }}" />
+		<dd><input type="text" name="username" id="username" value="{{ USERNAME }}" class="inputbox" title="{{ lang('USERNAME') }}" autofocus>
 			<br><span><a href="{{ U_FIND_USERNAME }}" tabindex="-1" onclick="find_username(this.href); return false;">{{ lang('FIND_ACCOUNT') }}</a></span></dd>
 	</dl>
 	<dl>
 		<dt><label for="password">{{ lang('PASSWORD') }}{{ lang('COLON') }}</label></dt>
-		<dd><input type="password" name="password" id="password" maxlength="255" value="{{ NEW_PASSWORD }}" class="inputbox" title="{{ lang('CHANGE_PASSWORD') }}" autocomplete="off" /></dd>
+		<dd><input type="password" name="password" id="password" maxlength="255" value="{{ NEW_PASSWORD }}" class="inputbox" title="{{ lang('CHANGE_PASSWORD') }}" autocomplete="off"></dd>
 	</dl>
 	</fieldset>
 	</div>
@@ -26,8 +26,8 @@
 
 	<fieldset>
 	<dl>
-		<dt><label for="cur_password">{{ lang('CURRENT_PASSWORD') }}{{ lang('COLON') }}</label><br /><span>{{ lang('CURRENT_PASSWORD_EXPLAIN_LINKACCOUNTS') }}</span></dt>
-		<dd><input type="password" name="cur_password" id="cur_password" maxlength="255" value="{{ CUR_PASSWORD }}" class="inputbox" title="{{ lang('CURRENT_PASSWORD') }}" autocomplete="off" /></dd>
+		<dt><label for="cur_password">{{ lang('CURRENT_PASSWORD') }}{{ lang('COLON') }}</label><br><span>{{ lang('CURRENT_PASSWORD_EXPLAIN_LINKACCOUNTS') }}</span></dt>
+		<dd><input type="password" name="cur_password" id="cur_password" maxlength="255" value="{{ CUR_PASSWORD }}" class="inputbox" title="{{ lang('CURRENT_PASSWORD') }}" autocomplete="off"></dd>
 	</dl>
 	</fieldset>
 
@@ -37,8 +37,8 @@
 
 <fieldset class="submit-buttons">
 	{{ S_HIDDEN_FIELDS }}
-	<input type="reset" value="{{ lang('RESET') }}" name="reset" class="button2" />&nbsp;
-	<input type="submit" name="link" value="{{ lang('LINK_ACCOUNT') }}" class="button1" />
+	<input type="reset" value="{{ lang('RESET') }}" name="reset" class="button2">&nbsp;
+	<input type="submit" name="link" value="{{ lang('LINK_ACCOUNT') }}" class="button1">
 	{{ S_FORM_TOKEN }}
 </fieldset>
 

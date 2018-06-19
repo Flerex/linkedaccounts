@@ -6,11 +6,11 @@
 <fieldset>
 	<legend>{{ lang('STATISTICS') }}</legend>
 	<dl>
-		<dt><label>{{ lang('LINKED_ACCOUNTS_COUNT') }}{{ lang('COLON') }}</label><br /><span>{{ lang('LINKED_ACCOUNTS_COUNT_EXPLAIN') }}</span></dt>
+		<dt><label>{{ lang('LINKED_ACCOUNTS_COUNT') }}{{ lang('COLON') }}</label><br><span>{{ lang('LINKED_ACCOUNTS_COUNT_EXPLAIN') }}</span></dt>
 		<dd><strong>{{ LINKED_ACCOUNTS_COUNT }}</strong></dd>
 	</dl>
 	<dl>
-		<dt><label>{{ lang('LINK_COUNT') }}{{ lang('COLON') }}</label><br /><span>{{ lang('LINK_COUNT_EXPLAIN') }}</span></dt>
+		<dt><label>{{ lang('LINK_COUNT') }}{{ lang('COLON') }}</label><br><span>{{ lang('LINK_COUNT_EXPLAIN') }}</span></dt>
 		<dd><strong>{{ LINK_COUNT }}</strong></dd>
 	</dl>
 </fieldset>
@@ -32,7 +32,7 @@
 		<tr class="{% if accounts.S_ROW_COUNT is even %}bg1{% else %}bg2{% endif %}">
 			<td><a href="{{ accounts.URL_EDIT }}">{{ accounts.USERNAME }}</a></td>
 			<td>{{ accounts.LINK_COUNT }}</td>
-			<td class="mark"><input type="radio" name="accountID" value="{{ accounts.ID }}" id="{{ accounts.ID }}" /></td>
+			<td class="mark"><input type="radio" name="accountID" value="{{ accounts.ID }}" id="{{ accounts.ID }}"></td>
 		</tr>
 	{% else %}
 		<tr class="big-column"><td colspan="3" class="bg1" style="text-align: center">{{ lang('NO_ACCOUNTS_LINKED') }}</td></tr>
@@ -47,7 +47,7 @@
 
 <fieldset class="quick">
 	{{ S_HIDDEN_FIELDS }}
-	<input class="button2" type="submit" name="submituser" value="{{ lang('MANAGE') }}" />
+	<input class="button2" type="submit" name="submituser" value="{{ lang('MANAGE') }}">
 	{{ S_FORM_TOKEN }}
 </fieldset>
 

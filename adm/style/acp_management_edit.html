@@ -18,7 +18,7 @@
 		<tr class="{% if account.S_ROW_COUNT is even %}bg1{% else %}bg2{% endif %}">
 			<td><a href="{{ account.URL_EDIT }}">{{ account.USERNAME }}</a></td>
 			<td>{{ account.DATE }}</td>
-			<td class="mark"><input type="checkbox" name="keys[]" value="{{ account.ID }}" id="{{ account.ID }}" /></td>
+			<td class="mark"><input type="checkbox" name="keys[]" value="{{ account.ID }}" id="{{ account.ID }}"></td>
 		</tr>
 	{% else %}
 		<tr class="big-column"><td colspan="3" class="bg1" style="text-align: center">{{ lang('NO_LINKED_ACCOUNTS') }}</td></tr>
@@ -29,9 +29,9 @@
 {% if accounts|length %}
 <fieldset class="quick">
 	{{ S_HIDDEN_FIELDS }}
-	<input class="button1" type="submit" name="unlink" value="{{ lang('UNLINK_ACCOUNT') }}" />
+	<input class="button1" type="submit" name="unlink" value="{{ lang('UNLINK_ACCOUNT') }}">
 	<div><a href="#" onclick="$('#list input:checkbox').prop('checked', true); return false;">{{ lang('MARK_ALL') }}</a> &bull; <a href="#" onclick="$('#list input:checkbox').prop('checked', false); return false;">{{ lang('UNMARK_ALL') }}</a></div>
-	<input type="hidden" name="currentaccount" value="{{ CURRENT_ACCOUNT }}" />
+	<input type="hidden" name="currentaccount" value="{{ CURRENT_ACCOUNT }}">
 	{{ S_FORM_TOKEN }}
 </fieldset>
 {% endif %}
