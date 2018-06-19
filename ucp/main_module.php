@@ -63,19 +63,19 @@ class main_module
 		switch($mode)
 		{
 			case 'management':
+			default:
 				$this->tpl_name = 'ucp_management';
 				$this->page_title = $this->user->lang('LINKED_ACCOUNTS_MANAGEMENT');
+				$this->mode_management();
 				break;
 
 			case 'link':
 				$this->tpl_name = 'ucp_link';
 				$this->page_title = $this->user->lang('LINKING_ACCOUNT');
+				$this->mode_link();
 				break;
-
 		}
-		
-		$this->{'mode_' . $mode}();
-	
+			
 	}
 
 	
@@ -106,6 +106,7 @@ class main_module
 
 			$passwords_manager = $this->phpbb_container->get('passwords.manager');
 
+			$errors = array();
 			if(!(empty($password) && empty($cur_password) && empty($username)))
 			{
 				if(empty($cur_password))
