@@ -5,7 +5,7 @@
 		{% for account in switchable_account %}
 		<li>
 			{% if U_CAN_LINK_ACCOUNT %}
-				<a href="{{ account.SWITCH_LINK }}">
+				<a href="{{ account.SWITCH_LINK }}" role="menuitem">
 					{% if account.AVATAR %}
 						{{ account.AVATAR }}
 					{% else %}
