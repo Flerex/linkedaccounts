@@ -10,7 +10,7 @@
 					{% if account.AVATAR %}
 						{{ account.AVATAR }}
 					{% else %}
-						<img src="{T_THEME_PATH}/images/no_avatar.gif" class="avatar" alt="">
+						<img src="{{ T_THEME_PATH }}/images/no_avatar.gif" class="avatar" alt="">
 					{% endif %}
 					{{ account.NAME }}
 				</a>
@@ -18,7 +18,7 @@
 				{% if account.AVATAR %}
 					{{ account.AVATAR }}
 				{% else %}
-					<img src="{T_THEME_PATH}/images/no_avatar.gif" class="avatar" alt="">
+					<img src="{{ T_THEME_PATH }}/images/no_avatar.gif" class="avatar" alt="">
 				{% endif %}
 				{{ account.NAME }}
 			{% endif %}
