@@ -297,4 +297,29 @@ class utils
 
 		return $output;
 	}
+
+	/**
+	 * Switches the current account to another
+	 * that is linked to the current one.
+	 *
+	 * @param int $account_id The linked account id
+	 *
+	 * @return array
+	 */
+	public function switch_to_linked_account($account_id)
+	{
+		
+		$session_autologin = (bool) $this->user->data['session_autologin'];
+		$session_viewonline = (bool) $this->user->data['session_viewonline'];
+		
+		$this->user->session_kill(false);
+		$this->user->session_begin();
+		$this->user->session_create(
+			$account_id,
+			false, // for security reasons we always set this to false (admin login)
+			$session_autologin,
+			$session_viewonline
+		);
+		
+	}
 }

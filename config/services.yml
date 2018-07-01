@@ -21,4 +21,5 @@ services:
         arguments:
             - '@user'
             - '@auth'
+            - '@request'
             - '@flerex.linkedaccounts.utils'
