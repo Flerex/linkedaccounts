@@ -56,6 +56,7 @@ class switcher
 
 		$session_autologin = (bool) $this->user->data['session_autologin'];
 		$session_viewonline = (bool) $this->user->data['session_viewonline'];
+		$session_page = $this->user->data['session_page'];
 		
 		$this->user->session_kill(false);
 		$this->user->session_begin();
@@ -66,6 +67,7 @@ class switcher
 			$session_viewonline
 		);
 		
+		meta_refresh(3, $session_page);
 		throw new \phpbb\exception\http_exception(200, 'ACCOUNTS_SWITCHED');
 
 	}
