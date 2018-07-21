@@ -23,6 +23,13 @@ class utils
 	/** @var string */
 	protected $linkedacconts_table;
 
+	/**
+	 * Constructor
+	 *
+	 * @param \phpbb\user							$user
+	 * @param \phpbb\db\driver\factory				$db
+	 * @param string								$linkedacconts_table
+	 */
 	public function __construct(\phpbb\user $user, \phpbb\db\driver\factory $db, $linkedacconts_table)
 	{
 		$this->user					= $user;
