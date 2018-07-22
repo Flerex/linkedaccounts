@@ -23,6 +23,13 @@ class utils
 	/** @var string */
 	protected $linkedacconts_table;
 
+	/**
+	 * Constructor
+	 *
+	 * @param \phpbb\user							$user
+	 * @param \phpbb\db\driver\factory				$db
+	 * @param string								$linkedacconts_table
+	 */
 	public function __construct(\phpbb\user $user, \phpbb\db\driver\factory $db, $linkedacconts_table)
 	{
 		$this->user					= $user;
@@ -138,7 +145,7 @@ class utils
 	
 	/**
 	 * Checks whether the account is already linked to the account
-	 * trying to be linking to
+	 * trying to be linked to
 	 *
 	 * @param int $linked_id The id of the account to be linked
 	 * @return bool
@@ -296,5 +303,30 @@ class utils
 		$this->db->sql_freeresult($result);
 
 		return $output;
+	}
+
+	/**
+	 * Switches the current account to another
+	 * that is linked to the current one.
+	 *
+	 * @param int $account_id The linked account id
+	 *
+	 * @return array
+	 */
+	public function switch_to_linked_account($account_id)
+	{
+		
+		$session_autologin = (bool) $this->user->data['session_autologin'];
+		$session_viewonline = (bool) $this->user->data['session_viewonline'];
+		
+		$this->user->session_kill(false);
+		$this->user->session_begin();
+		$this->user->session_create(
+			$account_id,
+			false, // for security reasons we always set this to false (admin login)
+			$session_autologin,
+			$session_viewonline
+		);
+		
 	}
 }

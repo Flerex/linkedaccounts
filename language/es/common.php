@@ -64,4 +64,15 @@ $lang = array_merge($lang, array(
 	'ADM_LINKED_ACCOUNTS_MANAGEMENT'		=> 'Gestionar usuarios',
 	'SELECT_USER'							=> 'Seleccionar usuario',
 	'MANAGING_USER'							=> 'Gestión de usuario :: %s',
+
+	// ACP Settings Module
+	'LINKED_ACCOUNTS_SETTINGS'				=> 'Configuración',
+	'ADM_LINKED_ACCOUNTS_SETTINGS_EXPLAIN'	=> 'Aquí puedes personalizar algunas de las características de la extensión.',
+	'CONF_AJAX'								=> 'Utilizar AJAX al cambiar de cuenta',
+	'CONF_AJAX_EXPLAIN'						=> 'Activar esta opción te redirigirá automáticamente sin tener que pasar por la página intermediaria “Información”. Los usuarios sin soporte a AJAX pasarán por dicha página de todas formas.',
+	'CONF_RETURN_TO_INDEX'					=> 'Volver al índice al cambiar de cuenta',
+	'CONF_RETURN_TO_INDEX_EXPLAIN'			=> 'Si esta opción no está activada se redirigirá a la misma página por defecto.',
+	'CONF_PRIVATE_LINKS'					=> 'Enlaces privados',
+	'CONF_PRIVATE_LINKS_EXPLAIN'			=> 'Marcar esta opción como “sí” ocultará el menú de cambio de cuenta cuando un usuario no tiene permisos para cambiar de cuenta, incluso si la cuenta tiene actualmente enlaces. Esto puede llegar a ser un problema de seguridad y se recomienda dejarlo desactivado.',
+	'CONF_TRANSITIVE_LINKS_EXPLAIN'			=> 'Permite a las cuentas con un enlace común cambiar entre ellas.',
 ));

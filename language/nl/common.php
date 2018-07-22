@@ -34,7 +34,7 @@ $lang = array_merge($lang, array(
 	'NO_LINKED_ACCOUNTS'					=> 'Er zijn geen gekoppelde accounts.',
 	'UNLINK_ACCOUNT'						=> 'Ontkoppel accounts',
 	'SUCCESSFUL_UNLINKING' 					=> 'Accounts succesvol ontkoppelt.',
-
+	
 	// UCP Linking Module
 	'LINKING_ACCOUNT'						=> 'Account koppelen',
 	'ACCOUNT_LINKING_EXPLAIN'				=> 'Hier moet u de referenties opgeven van het account waarnaar u een koppeling wilt maken.',
@@ -64,4 +64,14 @@ $lang = array_merge($lang, array(
 	'ADM_LINKED_ACCOUNTS_MANAGEMENT'		=> 'Beheer gebruikers',
 	'SELECT_USER'							=> 'Selecteer gebruiker',
 	'MANAGING_USER'							=> 'Gebruikers beheer :: %s',
+
+	// ACP Settings Module
+	'LINKED_ACCOUNTS_SETTINGS'				=> 'Settings',
+	'ADM_LINKED_ACCOUNTS_SETTINGS_EXPLAIN'	=> 'Here you can customize some of the extension’s features.',
+	'CONF_AJAX'								=> 'Use AJAX when switching accounts',
+	'CONF_AJAX_EXPLAIN'						=> 'Enabling this option will redirect you automatically, without having to go through the “Information” page. Users with no AJAX support will go throught that page anyways.',
+	'CONF_RETURN_TO_INDEX'					=> 'Return to index when switching accounts',
+	'CONF_RETURN_TO_INDEX_EXPLAIN'			=> 'If not enabled switching accounts will return to the same page by default.',
+	'CONF_PRIVATE_LINKS'					=> 'Private links',
+	'CONF_PRIVATE_LINKS_EXPLAIN'			=> 'Setting this option to “yes” will hide the switching menu when a user doesn’t have switching permissions, even when the account has links. This could be a security hazard and it is recommended to be left disabled.',
 ));

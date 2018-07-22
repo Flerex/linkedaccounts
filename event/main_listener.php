@@ -18,6 +18,9 @@ class main_listener implements EventSubscriberInterface
 	/** @var \phpbb\auth\auth */
 	protected $auth;
 
+	/** @var \phpbb\config\config */
+	protected $config;
+
 	/** @var \phpbb\template\template */
 	protected $template;
 
@@ -45,14 +48,16 @@ class main_listener implements EventSubscriberInterface
 	/**
 	 * Constructor
 	 *
-	 * @param \phpbb\user							$user
+	 * @param \phpbb\auth\auth						$auth
+	 * @param \phpbb\config\config					$config
 	 * @param \phpbb\template\template				$template
 	 * @param \phpbb\controller\helper				$helper
 	 * @param \flerex\linkedaccounts\service\utils	$utils
 	 */
-	public function __construct(\phpbb\auth\auth $auth, \phpbb\template\template $template, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils)
+	public function __construct(\phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\template\template $template, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils)
 	{
 		$this->auth		= $auth;
+		$this->config	= $config;
 		$this->template	= $template;
 		$this->helper	= $helper;
 		$this->utils	= $utils;
@@ -97,13 +102,25 @@ class main_listener implements EventSubscriberInterface
 	 */
 	public function add_switchable_accounts($event)
 	{
-		$this->template->assign_var('U_CAN_LINK_ACCOUNT', $this->auth->acl_get('u_link_accounts'));
-		foreach($this->utils->get_linked_accounts() as $linked_account)
+
+		$can_link = $this->auth->acl_get('u_link_accounts');
+
+		$linked_accounts = $this->utils->get_linked_accounts();
+
+		if (!$can_link && $this->config['flerex_linkedaccounts_private_links'])
+		{
+			$linked_accounts = array();
+		}
+
+		$this->template->assign_var('U_CAN_LINK_ACCOUNT', $can_link);
+
+		foreach($linked_accounts as $linked_account)
 		{
 			$this->template->assign_block_vars('switchable_account', array(
 				'SWITCH_LINK'	=> $this->helper->route('flerex_linkedaccounts_switch', array('account_id' => $linked_account['user_id'])),
 				'AVATAR'		=> phpbb_get_user_avatar($linked_account),
 				'NAME'			=> get_username_string('no_profile', $linked_account['user_id'], $linked_account['username'], $linked_account['user_colour']),
+				'S_AJAX'		=> $this->config['flerex_linkedaccounts_ajax'],
 			));
 		}
 

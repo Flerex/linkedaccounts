@@ -1,15 +1,18 @@
 {% if switchable_account %}
 {% INCLUDECSS '@flerex_linkedaccounts/linkedaccounts.css' %}
+{% if S_AJAX %}
+	{% INCLUDEJS '@flerex_linkedaccounts/ajax.js' %}
+{% endif %}
 <li id="linked_accounts" class="bg1">
 	<ul>
 		{% for account in switchable_account %}
 		<li>
 			{% if U_CAN_LINK_ACCOUNT %}
-				<a href="{{ account.SWITCH_LINK }}">
+				<a href="{{ account.SWITCH_LINK }}" role="menuitem"{% if S_AJAX %} data-ajax="flerex.linked_accounts.switch" data-refresh="true"{% endif %}>
 					{% if account.AVATAR %}
 						{{ account.AVATAR }}
 					{% else %}
-						<img src="{T_THEME_PATH}/images/no_avatar.gif" class="avatar" alt="">
+						<img src="{{ T_THEME_PATH }}/images/no_avatar.gif" class="avatar" alt="">
 					{% endif %}
 					{{ account.NAME }}
 				</a>
@@ -17,7 +20,7 @@
 				{% if account.AVATAR %}
 					{{ account.AVATAR }}
 				{% else %}
-					<img src="{T_THEME_PATH}/images/no_avatar.gif" class="avatar" alt="">
+					<img src="{{ T_THEME_PATH }}/images/no_avatar.gif" class="avatar" alt="">
 				{% endif %}
 				{{ account.NAME }}
 			{% endif %}
