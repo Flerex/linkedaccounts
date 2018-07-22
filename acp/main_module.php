@@ -14,6 +14,7 @@ class main_module
 {
 
 	const ACCOUNTS_PER_PAGE = 10;
+	const FORM_KEY = 'flerex_linkedaccounts_ucp_management';
 
 	public $u_action;
 	public $tpl_name;
@@ -63,6 +64,12 @@ class main_module
 				$this->mode_overview();
 				break;
 
+			case 'settings':
+				$this->tpl_name = 'acp_settings';
+				$this->page_title = $this->user->lang('ADM_LINKED_ACCOUNTS_SETTINGS');
+				$this->mode_settings();
+				break;
+
 			case 'management':
 				$this->tpl_name = 'acp_management';
 				$this->page_title = $this->user->lang('ADM_LINKED_ACCOUNTS_MANAGEMENT');
@@ -77,7 +84,7 @@ class main_module
 	 */
 	private function mode_overview()
 	{
-		add_form_key('flerex_linkedaccounts_ucp_management');
+		add_form_key(self::FORM_KEY);
 
 		$start = $this->request->variable('start', 0);
 		$limit = $this->request->variable('limit', main_module::ACCOUNTS_PER_PAGE);
@@ -104,16 +111,18 @@ class main_module
 			'PAGE_NUMBER'			=> $pagination->on_page($account_count, $limit, $start),
 		));
 	}
+
 	/**
 	 * Controller for the management mode
 	 */
 	private function mode_management()
 	{
-		add_form_key('flerex_linkedaccounts_ucp_management');
+
+		add_form_key(self::FORM_KEY);
 
 		if ($this->request->is_set_post('submituser'))
 		{
-			if (!check_form_key('flerex_linkedaccounts_ucp_management'))
+			if (!check_form_key(self::FORM_KEY))
 			{
 				trigger_error('FORM_INVALID', E_USER_WARNING);
 			}
@@ -159,7 +168,7 @@ class main_module
 		}
 		else if($this->request->is_set_post('unlink'))
 		{
-			if (!check_form_key('flerex_linkedaccounts_ucp_management'))
+			if (!check_form_key(self::FORM_KEY))
 			{
 				trigger_error('FORM_INVALID', E_USER_WARNING);
 			}
@@ -180,6 +189,112 @@ class main_module
 			'U_ACTION'			=> $this->u_action,
 			'U_FIND_USERNAME'	=> append_sid($this->phpbb_root_path . 'memberlist.' . $this->phpEx, 'mode=searchuser&amp;form=select_user&amp;field=account&amp;select_single=true'),
 		));
+	}
+
+	/**
+	 * Controller for the settings mode
+	 */
+	private function mode_settings()
+	{
+		
+		$submit = $this->request->is_set_post('submit');
+
+		$display_vars = array(
+			
+			'flerex_linkedaccounts_ajax' => array(
+				'lang' => 'CONF_AJAX',
+				'validate' => 'bool',
+				'type' => 'radio:yes_no',
+				'explain' => true
+			),
+
+			'flerex_linkedaccounts_return_to_index' => array(
+				'lang' => 'CONF_RETURN_TO_INDEX',
+				'validate' => 'bool',
+				'type' => 'radio:yes_no',
+				'explain' => true
+			),
+
+			'flerex_linkedaccounts_private_links' => array(
+				'lang' => 'CONF_PRIVATE_LINKS',
+				'validate' => 'bool',
+				'type' => 'radio:yes_no',
+				'explain' => true
+			),
+
+		);
+
+		$new_config = clone $this->config;
+		$cfg_array = (isset($_REQUEST['config'])) ? $this->request->variable('config', array('' => ''), true) : $new_config;
+		$error = array();
+		validate_config_vars($display_vars, $cfg_array, $error);
+
+		add_form_key(self::FORM_KEY);
+
+		if ($submit && !check_form_key(self::FORM_KEY))
+		{
+			$error[] = $this->user->lang['FORM_INVALID'];
+		}
+
+		if (count($error)) {
+			$submit = false;
+		}
+
+		if ($submit)
+		{
+			foreach ($display_vars as $config_name => $data)
+			{
+				if (!isset($display_vars[$config_name]))
+				{
+					continue;
+				}
+
+				$new_config[$config_name] = $config_value = $cfg_array[$config_name];
+				$this->config->set($config_name, $config_value);
+			}
+			trigger_error($this->user->lang('CONFIG_UPDATED') . adm_back_link($this->u_action), E_USER_NOTICE);
+		}
+
+		$this->template->assign_vars(array(
+			'U_ACTION' => $this->u_action,
+		));
+
+		foreach($display_vars as $config_key => $vars)
+		{
+
+			$type = explode(':', $vars['type']);
+
+			$l_explain = '';
+			if ($vars['explain'] && isset($vars['lang_explain']))
+			{
+				$l_explain = (isset($this->user->lang[$vars['lang_explain']])) ? $this->user->lang[$vars['lang_explain']] : $vars['lang_explain'];
+			}
+			else if ($vars['explain'])
+			{
+				$l_explain = (isset($this->user->lang[$vars['lang'] . '_EXPLAIN'])) ? $this->user->lang[$vars['lang'] . '_EXPLAIN'] : '';
+			}
+
+			$content = build_cfg_template($type, $config_key, $new_config, $config_key, $vars);
+
+			if (empty($content))
+			{
+				continue;
+			}
+
+			$this->template->assign_block_vars('options', array(
+				'KEY'			=> $config_key,
+				'TITLE'			=> isset($this->user->lang[$vars['lang']])
+									? $this->user->lang[$vars['lang']]
+									: $vars['lang'],
+				'S_EXPLAIN'		=> $vars['explain'],
+				'TITLE_EXPLAIN'	=> $l_explain,
+				'CONTENT'		=> $content,
+				)
+			);
+
+			unset($display_vars['vars'][$config_key]);
+
+		}
 	}
 
 

@@ -145,7 +145,7 @@ class utils
 	
 	/**
 	 * Checks whether the account is already linked to the account
-	 * trying to be linking to
+	 * trying to be linked to
 	 *
 	 * @param int $linked_id The id of the account to be linked
 	 * @return bool

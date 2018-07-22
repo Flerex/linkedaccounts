@@ -5,6 +5,7 @@ services:
         class: flerex\linkedaccounts\event\main_listener
         arguments:
             - '@auth'
+            - '@config'
             - '@template'
             - '@controller.helper'
             - '@flerex.linkedaccounts.utils'
@@ -21,5 +22,8 @@ services:
         arguments:
             - '@user'
             - '@auth'
+            - '@config'
             - '@request'
             - '@flerex.linkedaccounts.utils'
+            - '%core.root_path%'
+            - '%core.php_ext%'

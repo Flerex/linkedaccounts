@@ -23,6 +23,11 @@ class main_info
 					'auth'	=> 'ext_flerex/linkedaccounts && acl_a_link_accounts',
 					'cat'	=> array('ADM_LINKED_ACCOUNTS'),
 				),
+				'settings' => array(
+					'title'	=> 'ADM_LINKED_ACCOUNTS_SETTINGS',
+					'auth'	=> 'ext_flerex/linkedaccounts && acl_a_link_accounts',
+					'cat'	=> array('ADM_LINKED_ACCOUNTS'),
+				),
 				'management' => array(
 					'title'	=> 'ADM_LINKED_ACCOUNTS_MANAGEMENT',
 					'auth'	=> 'ext_flerex/linkedaccounts && acl_a_link_accounts',
