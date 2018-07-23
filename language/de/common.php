@@ -66,7 +66,7 @@ $lang = array_merge($lang, array(
 	'MANAGING_USER'							=> 'Benutzerverwaltung :: %s',
 
 	// ACP Settings Module
-	'LINKED_ACCOUNTS_SETTINGS'				=> 'Einstellungen',
+	'ADM_LINKED_ACCOUNTS_SETTINGS'				=> 'Einstellungen',
 	'ADM_LINKED_ACCOUNTS_SETTINGS_EXPLAIN'	=> 'Hier kannst du einige der Funktionen dieser Extension anpassen.',
 	'CONF_AJAX'								=> 'AJAX beim Wechseln benutzen',
 	'CONF_AJAX_EXPLAIN'						=> 'Das aktivieren dieser Option wird dich automatisch weiterleiten, ohne zuerst die "Informationsseite" sehen zu müssen. Benutzer ohne AJAX-Unterstützung werden diese Seite trotzdem sehen.',
