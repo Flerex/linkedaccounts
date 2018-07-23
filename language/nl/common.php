@@ -66,12 +66,12 @@ $lang = array_merge($lang, array(
 	'MANAGING_USER'							=> 'Gebruikers beheer :: %s',
 
 	// ACP Settings Module
-	'LINKED_ACCOUNTS_SETTINGS'				=> 'Settings',
-	'ADM_LINKED_ACCOUNTS_SETTINGS_EXPLAIN'	=> 'Here you can customize some of the extension’s features.',
-	'CONF_AJAX'								=> 'Use AJAX when switching accounts',
-	'CONF_AJAX_EXPLAIN'						=> 'Enabling this option will redirect you automatically, without having to go through the “Information” page. Users with no AJAX support will go throught that page anyways.',
-	'CONF_RETURN_TO_INDEX'					=> 'Return to index when switching accounts',
-	'CONF_RETURN_TO_INDEX_EXPLAIN'			=> 'If not enabled switching accounts will return to the same page by default.',
+	'LINKED_ACCOUNTS_SETTINGS'				=> 'Instellingen',
+	'ADM_LINKED_ACCOUNTS_SETTINGS_EXPLAIN'	=> 'Hier kunt u enkele functies van de extensie aanpassen.',
+	'CONF_AJAX'								=> 'Gebruik AJAX bij het wisselen tussen accounts',
+	'CONF_AJAX_EXPLAIN'						=> 'Als u deze optie inschakelt, wordt u automatisch omgeleid, zonder dat u de pagina “Informatie” hoeft te doorlopen. Gebruikers zonder AJAX ondersteuning zullen sowieso door die pagina gaan.',
+	'CONF_RETURN_TO_INDEX'					=> 'Keer terug naar index bij het wisselen tussen accounts',
+	'CONF_RETURN_TO_INDEX_EXPLAIN'			=> 'Als dit niet is ingeschakeld, keren accounts standaard naar dezelfde pagina terug.',
 	'CONF_PRIVATE_LINKS'					=> 'Private links',
-	'CONF_PRIVATE_LINKS_EXPLAIN'			=> 'Setting this option to “yes” will hide the switching menu when a user doesn’t have switching permissions, even when the account has links. This could be a security hazard and it is recommended to be left disabled.',
+	'CONF_PRIVATE_LINKS_EXPLAIN'			=> 'Als u deze optie instelt op “Ja”, wordt het account koppel menu verborgen als een gebruiker geen account koppel permissies heeft, ook niet als het account koppelingen bevat. Dit kan een veiligheidsrisico vormen en het wordt aanbevolen om uitgeschakeld te blijven.',
 ));
