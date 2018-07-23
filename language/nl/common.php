@@ -66,7 +66,7 @@ $lang = array_merge($lang, array(
 	'MANAGING_USER'							=> 'Gebruikers beheer :: %s',
 
 	// ACP Settings Module
-	'LINKED_ACCOUNTS_SETTINGS'				=> 'Instellingen',
+	'ADM_LINKED_ACCOUNTS_SETTINGS'			=> 'Instellingen',
 	'ADM_LINKED_ACCOUNTS_SETTINGS_EXPLAIN'	=> 'Hier kunt u enkele functies van de extensie aanpassen.',
 	'CONF_AJAX'								=> 'Gebruik AJAX bij het wisselen tussen accounts',
 	'CONF_AJAX_EXPLAIN'						=> 'Als u deze optie inschakelt, wordt u automatisch omgeleid, zonder dat u de pagina “Informatie” hoeft te doorlopen. Gebruikers zonder AJAX ondersteuning zullen sowieso door die pagina gaan.',
