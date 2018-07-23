@@ -66,7 +66,7 @@ $lang = array_merge($lang, array(
 	'MANAGING_USER'							=> 'Gestión de usuario :: %s',
 
 	// ACP Settings Module
-	'LINKED_ACCOUNTS_SETTINGS'				=> 'Configuración',
+	'ADM_LINKED_ACCOUNTS_SETTINGS'			=> 'Configuración',
 	'ADM_LINKED_ACCOUNTS_SETTINGS_EXPLAIN'	=> 'Aquí puedes personalizar algunas de las características de la extensión.',
 	'CONF_AJAX'								=> 'Utilizar AJAX al cambiar de cuenta',
 	'CONF_AJAX_EXPLAIN'						=> 'Activar esta opción te redirigirá automáticamente sin tener que pasar por la página intermediaria “Información”. Los usuarios sin soporte a AJAX pasarán por dicha página de todas formas.',
