@@ -66,12 +66,12 @@ $lang = array_merge($lang, array(
 	'MANAGING_USER'							=> 'Benutzerverwaltung :: %s',
 
 	// ACP Settings Module
-	'LINKED_ACCOUNTS_SETTINGS'				=> 'Settings',
-	'ADM_LINKED_ACCOUNTS_SETTINGS_EXPLAIN'	=> 'Here you can customize some of the extension’s features.',
-	'CONF_AJAX'								=> 'Use AJAX when switching accounts',
-	'CONF_AJAX_EXPLAIN'						=> 'Enabling this option will redirect you automatically, without having to go through the “Information” page. Users with no AJAX support will go throught that page anyways.',
-	'CONF_RETURN_TO_INDEX'					=> 'Return to index when switching accounts',
-	'CONF_RETURN_TO_INDEX_EXPLAIN'			=> 'If not enabled switching accounts will return to the same page by default.',
-	'CONF_PRIVATE_LINKS'					=> 'Private links',
-	'CONF_PRIVATE_LINKS_EXPLAIN'			=> 'Setting this option to “yes” will hide the switching menu when a user doesn’t have switching permissions, even when the account has links. This could be a security hazard and it is recommended to be left disabled.',
+	'ADM_LINKED_ACCOUNTS_SETTINGS'				=> 'Einstellungen',
+	'ADM_LINKED_ACCOUNTS_SETTINGS_EXPLAIN'	=> 'Hier kannst du einige der Funktionen dieser Extension anpassen.',
+	'CONF_AJAX'								=> 'AJAX beim Wechseln benutzen',
+	'CONF_AJAX_EXPLAIN'						=> 'Das aktivieren dieser Option wird dich automatisch weiterleiten, ohne zuerst die "Informationsseite" sehen zu müssen. Benutzer ohne AJAX-Unterstützung werden diese Seite trotzdem sehen.',
+	'CONF_RETURN_TO_INDEX'					=> 'Zum Index zurückkehren, wenn Accounts gewechselt wurden',
+	'CONF_RETURN_TO_INDEX_EXPLAIN'			=> 'Wenn nicht aktiviert, werden wechselnde Accounts standardmäßig zur selben Seite zurückkehren.',
+	'CONF_PRIVATE_LINKS'					=> 'Private Verbindungen',
+	'CONF_PRIVATE_LINKS_EXPLAIN'			=> 'Diese Option auf "Ja" zu setzen wird das Wechselmenü verstecken, wenn der Benutzer keine Berechtigungen für das Wechseln hat, auch wenn der Account bereits Verbindungen besitzt. Dies kann eine Sicherheitsrisiko darstellen und es wird empfohlen, diese Option deaktiviert zu lassen.',
 ));
