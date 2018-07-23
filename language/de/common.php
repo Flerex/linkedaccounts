@@ -69,9 +69,9 @@ $lang = array_merge($lang, array(
 	'LINKED_ACCOUNTS_SETTINGS'				=> 'Einstellungen',
 	'ADM_LINKED_ACCOUNTS_SETTINGS_EXPLAIN'	=> 'Hier kannst du einige der Funktionen dieser Extension anpassen.',
 	'CONF_AJAX'								=> 'AJAX beim Wechseln benutzen',
-	'CONF_AJAX_EXPLAIN'						=> 'Das aktivieren dieser Option wird dich automatisch weiterleiten, ohne zuerst die "Informations-Seite" sehen zu müssen. Benutzer ohne AJAX-Unterstützung werden diese Seite trotzdem sehen.',
+	'CONF_AJAX_EXPLAIN'						=> 'Das aktivieren dieser Option wird dich automatisch weiterleiten, ohne zuerst die "Informationsseite" sehen zu müssen. Benutzer ohne AJAX-Unterstützung werden diese Seite trotzdem sehen.',
 	'CONF_RETURN_TO_INDEX'					=> 'Zum Index zurückkehren, wenn Accounts gewechselt wurden',
-	'CONF_RETURN_TO_INDEX_EXPLAIN'			=> 'Wenn nicht aktiviert, wechselnde Accounts werden standardmäßig zur selben Seite zurückkehren.',
+	'CONF_RETURN_TO_INDEX_EXPLAIN'			=> 'Wenn nicht aktiviert, werden wechselnde Accounts standardmäßig zur selben Seite zurückkehren.',
 	'CONF_PRIVATE_LINKS'					=> 'Private Verbindungen',
 	'CONF_PRIVATE_LINKS_EXPLAIN'			=> 'Diese Option auf "Ja" zu setzen wird das Wechselmenü verstecken, wenn der Benutzer keine Berechtigungen für das Wechseln hat, auch wenn der Account bereits Verbindungen besitzt. Dies kann eine Sicherheitsrisiko darstellen und es wird empfohlen, diese Option deaktiviert zu lassen.',
 ));
