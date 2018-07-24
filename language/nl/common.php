@@ -54,7 +54,7 @@ $lang = array_merge($lang, array(
 	// ACP Overview Module
 	'ADM_LINKED_ACCOUNTS_OVERVIEW'			=> 'Overzicht',
 	'ADM_LINKED_ACCOUNTS_OVERVIEW_EXPLAIN'	=> 'In deze sectie vindt u enkele gebruiker statistieken samen met een lijst met de gebruikers die koppelingen naar andere accounts hebben.',
-	'LINKED_ACCOUNTS_COUNT'					=> 'gebruikers met koppelingen',
+	'LINKED_ACCOUNTS_COUNT'					=> 'Gebruikers met koppelingen',
 	'LINKED_ACCOUNTS_COUNT_EXPLAIN'			=> 'Aantal accounts met ten minste één koppeling.',
 	'LINK_COUNT'							=> 'Koppelingen',
 	'LINK_COUNT_EXPLAIN'					=> 'Totaal aantal gemaakte koppelingen.',
