@@ -64,6 +64,9 @@ $lang = array_merge($lang, array(
 	'ADM_LINKED_ACCOUNTS_MANAGEMENT'		=> 'Manage users',
 	'SELECT_USER'							=> 'Select user',
 	'MANAGING_USER'							=> 'User management :: %s',
+	'LINK_ACCOUNTS'							=> 'Link Accounts',
+	'LINK_ACCOUNTS_EXPLAIN'					=> 'Here you can create links for this user.',
+	'SUCCESSFUL_MULTI_LINK_CREATION'		=> 'Links created successfully.',
 
 	// ACP Settings Module
 	'ADM_LINKED_ACCOUNTS_SETTINGS'			=> 'Settings',

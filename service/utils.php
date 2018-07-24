@@ -281,6 +281,75 @@ class utils
 	}
 
 	/**
+	 * Creates new links between
+	 * account and every account in the
+	 * accounts array
+	 *
+	 * @param int $account ID of account
+	 * @param array $accounts IDs of the accounts 
+	 *
+	 */
+	
+	public function create_links($account, $accounts)
+	{
+		
+		$sql_ary = array();
+		
+		foreach($accounts as $account_to_link)
+		{
+			$sql_ary[] = array(
+				'user_id'			=> (int) $account,
+				'linked_user_id'	=> (int) $account_to_link,
+				'created_at'		=> (int) time(),
+			);
+		}
+		
+		$this->db->sql_multi_insert($this->linkedacconts_table, $sql_ary);
+		
+	}
+
+	/**
+	 * Finds all existing accounts in “accounts” that
+	 * account “account” is linked to.
+	 *
+	 * @param int $account ID of account
+	 * @param array $accounts IDs of the accounts 
+	 *
+	 * @return array all the found links
+	 *
+	 */
+	
+	public function get_linked_accounts_of_array($account, $accounts)
+	{
+		
+		$sql = 'SELECT linked_user_id
+			FROM ' . $this->linkedacconts_table . ' 
+			WHERE user_id = ' . (int) $account . ' AND ' . $this->db->sql_in_set('linked_user_id', $accounts) .'
+			UNION
+			SELECT user_id
+			FROM ' . $this->linkedacconts_table . ' 
+			WHERE ' . $this->db->sql_in_set('user_id', $accounts) . ' AND linked_user_id = ' . (int) $account;
+		
+		$result = $this->db->sql_query($sql);
+		
+		$output = array();
+		
+		while ($row = $this->db->sql_fetchrow($result))
+		{
+			$output[] = $row;
+		}
+
+		$this->db->sql_freeresult($result);
+
+		$output = array_map(function($el) {
+			return $el['linked_user_id'];
+		}, $output);
+
+		return $output;
+		
+	}
+
+	/**
 	 * Obtain auth information about
 	 * the given user by its username.
 	 * ID, username, password,

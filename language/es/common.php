@@ -64,9 +64,12 @@ $lang = array_merge($lang, array(
 	'ADM_LINKED_ACCOUNTS_MANAGEMENT'		=> 'Gestionar usuarios',
 	'SELECT_USER'							=> 'Seleccionar usuario',
 	'MANAGING_USER'							=> 'Gestión de usuario :: %s',
+	'LINK_ACCOUNTS'							=> 'Enlazar cuentas',
+	'LINK_ACCOUNTS_EXPLAIN'					=> 'Desde aquí puedes crear enlaces para este usuario.',
+	'SUCCESSFUL_MULTI_LINK_CREATION'		=> 'Enlaces creados satisfactoriamente.',
 
 	// ACP Settings Module
-	'LINKED_ACCOUNTS_SETTINGS'				=> 'Configuración',
+	'ADM_LINKED_ACCOUNTS_SETTINGS'			=> 'Configuración',
 	'ADM_LINKED_ACCOUNTS_SETTINGS_EXPLAIN'	=> 'Aquí puedes personalizar algunas de las características de la extensión.',
 	'CONF_AJAX'								=> 'Utilizar AJAX al cambiar de cuenta',
 	'CONF_AJAX_EXPLAIN'						=> 'Activar esta opción te redirigirá automáticamente sin tener que pasar por la página intermediaria “Información”. Los usuarios sin soporte a AJAX pasarán por dicha página de todas formas.',

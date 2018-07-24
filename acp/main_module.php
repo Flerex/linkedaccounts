@@ -141,11 +141,9 @@ class main_module
 				}
 				
 				$this->tpl_name = 'acp_management_edit';
-
-				$title = sprintf($this->user->lang('MANAGING_USER'),
-					get_username_string('no_profile', $user['user_id'], $user['username'], $user['user_colour']));
 				
-				$this->page_title = $title;
+				$this->page_title = sprintf($this->user->lang('MANAGING_USER'),
+					get_username_string('username', $user['user_id'], $user['username'], $user['user_colour']));
 
 				foreach($this->utils->get_linked_accounts($user['user_id']) as $account)
 				{
@@ -158,8 +156,9 @@ class main_module
 				}
 
 				$this->template->assign_vars(array(
-					'PAGE_TITLE'		=> $title,
+					'EDITED_PAGE_TITLE'	=> sprintf($this->user->lang('MANAGING_USER'), get_username_string('no_profile', $user['user_id'], $user['username'], $user['user_colour'])),
 					'CURRENT_ACCOUNT'	=> $user['user_id'],
+					'U_FIND_USERNAME'	=> append_sid($this->phpbb_root_path . 'memberlist.' . $this->phpEx, 'mode=searchuser&amp;form=usermanagement&amp;field=usernames'),
 				));
 
 				return;
@@ -182,6 +181,28 @@ class main_module
 			}
 			trigger_error($this->user->lang('SUCCESSFUL_UNLINKING') . adm_back_link($this->u_action));
 
+
+		}
+		else if ($this->request->is_set_post('createlinks'))
+		{
+
+			$name_ary = $this->request->variable('usernames', '', true);
+
+			if (!$name_ary)
+			{
+				trigger_error($this->user->lang['NO_USERS'] . adm_back_link($this->u_action), E_USER_WARNING);
+			}
+
+			$name_ary = array_unique(explode("\n", $name_ary));
+
+			include($this->phpbb_root_path . 'includes/functions_user.' . $this->phpEx);
+			user_get_id_name($id_ary, $name_ary);
+
+			$id_ary = array_diff($id_ary, $this->utils->get_linked_accounts_of_array($this->user->data['user_id'], $id_ary));
+
+			$this->utils->create_links($this->user->data['user_id'], $id_ary);
+
+			trigger_error($this->user->lang('SUCCESSFUL_MULTI_LINK_CREATION') . adm_back_link($this->u_action));
 
 		}
 
