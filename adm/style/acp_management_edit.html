@@ -2,7 +2,7 @@
 
 <h1>{{ EDITED_PAGE_TITLE }}</h1>
 
-<form method="post" action="{{ U_ACTION }}">
+<form id="usermanagement" method="post" action="{{ U_ACTION }}">
 
 <table id="list" class="table1 zebra-table">
 	<caption>{{ lang('LINKED_ACCOUNTS_COUNT') }}</caption>
@@ -35,6 +35,33 @@
 	{{ S_FORM_TOKEN }}
 </fieldset>
 {% endif %}
+
+
+<h1>{{ lang('LINK_ACCOUNTS') }}</h1>
+
+<p>{{ lang('LINK_ACCOUNTS_EXPLAIN') }}</p>
+
+<fieldset>
+	<legend>{{ lang('LINK_ACCOUNTS') }}</legend>
+	<dl>
+		<dt>
+			<label for="usernames">{{ lang('USERNAME') }}{{ lang('COLON') }}</label>
+			<br /><span>{{ lang('USERNAMES_EXPLAIN') }}</span>
+		</dt>
+		<dd>
+			<textarea id="usernames" name="usernames" cols="40" rows="5"></textarea>
+				
+			</dd>
+		<dd>
+			[ <a href="{{ U_FIND_USERNAME }}" onclick="find_username(this.href); return false;">{{ lang('FIND_USERNAME') }}</a> ]
+		</dd>
+	</dl>
+
+	<p class="quick">
+		<input class="button2" type="submit" name="createlinks" value="{{ lang('SUBMIT') }}" />
+		{{ S_FORM_TOKEN }}
+	</p>
+</fieldset>
 
 </form>
 
