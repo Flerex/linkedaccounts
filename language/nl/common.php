@@ -48,7 +48,7 @@ $lang = array_merge($lang, array(
 	'ALREADY_LINKED'						=> 'U bent al gekoppeld aan dit account.',
 
 	// Switching process
-	'ACCOUNTS_SWITCHED'						=> 'Accounts werden succesvol gewisseld.',
+	'ACCOUNTS_SWITCHED'						=> 'Accounts werden succesvol overgeschakeld.',
 	'INVALID_LINKED_ACCOUNT'				=> 'U kunt niet overschakelen naar dit account.',
 
 	// ACP Overview Module
@@ -64,9 +64,9 @@ $lang = array_merge($lang, array(
 	'ADM_LINKED_ACCOUNTS_MANAGEMENT'		=> 'Beheer gebruikers',
 	'SELECT_USER'							=> 'Selecteer gebruiker',
 	'MANAGING_USER'							=> 'Gebruikers beheer :: %s',
-	'LINK_ACCOUNTS'							=> 'Link Accounts',
-	'LINK_ACCOUNTS_EXPLAIN'					=> 'Here you can create links for this user.',
-	'SUCCESSFUL_MULTI_LINK_CREATION'		=> 'Links created successfully.',
+	'LINK_ACCOUNTS'							=> 'Gekoppelde accounts',
+	'LINK_ACCOUNTS_EXPLAIN'					=> 'Hier kunt u koppelingen voor deze gebruiker aanmaken.',
+	'SUCCESSFUL_MULTI_LINK_CREATION'		=> 'Links met succes aangemaakt.',
 
 	// ACP Settings Module
 	'ADM_LINKED_ACCOUNTS_SETTINGS'			=> 'Instellingen',
