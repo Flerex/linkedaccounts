@@ -64,6 +64,7 @@ $lang = array_merge($lang, array(
 	'ADM_LINKED_ACCOUNTS_MANAGEMENT'		=> 'Xestionar usuarios',
 	'SELECT_USER'							=> 'Seleccionar usuario',
 	'MANAGING_USER'							=> 'Xestión de usuario :: %s',
+	'ACCOUNT_LINKS'							=> 'Vínculos da conta',
 	'LINK_ACCOUNTS'							=> 'Vincular contas',
 	'LINK_ACCOUNTS_EXPLAIN'					=> 'Dende aquí poderás crear vínculos para este usuario.',
 	'SUCCESSFUL_MULTI_LINK_CREATION'		=> 'Vínculos creados satisfatoriamente.',
