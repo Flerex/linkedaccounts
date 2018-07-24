@@ -141,11 +141,9 @@ class main_module
 				}
 				
 				$this->tpl_name = 'acp_management_edit';
-
-				$title = sprintf($this->user->lang('MANAGING_USER'),
-					get_username_string('no_profile', $user['user_id'], $user['username'], $user['user_colour']));
 				
-				$this->page_title = $title;
+				$this->page_title = sprintf($this->user->lang('MANAGING_USER'),
+					get_username_string('username', $user['user_id'], $user['username'], $user['user_colour']));
 
 				foreach($this->utils->get_linked_accounts($user['user_id']) as $account)
 				{
@@ -158,7 +156,7 @@ class main_module
 				}
 
 				$this->template->assign_vars(array(
-					'PAGE_TITLE'		=> $title,
+					'EDITED_PAGE_TITLE'	=> sprintf($this->user->lang('MANAGING_USER'), get_username_string('no_profile', $user['user_id'], $user['username'], $user['user_colour'])),
 					'CURRENT_ACCOUNT'	=> $user['user_id'],
 				));
 
