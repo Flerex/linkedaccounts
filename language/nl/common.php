@@ -48,13 +48,13 @@ $lang = array_merge($lang, array(
 	'ALREADY_LINKED'						=> 'U bent al gekoppeld aan dit account.',
 
 	// Switching process
-	'ACCOUNTS_SWITCHED'						=> 'Accounts werden succesvol gewisseld.',
+	'ACCOUNTS_SWITCHED'						=> 'Accounts werden succesvol overgeschakeld.',
 	'INVALID_LINKED_ACCOUNT'				=> 'U kunt niet overschakelen naar dit account.',
 
 	// ACP Overview Module
 	'ADM_LINKED_ACCOUNTS_OVERVIEW'			=> 'Overzicht',
 	'ADM_LINKED_ACCOUNTS_OVERVIEW_EXPLAIN'	=> 'In deze sectie vindt u enkele gebruiker statistieken samen met een lijst met de gebruikers die koppelingen naar andere accounts hebben.',
-	'LINKED_ACCOUNTS_COUNT'					=> 'gebruikers met koppelingen',
+	'LINKED_ACCOUNTS_COUNT'					=> 'Gebruikers met koppelingen',
 	'LINKED_ACCOUNTS_COUNT_EXPLAIN'			=> 'Aantal accounts met ten minste één koppeling.',
 	'LINK_COUNT'							=> 'Koppelingen',
 	'LINK_COUNT_EXPLAIN'					=> 'Totaal aantal gemaakte koppelingen.',
@@ -65,9 +65,9 @@ $lang = array_merge($lang, array(
 	'SELECT_USER'							=> 'Selecteer gebruiker',
 	'MANAGING_USER'							=> 'Gebruikers beheer :: %s',
 	'ACCOUNT_LINKS'							=> 'Account’s links',
-	'LINK_ACCOUNTS'							=> 'Link Accounts',
-	'LINK_ACCOUNTS_EXPLAIN'					=> 'Here you can create links for this user.',
-	'SUCCESSFUL_MULTI_LINK_CREATION'		=> 'Links created successfully.',
+	'LINK_ACCOUNTS'							=> 'Gekoppelde accounts',
+	'LINK_ACCOUNTS_EXPLAIN'					=> 'Hier kunt u koppelingen voor deze gebruiker aanmaken.',
+	'SUCCESSFUL_MULTI_LINK_CREATION'		=> 'Links met succes aangemaakt.',
 
 	// ACP Settings Module
 	'ADM_LINKED_ACCOUNTS_SETTINGS'			=> 'Instellingen',
