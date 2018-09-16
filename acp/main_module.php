@@ -246,7 +246,7 @@ class main_module
 		);
 
 		$new_config = clone $this->config;
-		$cfg_array = (isset($_REQUEST['config'])) ? $this->request->variable('config', array('' => ''), true) : $new_config;
+		$cfg_array = $this->request->is_set('config') ? $this->request->variable('config', array('' => ''), true) : $new_config;
 		$error = array();
 		validate_config_vars($display_vars, $cfg_array, $error);
 

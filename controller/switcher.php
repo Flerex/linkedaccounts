@@ -35,9 +35,6 @@ class switcher
 	/** @var string $phpEx */
 	protected $phpEx;
 
-	/** @var string */
-	protected $redirect;
-
 	/**
 	 * Constructor
 	 *
@@ -58,10 +55,6 @@ class switcher
 		$this->utils			= $utils;
 		$this->phpbb_root_path	= $phpbb_root_path;
 		$this->phpEx			= $phpEx;
-
-		$this->redirect			= $this->config['flerex_linkedaccounts_return_to_index']
-									? append_sid($this->phpbb_root_path . 'index.' . $this->phpEx)
-									: append_sid($this->user->data['session_page']);
 	}
 
 	/**
@@ -73,6 +66,10 @@ class switcher
 	public function handle($account_id)
 	{
 
+		$redirect = $this->config['flerex_linkedaccounts_return_to_index']
+			? append_sid($this->phpbb_root_path . 'index.' . $this->phpEx)
+			: append_sid($this->user->data['session_page']);
+
 		if ($this->request->is_ajax())
 		{
 
@@ -82,7 +79,7 @@ class switcher
 
 			if ($this->config['flerex_linkedaccounts_return_to_index'])
 			{
-				$data['REDIRECT'] = $this->redirect;
+				$data['REDIRECT'] = $redirect;
 			}
 
 			if (!$this->auth->acl_get('u_link_accounts'))
@@ -119,7 +116,7 @@ class switcher
 
 		$this->utils->switch_to_linked_account($account_id);
 		
-		meta_refresh(3, $this->redirect);
+		meta_refresh(3, $redirect);
 		throw new \phpbb\exception\http_exception(200, 'ACCOUNTS_SWITCHED');
 
 	}
