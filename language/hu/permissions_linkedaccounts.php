@@ -4,7 +4,7 @@
 * Linked Accounts extension for phpBB 3.2
 *
 * @copyright (c) 2018 Flerex
-* @author Flerex <flerex@icloud.com>
+* @author Awide
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */

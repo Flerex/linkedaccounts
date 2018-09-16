@@ -59,7 +59,7 @@ $lang = array_merge($lang, array(
 	'LINK_COUNT'							=> 'Links',
 	'LINK_COUNT_EXPLAIN'					=> 'Total amount of links created.',
 	'NO_ACCOUNTS_LINKED'					=> 'There are no accounts with links.',
-	
+
 	// ACP Management Module
 	'ADM_LINKED_ACCOUNTS_MANAGEMENT'		=> 'Manage users',
 	'SELECT_USER'							=> 'Select user',

@@ -4,19 +4,23 @@
 * Linked Accounts extension for phpBB 3.2
 *
 * @copyright (c) 2018 Flerex
-* @author Flerex <flerex@icloud.com>
+* @author Awide
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
+
 if (!defined('IN_PHPBB'))
 {
 	exit;
 }
+
 if (empty($lang) || !is_array($lang))
 {
 	$lang = array();
 }
+
 $lang = array_merge($lang, array(
+
 	// General translations
 	'LINKED_ACCOUNTS'						=> 'Párosított Fiókok',
 	'ADM_LINKED_ACCOUNTS'					=> 'Párosított Fiókok',
@@ -30,6 +34,7 @@ $lang = array_merge($lang, array(
 	'NO_LINKED_ACCOUNTS'					=> 'Nincsenek párosított fiókok.',
 	'UNLINK_ACCOUNT'						=> 'Párosítás megszüntetése',
 	'SUCCESSFUL_UNLINKING' 					=> 'Fiók párosítás sikeresen megszüntetve.',
+
 	// UCP Linking Module
 	'LINKING_ACCOUNT'						=> 'Fiókok párosítása',
 	'ACCOUNT_LINKING_EXPLAIN'				=> 'Itt meg kell adni a fiók adatait ami párosításra fog kerülni.',
@@ -41,9 +46,11 @@ $lang = array_merge($lang, array(
 	'INACTIVE_ACCOUNT'						=> 'A kiválasztott fiók inaktívnak tűnik.',
 	'BANNED_ACCOUNT'						=> 'A kiválasztott fiók kitiltottnak tűnik.',
 	'ALREADY_LINKED'						=> 'A kiválasztott fiók már párosított.',
+
 	// Switching process
 	'ACCOUNTS_SWITCHED'						=> 'Sikeres fiókváltás.',
 	'INVALID_LINKED_ACCOUNT'				=> 'Nem lehet a kiválsztott fiókra váltani.',
+
 	// ACP Overview Module
 	'ADM_LINKED_ACCOUNTS_OVERVIEW'			=> 'Áttekintés',
 	'ADM_LINKED_ACCOUNTS_OVERVIEW_EXPLAIN'	=> 'Ebben a részlegben használati statisztikák és listák találhatóak párosított fiókkal.',
@@ -52,7 +59,7 @@ $lang = array_merge($lang, array(
 	'LINK_COUNT'							=> 'Párosítások',
 	'LINK_COUNT_EXPLAIN'					=> 'Összes létező párosítás.',
 	'NO_ACCOUNTS_LINKED'					=> 'Nincsenek párosított fiókok.',
-	
+
 	// ACP Management Module
 	'ADM_LINKED_ACCOUNTS_MANAGEMENT'		=> 'Felhasználók kezelése',
 	'SELECT_USER'							=> 'Felhasználó kiválasztása',
@@ -61,6 +68,7 @@ $lang = array_merge($lang, array(
 	'LINK_ACCOUNTS'							=> 'Fiók Párosítása',
 	'LINK_ACCOUNTS_EXPLAIN'					=> 'Itt létrehozhatóak párosítások a kiválasztott felhasználónak.',
 	'SUCCESSFUL_MULTI_LINK_CREATION'		=> 'Párosítás sikeresen létrehozva.',
+
 	// ACP Settings Module
 	'ADM_LINKED_ACCOUNTS_SETTINGS'			=> 'Beállítások',
 	'ADM_LINKED_ACCOUNTS_SETTINGS_EXPLAIN'	=> 'Ezen az oldalon a párosításokkal kapcsolatos beállításokat adhatod meg.',
