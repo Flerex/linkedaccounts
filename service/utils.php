@@ -125,9 +125,9 @@ class utils
 		}
 		$sql_where = '';
 		$len = count($links);
-		foreach($links as $key => $account)
+		foreach($links as $key => $acc)
 		{
-			$sql_where .= '(user_id = ' . (int) $account . ' OR linked_user_id = ' . (int) $account . ')';
+			$sql_where .= '(user_id = ' . (int) $acc . ' OR linked_user_id = ' . (int) $acc . ')';
 
 			if($key != $len - 1)
 			{
