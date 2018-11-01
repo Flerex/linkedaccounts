@@ -28,7 +28,7 @@ $lang = array_merge($lang, array(
 	// UCP Management Module
 	'LINKED_ACCOUNTS_MANAGEMENT'			=> 'Gestion du compte',
 	'LINKED_ACCOUNTS_DESCRIPTION'			=> 'Ici vous pourrez associer d’autres comptes à celui auquel vous êtes actuellement connecté. La liaison vous permet de basculer facilement entre différents comptes sans avoir à saisir votre mot de passe à chaque fois.',
-	'LINK_ACCOUNT'							=> 'Lien de compte',
+	'LINK_ACCOUNT'							=> 'Lier les comptes',
 	'ACCOUNT'								=> 'Compte',
 	'LINKED_ON'								=> 'Liaison',
 	'NO_LINKED_ACCOUNTS'					=> 'Il n’y a pas de comptes liés.',
@@ -38,7 +38,7 @@ $lang = array_merge($lang, array(
 	// UCP Linking Module
 	'LINKING_ACCOUNT'						=> 'Lien de compte',
 	'ACCOUNT_LINKING_EXPLAIN'				=> 'Ici vous devez fournir les informations d’identification du compte auquel vous souhaitez vous connecter.',
-	'FIND_ACCOUNT'							=> 'Trouver le compte',
+	'FIND_ACCOUNT'							=> 'Trouver un compte',
 	'CURRENT_PASSWORD_EXPLAIN_LINKACCOUNTS' => 'Vous devez entrer votre mot de passe actuel si vous souhaitez créer un lien vers le compte précédent.',
 	'EMPTY_FIELDS'							=> 'Le nom d’utilisateur et le mot de passe ne peuvent pas être vides.',
 	'INCORRECT_LINKED_ACCOUNT_CREDENTIALS'	=> 'Les informations d’identification fournies ne correspondent à aucun compte.',
