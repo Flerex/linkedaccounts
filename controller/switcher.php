@@ -87,40 +87,40 @@ class switcher
 					'MESSAGE_TEXT'	=> $this->user->lang('INVALID_LINKED_ACCOUNT'),
 				);
 			}
-            else
-            {
-                $data = array(
-                    'SUCCESS'	=> true,
-                );
+			else
+			{
+				$data = array(
+					'SUCCESS'	=> true,
+				);
 
-                if ($this->config['flerex_linkedaccounts_return_to_index'])
-                {
-                    $data['REDIRECT'] = $redirect;
-                }
+				if ($this->config['flerex_linkedaccounts_return_to_index'])
+				{
+					$data['REDIRECT'] = $redirect;
+				}
 
-                $this->utils->switch_to_linked_account($account_id);
-            }
+				$this->utils->switch_to_linked_account($account_id);
+			}
 
 			$json_response = new \phpbb\json_response();
 			$json_response->send($data);
 		}
-        else
-        {
-            if (!$this->auth->acl_get('u_switch_accounts'))
-            {
-                throw new \phpbb\exception\http_exception(403, 'NO_AUTH_OPERATION');
-            }
+		else
+		{
+			if (!$this->auth->acl_get('u_switch_accounts'))
+			{
+				throw new \phpbb\exception\http_exception(403, 'NO_AUTH_OPERATION');
+			}
 
-            if (!$this->utils->can_switch_to($account_id))
-            {
-                throw new \phpbb\exception\http_exception(403, 'INVALID_LINKED_ACCOUNT', array($account_id));
-            }
+			if (!$this->utils->can_switch_to($account_id))
+			{
+				throw new \phpbb\exception\http_exception(403, 'INVALID_LINKED_ACCOUNT', array($account_id));
+			}
 
-            $this->utils->switch_to_linked_account($account_id);
-		
-            meta_refresh(3, $redirect);
-            throw new \phpbb\exception\http_exception(200, 'ACCOUNTS_SWITCHED');
-        }
+			$this->utils->switch_to_linked_account($account_id);
+
+			meta_refresh(3, $redirect);
+			throw new \phpbb\exception\http_exception(200, 'ACCOUNTS_SWITCHED');
+		}
 	}
 
 }
