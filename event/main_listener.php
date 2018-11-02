@@ -89,6 +89,7 @@ class main_listener implements EventSubscriberInterface
 	public function add_permissions($event)
 	{
 		$permissions = $event['permissions'];
+		$permissions['u_switch_accounts'] = array('lang' => 'ACL_U_SWITCH_ACCOUNTS', 'cat' => 'profile');
 		$permissions['u_link_accounts'] = array('lang' => 'ACL_U_LINK_ACCOUNTS', 'cat' => 'profile');
 		$permissions['a_link_accounts'] = array('lang' => 'ACL_A_LINK_ACCOUNTS', 'cat' => 'user_group');
 		$event['permissions'] = $permissions;
@@ -103,16 +104,16 @@ class main_listener implements EventSubscriberInterface
 	public function add_switchable_accounts($event)
 	{
 
-		$can_link = $this->auth->acl_get('u_link_accounts');
+		$can_switch = $this->auth->acl_get('u_switch_accounts');
 
 		$linked_accounts = $this->utils->get_linked_accounts();
 
-		if (!$can_link && $this->config['flerex_linkedaccounts_private_links'])
+		if (!$can_switch && $this->config['flerex_linkedaccounts_private_links'])
 		{
 			$linked_accounts = array();
 		}
 
-		$this->template->assign_var('U_CAN_LINK_ACCOUNT', $can_link);
+		$this->template->assign_var('U_CAN_SWITCH_ACCOUNT', $can_switch);
 
 		foreach($linked_accounts as $linked_account)
 		{

@@ -21,6 +21,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 
+	'ACL_U_SWITCH_ACCOUNTS' => 'Kan account veranderen',
 	'ACL_U_LINK_ACCOUNTS' => 'Kan accounts koppelen',
 	'ACL_A_LINK_ACCOUNTS' => 'Kan accounts koppelen beheren',
 ));

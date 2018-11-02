@@ -7,7 +7,7 @@
 	<ul>
 		{% for account in switchable_account %}
 		<li>
-			{% if U_CAN_LINK_ACCOUNT %}
+			{% if U_CAN_SWITCH_ACCOUNT %}
 				<a href="{{ account.SWITCH_LINK }}" role="menuitem"{% if S_AJAX %} data-ajax="flerex.linked_accounts.switch" data-refresh="true"{% endif %}>
 					{% if account.AVATAR %}
 						{{ account.AVATAR }}

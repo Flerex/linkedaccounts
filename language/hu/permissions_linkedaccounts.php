@@ -21,6 +21,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 
+	'ACL_U_SWITCH_ACCOUNTS' => 'Megválthat fiókokat',
 	'ACL_U_LINK_ACCOUNTS' => 'Párosíthat fiókokat',
 	'ACL_A_LINK_ACCOUNTS' => 'Kezelhet fiók párosításokat',
 ));
