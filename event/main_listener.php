@@ -121,8 +121,9 @@ class main_listener implements EventSubscriberInterface
 				'SWITCH_LINK'	=> $this->helper->route('flerex_linkedaccounts_switch', array('account_id' => $linked_account['user_id'])),
 				'AVATAR'		=> phpbb_get_user_avatar($linked_account),
 				'NAME'			=> get_username_string('no_profile', $linked_account['user_id'], $linked_account['username'], $linked_account['user_colour']),
-				'S_AJAX'		=> $this->config['flerex_linkedaccounts_ajax'],
 			));
+
+			$this->template->assign_var('S_LINKEDACCOUNTS_AJAX', $this->config['flerex_linkedaccounts_ajax']);
 		}
 
 	}
