@@ -167,13 +167,16 @@ class main_module
 		}
 		else if($this->request->is_set_post('unlink'))
 		{
-			if (!check_form_key(self::FORM_KEY))
+			// the user we are currently managing
+			$current_account = $this->request->variable('currentaccount', 0);
+
+			if (!check_form_key(self::FORM_KEY) || $current_account == 0)
 			{
 				trigger_error('FORM_INVALID', E_USER_WARNING);
 			}
 
 			$keys = $this->request->variable('keys', array(''));
-			$current_account = $this->request->variable('currentaccount', 0);
+
 
 			if(!empty($keys))
 			{
@@ -185,6 +188,13 @@ class main_module
 		}
 		else if ($this->request->is_set_post('createlinks'))
 		{
+			// the user we are currently managing
+			$current_account = $this->request->variable('currentaccount', 0);
+
+			if (!check_form_key(self::FORM_KEY) || $current_account == 0)
+			{
+				trigger_error('FORM_INVALID', E_USER_WARNING);
+			}
 
 			$name_ary = $this->request->variable('usernames', '', true);
 
@@ -198,9 +208,9 @@ class main_module
 			include($this->phpbb_root_path . 'includes/functions_user.' . $this->phpEx);
 			user_get_id_name($id_ary, $name_ary);
 
-			$id_ary = array_diff($id_ary, $this->utils->get_linked_accounts_of_array($this->user->data['user_id'], $id_ary));
+			$id_ary = array_diff($id_ary, $this->utils->get_linked_accounts_of_array($current_account, $id_ary));
 
-			$this->utils->create_links($this->user->data['user_id'], $id_ary);
+			$this->utils->create_links($current_account, $id_ary);
 
 			trigger_error($this->user->lang('SUCCESSFUL_MULTI_LINK_CREATION') . adm_back_link($this->u_action));
 

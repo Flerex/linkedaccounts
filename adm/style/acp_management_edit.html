@@ -28,11 +28,8 @@
 
 {% if accounts|length %}
 <fieldset class="quick">
-	{{ S_HIDDEN_FIELDS }}
 	<input class="button1" type="submit" name="unlink" value="{{ lang('UNLINK_ACCOUNT') }}">
 	<div><a href="#" onclick="$('#list input:checkbox').prop('checked', true); return false;">{{ lang('MARK_ALL') }}</a> &bull; <a href="#" onclick="$('#list input:checkbox').prop('checked', false); return false;">{{ lang('UNMARK_ALL') }}</a></div>
-	<input type="hidden" name="currentaccount" value="{{ CURRENT_ACCOUNT }}">
-	{{ S_FORM_TOKEN }}
 </fieldset>
 {% endif %}
 
@@ -59,9 +56,12 @@
 
 	<p class="quick">
 		<input class="button2" type="submit" name="createlinks" value="{{ lang('SUBMIT') }}" />
-		{{ S_FORM_TOKEN }}
 	</p>
 </fieldset>
+
+{{ S_HIDDEN_FIELDS }}
+<input type="hidden" name="currentaccount" value="{{ CURRENT_ACCOUNT }}">
+{{ S_FORM_TOKEN }}
 
 </form>
 
