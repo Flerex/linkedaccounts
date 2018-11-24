@@ -48,7 +48,7 @@ $lang = array_merge($lang, array(
 	'ALREADY_LINKED'						=> 'You are already linked to this account.',
 
 	// Switching process
-	'ACCOUNTS_SWITCHED'						=> 'Accounts switched successfuly.',
+	'ACCOUNTS_SWITCHED'						=> 'Accounts switched successfully.',
 	'INVALID_LINKED_ACCOUNT'				=> 'You cannot switch to this account.',
 
 	// ACP Overview Module
@@ -73,7 +73,7 @@ $lang = array_merge($lang, array(
 	'ADM_LINKED_ACCOUNTS_SETTINGS'			=> 'Settings',
 	'ADM_LINKED_ACCOUNTS_SETTINGS_EXPLAIN'	=> 'Here you can customize some of the extension’s features.',
 	'CONF_AJAX'								=> 'Use AJAX when switching accounts',
-	'CONF_AJAX_EXPLAIN'						=> 'Enabling this option will redirect you automatically, without having to go through the “Information” page. Users with no AJAX support will go throught that page anyways.',
+	'CONF_AJAX_EXPLAIN'						=> 'Enabling this option will redirect you automatically, without having to go through the “Information” page. Users with no AJAX support will go through that page anyway.',
 	'CONF_RETURN_TO_INDEX'					=> 'Return to index when switching accounts',
 	'CONF_RETURN_TO_INDEX_EXPLAIN'			=> 'If not enabled switching accounts will return to the same page by default.',
 	'CONF_PRIVATE_LINKS'					=> 'Private links',
