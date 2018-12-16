@@ -29,12 +29,9 @@ class main_module
 	protected $user;
 	protected $db;
 
-	protected $table_prefix;
 	protected $phpbb_root_path;
 	protected $phpbb_container;
 	protected $phpExt;
-
-	protected $linkedacconts_table;
 
 	protected $utils;
 
@@ -43,7 +40,7 @@ class main_module
 	public function main($id, $mode)
 	{
 		global $config, $request, $template, $user, $db, $phpbb_container;
-		global $table_prefix, $phpbb_root_path, $phpEx;
+		global $phpbb_root_path, $phpEx;
 
 		$this->config = $config;
 		$this->request = $request;
@@ -51,10 +48,8 @@ class main_module
 		$this->user = $user;
 		$this->db = $db;
 		$this->phpExt = $phpEx;
-		$this->table_prefix = $table_prefix;
 		$this->phpbb_container = $phpbb_container;
 		$this->phpbb_root_path = $phpbb_root_path;
-		$this->linkedacconts_table = $this->table_prefix . 'flerex_linkedaccounts';
 
 		$this->utils = $this->phpbb_container->get('flerex.linkedaccounts.utils');
 		$this->module_basename = str_replace('\\', '-', $id);

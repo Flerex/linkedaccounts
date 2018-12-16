@@ -10,8 +10,6 @@
 
 namespace flerex\linkedaccounts\controller;
 
-use \Symfony\Component\HttpFoundation\Response;
-
 class switcher
 {
 	/** @var \phpbb\user */
