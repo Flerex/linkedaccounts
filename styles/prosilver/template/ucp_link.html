@@ -1,46 +1,54 @@
 {% INCLUDE 'ucp_header.html' %}
 
-<form id="ucp" method="post" action="{{ U_ACTION }}"{{ S_FORM_ENCTYPE }}>
+<form S_FORM_ENCTYPE action="{{ U_ACTION }}" id="ucp" method="post" {{ }}>
 
-<h2>{{ lang('LINKING_ACCOUNT') }}</h2>
-<div class="panel">
-	<div class="inner">
-	<p>{{ lang('ACCOUNT_LINKING_EXPLAIN') }}</p>
-	<fieldset>
-	{% if ERROR %}<p class="error">{{ ERROR }}</p>{% endif %}
-	<dl>
-		<dt><label for="username">{{ lang('USERNAME') }}{{ lang('COLON') }}</label></dt>
-		<dd><input type="text" name="username" id="username" value="{{ USERNAME }}" class="inputbox" title="{{ lang('USERNAME') }}" autofocus>
-			<br><span><a href="{{ U_FIND_USERNAME }}" tabindex="-1" onclick="find_username(this.href); return false;">{{ lang('FIND_ACCOUNT') }}</a></span></dd>
-	</dl>
-	<dl>
-		<dt><label for="password">{{ lang('PASSWORD') }}{{ lang('COLON') }}</label></dt>
-		<dd><input type="password" name="password" id="password" maxlength="255" value="{{ NEW_PASSWORD }}" class="inputbox" title="{{ lang('CHANGE_PASSWORD') }}" autocomplete="off"></dd>
-	</dl>
-	</fieldset>
+	<h2>{{ lang('LINKING_ACCOUNT') }}</h2>
+	<div class="panel">
+		<div class="inner">
+			<p>{{ lang('ACCOUNT_LINKING_EXPLAIN') }}</p>
+			<fieldset>
+				{% if ERROR %}<p class="error">{{ ERROR }}</p>{% endif %}
+				<dl>
+					<dt><label for="username">{{ lang('USERNAME') }}{{ lang('COLON') }}</label></dt>
+					<dd><input autofocus class="inputbox" id="username" name="username" title="{{ lang('USERNAME') }}"
+							   type="text" value="{{ USERNAME }}">
+						<br><span><a href="{{ U_FIND_USERNAME }}" onclick="find_username(this.href); return false;"
+									 tabindex="-1">{{ lang('FIND_ACCOUNT') }}</a></span>
+					</dd>
+				</dl>
+				<dl>
+					<dt><label for="password">{{ lang('PASSWORD') }}{{ lang('COLON') }}</label></dt>
+					<dd><input autocomplete="off" class="inputbox" id="password" maxlength="255" name="password"
+							   title="{{ lang('CHANGE_PASSWORD') }}" type="password" value="{{ NEW_PASSWORD }}"></dd>
+				</dl>
+			</fieldset>
+		</div>
 	</div>
-</div>
 
-<div class="panel">
-	<div class="inner">
+	<div class="panel">
+		<div class="inner">
 
-	<fieldset>
-	<dl>
-		<dt><label for="cur_password">{{ lang('CURRENT_PASSWORD') }}{{ lang('COLON') }}</label><br><span>{{ lang('CURRENT_PASSWORD_EXPLAIN_LINKACCOUNTS') }}</span></dt>
-		<dd><input type="password" name="cur_password" id="cur_password" maxlength="255" value="{{ CUR_PASSWORD }}" class="inputbox" title="{{ lang('CURRENT_PASSWORD') }}" autocomplete="off"></dd>
-	</dl>
-	</fieldset>
+			<fieldset>
+				<dl>
+					<dt><label
+							for="cur_password">{{ lang('CURRENT_PASSWORD') }}{{ lang('COLON') }}</label><br><span>{{ lang('CURRENT_PASSWORD_EXPLAIN_LINKACCOUNTS') }}</span>
+					</dt>
+					<dd><input autocomplete="off" class="inputbox" id="cur_password" maxlength="255"
+							   name="cur_password" title="{{ lang('CURRENT_PASSWORD') }}" type="password"
+							   value="{{ CUR_PASSWORD }}"></dd>
+				</dl>
+			</fieldset>
 
+		</div>
 	</div>
-</div>
 
 
-<fieldset class="submit-buttons">
-	{{ S_HIDDEN_FIELDS }}
-	<input type="reset" value="{{ lang('RESET') }}" name="reset" class="button2">&nbsp;
-	<input type="submit" name="link" value="{{ lang('LINK_ACCOUNT') }}" class="button1">
-	{{ S_FORM_TOKEN }}
-</fieldset>
+	<fieldset class="submit-buttons">
+		{{ S_HIDDEN_FIELDS }}
+		<input class="button2" name="reset" type="reset" value="{{ lang('RESET') }}">&nbsp;
+		<input class="button1" name="link" type="submit" value="{{ lang('LINK_ACCOUNT') }}">
+		{{ S_FORM_TOKEN }}
+	</fieldset>
 
 
 </form>

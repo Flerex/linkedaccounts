@@ -1,12 +1,12 @@
 <?php
 /**
-*
-* Linked Accounts extension for phpBB 3.2
-*
-* @copyright (c) 2018 Flerex
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * Linked Accounts extension for phpBB 3.2
+ *
+ * @copyright (c) 2018 Flerex
+ * @license       GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace flerex\linkedaccounts\migrations;
 
@@ -34,7 +34,7 @@ class release_0_1_0_data extends \phpbb\db\migration\migration
 				'LINKED_ACCOUNTS',
 				array(
 					'module_basename' => '\flerex\linkedaccounts\ucp\main_module',
-					'modes' => array('management', 'link'),
+					'modes'           => array('management', 'link'),
 				),
 			)),
 

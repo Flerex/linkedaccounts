@@ -6,11 +6,14 @@
 <fieldset>
 	<legend>{{ lang('STATISTICS') }}</legend>
 	<dl>
-		<dt><label>{{ lang('LINKED_ACCOUNTS_COUNT') }}{{ lang('COLON') }}</label><br><span>{{ lang('LINKED_ACCOUNTS_COUNT_EXPLAIN') }}</span></dt>
+		<dt>
+			<label>{{ lang('LINKED_ACCOUNTS_COUNT') }}{{ lang('COLON') }}</label><br><span>{{ lang('LINKED_ACCOUNTS_COUNT_EXPLAIN') }}</span>
+		</dt>
 		<dd><strong>{{ LINKED_ACCOUNTS_COUNT }}</strong></dd>
 	</dl>
 	<dl>
-		<dt><label>{{ lang('LINK_COUNT') }}{{ lang('COLON') }}</label><br><span>{{ lang('LINK_COUNT_EXPLAIN') }}</span></dt>
+		<dt><label>{{ lang('LINK_COUNT') }}{{ lang('COLON') }}</label><br><span>{{ lang('LINK_COUNT_EXPLAIN') }}</span>
+		</dt>
 		<dd><strong>{{ LINK_COUNT }}</strong></dd>
 	</dl>
 </fieldset>
@@ -18,38 +21,40 @@
 
 <form method="post" action="{{ U_ACTION }}">
 
-<table class="table1 zebra-table">
-	<caption>{{ lang('LINKED_ACCOUNTS_COUNT') }}</caption>
-	<thead>
+	<table class="table1 zebra-table">
+		<caption>{{ lang('LINKED_ACCOUNTS_COUNT') }}</caption>
+		<thead>
 		<tr>
 			<th>{{ lang('ACCOUNT') }}</th>
 			<th style="width: 10%">{{ lang('LINK_COUNT') }}</th>
 			<th style="width: 7%; text-align: center;">{{ lang('SELECT') }}</th>
 		</tr>
-	</thead>
-	<tbody>
-	{% for accounts in loops.accounts %}
+		</thead>
+		<tbody>
+		{% for accounts in loops.accounts %}
 		<tr class="{% if accounts.S_ROW_COUNT is even %}bg1{% else %}bg2{% endif %}">
 			<td><a href="{{ accounts.URL_EDIT }}">{{ accounts.USERNAME }}</a></td>
 			<td>{{ accounts.LINK_COUNT }}</td>
 			<td class="mark"><input type="radio" name="accountID" value="{{ accounts.ID }}" id="{{ accounts.ID }}"></td>
 		</tr>
-	{% else %}
-		<tr class="big-column"><td colspan="3" class="bg1" style="text-align: center">{{ lang('NO_ACCOUNTS_LINKED') }}</td></tr>
-	{% endfor %}
-	</tbody>
-</table>
-<div class="pagination">
-{% if loops.pagination|length %}
-	{% INCLUDE 'pagination.html' %}
-{% endif %}
-</div>
+		{% else %}
+		<tr class="big-column">
+			<td colspan="3" class="bg1" style="text-align: center">{{ lang('NO_ACCOUNTS_LINKED') }}</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	<div class="pagination">
+		{% if loops.pagination|length %}
+		{% INCLUDE 'pagination.html' %}
+		{% endif %}
+	</div>
 
-<fieldset class="quick">
-	{{ S_HIDDEN_FIELDS }}
-	<input class="button2" type="submit" name="submituser" value="{{ lang('MANAGE') }}">
-	{{ S_FORM_TOKEN }}
-</fieldset>
+	<fieldset class="quick">
+		{{ S_HIDDEN_FIELDS }}
+		<input class="button2" type="submit" name="submituser" value="{{ lang('MANAGE') }}">
+		{{ S_FORM_TOKEN }}
+	</fieldset>
 
 </form>
 

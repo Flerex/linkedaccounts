@@ -1,15 +1,13 @@
 <?php
 /**
-*
-* @package phpBB Extension - Linked Accounts
-* @copyright (c) 2018 Flerex
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
-*
-*/
+ *
+ * @package       phpBB Extension - Linked Accounts
+ * @copyright (c) 2018 Flerex
+ * @license       http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+ *
+ */
 
 namespace flerex\linkedaccounts\service;
-
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class utils
 {
@@ -26,15 +24,15 @@ class utils
 	/**
 	 * Constructor
 	 *
-	 * @param \phpbb\user							$user
-	 * @param \phpbb\db\driver\factory				$db
-	 * @param string								$linkedacconts_table
+	 * @param \phpbb\user              $user
+	 * @param \phpbb\db\driver\factory $db
+	 * @param string                   $linkedacconts_table
 	 */
 	public function __construct(\phpbb\user $user, \phpbb\db\driver\factory $db, $linkedacconts_table)
 	{
-		$this->user					= $user;
-		$this->db					= $db;
-		$this->linkedacconts_table	= $linkedacconts_table;
+		$this->user = $user;
+		$this->db = $db;
+		$this->linkedacconts_table = $linkedacconts_table;
 	}
 
 
@@ -43,7 +41,7 @@ class utils
 	 * cleaned username or user id
 	 *
 	 * @param string|int $key The cleaned username
-	 * or user's id
+	 *                        or user's id
 	 *
 	 * @return array The user
 	 */
@@ -54,7 +52,7 @@ class utils
 		$sql = 'SELECT user_id, username, username_clean, user_colour
 			FROM ' . USERS_TABLE . ' ';
 
-		if(is_numeric($key))
+		if (is_numeric($key))
 		{
 			$sql .= 'WHERE user_id = ' . (int) $key;
 		}
@@ -62,7 +60,7 @@ class utils
 		{
 			$sql .= "WHERE username_clean = '" . $this->db->sql_escape(utf8_clean_string($key)) . "'";
 		}
-		
+
 		$result = $this->db->sql_query($sql);
 		$user = $this->db->sql_fetchrow();
 		$this->db->sql_freeresult($result);
@@ -71,65 +69,27 @@ class utils
 	}
 
 	/**
-	 * Obtain a list of the accounts linked
-	 * to the current user.
-	 *
-	 * @return array An array of (int) IDs
-	 */
-	public function get_linked_accounts($id = null)
-	{
-		if(!$id)
-		{
-			$id = $this->user->data['user_id'];
-		}
-		
-		$sql = 'SELECT u.user_id, u.user_type, u.user_email, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, l.created_at
-			FROM ' . USERS_TABLE . ' u
-			LEFT JOIN ' . $this->db->sql_escape($this->linkedacconts_table) . ' l
-			ON u.user_id = l.linked_user_id
-			WHERE l.user_id = ' . (int) $id . '
-			UNION
-			SELECT u.user_id, u.user_type, u.user_email, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, l.created_at
-			FROM ' . USERS_TABLE . ' u
-			LEFT JOIN ' . $this->db->sql_escape($this->linkedacconts_table) . ' l
-			ON u.user_id = l.user_id
-			WHERE l.linked_user_id = ' . (int) $id;
-		
-		$result = $this->db->sql_query($sql);
-
-		$output = array();
-		while ($row = $this->db->sql_fetchrow($result))
-		{
-			$output[] = $row;
-		}
-
-		$this->db->sql_freeresult($result);
-
-		return $output;
-	}
-
-	/**
 	 * Unlinks the given accounts from the current user
 	 *
-	 * @param array $links An array with the accounts IDs
-	 * @param int $account The id of the account whose links
-	 * to accounts in $links will be removed
+	 * @param array $links   An array with the accounts IDs
+	 * @param int   $account The id of the account whose links
+	 *                       to accounts in $links will be removed
 	 *
 	 */
 	public function remove_links($links, $account = null)
 	{
 
-		if(!$account)
+		if (!$account)
 		{
 			$account = $this->user->data['user_id'];
 		}
 		$sql_where = '';
 		$len = count($links);
-		foreach($links as $key => $acc)
+		foreach ($links as $key => $acc)
 		{
 			$sql_where .= '(user_id = ' . (int) $acc . ' OR linked_user_id = ' . (int) $acc . ')';
 
-			if($key != $len - 1)
+			if ($key != $len - 1)
 			{
 				$sql_where .= ' OR ';
 			}
@@ -142,7 +102,7 @@ class utils
 		$this->db->sql_query($sql);
 
 	}
-	
+
 	/**
 	 * Checks whether the account is already linked to the account
 	 * trying to be linked to
@@ -177,21 +137,59 @@ class utils
 	public function can_switch_to($account_id)
 	{
 		$saved_account = null;
-		foreach($this->get_linked_accounts() as $account)
+		foreach ($this->get_linked_accounts() as $account)
 		{
-			if($account['user_id'] == $account_id)
+			if ($account['user_id'] == $account_id)
 			{
 				$saved_account = $account;
 				break;
 			}
 		}
 
-		if(!$saved_account || ($saved_account['user_type'] == USER_INACTIVE || $this->user->check_ban($account_id, false, $saved_account['user_email'], true) !== false))
+		if (!$saved_account || ($saved_account['user_type'] == USER_INACTIVE || $this->user->check_ban($account_id, false, $saved_account['user_email'], true) !== false))
 		{
 			return false;
-		}	
+		}
 
 		return true;
+	}
+
+	/**
+	 * Obtain a list of the accounts linked
+	 * to the current user.
+	 *
+	 * @return array An array of (int) IDs
+	 */
+	public function get_linked_accounts($id = null)
+	{
+		if (!$id)
+		{
+			$id = $this->user->data['user_id'];
+		}
+
+		$sql = 'SELECT u.user_id, u.user_type, u.user_email, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, l.created_at
+			FROM ' . USERS_TABLE . ' u
+			LEFT JOIN ' . $this->db->sql_escape($this->linkedacconts_table) . ' l
+			ON u.user_id = l.linked_user_id
+			WHERE l.user_id = ' . (int) $id . '
+			UNION
+			SELECT u.user_id, u.user_type, u.user_email, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, l.created_at
+			FROM ' . USERS_TABLE . ' u
+			LEFT JOIN ' . $this->db->sql_escape($this->linkedacconts_table) . ' l
+			ON u.user_id = l.user_id
+			WHERE l.linked_user_id = ' . (int) $id;
+
+		$result = $this->db->sql_query($sql);
+
+		$output = array();
+		while ($row = $this->db->sql_fetchrow($result))
+		{
+			$output[] = $row;
+		}
+
+		$this->db->sql_freeresult($result);
+
+		return $output;
 	}
 
 	/**
@@ -221,7 +219,7 @@ class utils
 	{
 		$sql = 'SELECT count(*) AS count FROM (SELECT user_id FROM ' . $this->linkedacconts_table . '
 		UNION SELECT linked_user_id FROM ' . $this->linkedacconts_table . ') AS t;';
-		
+
 		$result = $this->db->sql_query($sql);
 		$count = $this->db->sql_fetchfield('count');
 
@@ -242,10 +240,10 @@ class utils
 			FROM ' . USERS_TABLE . ' AS u JOIN ' . $this->linkedacconts_table . ' AS l
 			ON u.user_id = l.user_id OR u.user_id = l.linked_user_id
 			GROUP BY u.user_id';
-		
+
 		$result = $this->db->sql_query_limit($sql, $limit, $start);
 		$output = array();
-		
+
 		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$output[] = $row;
@@ -266,11 +264,11 @@ class utils
 	 */
 	public function create_link($account1, $account2)
 	{
-		
+
 		$sql_arr = array(
-			'user_id'			=> (int) $account1,
-			'linked_user_id'	=> (int) $account2,
-			'created_at'		=> (int) time(),
+			'user_id'        => (int) $account1,
+			'linked_user_id' => (int) $account2,
+			'created_at'     => (int) time(),
 		);
 
 		$sql = 'INSERT INTO '
@@ -285,55 +283,55 @@ class utils
 	 * account and every account in the
 	 * accounts array
 	 *
-	 * @param int $account ID of account
-	 * @param array $accounts IDs of the accounts 
+	 * @param int   $account  ID of account
+	 * @param array $accounts IDs of the accounts
 	 *
 	 */
-	
+
 	public function create_links($account, $accounts)
 	{
-		
+
 		$sql_ary = array();
-		
-		foreach($accounts as $account_to_link)
+
+		foreach ($accounts as $account_to_link)
 		{
 			$sql_ary[] = array(
-				'user_id'			=> (int) $account,
-				'linked_user_id'	=> (int) $account_to_link,
-				'created_at'		=> (int) time(),
+				'user_id'        => (int) $account,
+				'linked_user_id' => (int) $account_to_link,
+				'created_at'     => (int) time(),
 			);
 		}
-		
+
 		$this->db->sql_multi_insert($this->linkedacconts_table, $sql_ary);
-		
+
 	}
 
 	/**
 	 * Finds all existing accounts in “accounts” that
 	 * account “account” is linked to.
 	 *
-	 * @param int $account ID of account
-	 * @param array $accounts IDs of the accounts 
+	 * @param int   $account  ID of account
+	 * @param array $accounts IDs of the accounts
 	 *
 	 * @return array all the found links
 	 *
 	 */
-	
+
 	public function get_linked_accounts_of_array($account, $accounts)
 	{
-		
+
 		$sql = 'SELECT linked_user_id
 			FROM ' . $this->linkedacconts_table . ' 
-			WHERE user_id = ' . (int) $account . ' AND ' . $this->db->sql_in_set('linked_user_id', $accounts) .'
+			WHERE user_id = ' . (int) $account . ' AND ' . $this->db->sql_in_set('linked_user_id', $accounts) . '
 			UNION
 			SELECT user_id
 			FROM ' . $this->linkedacconts_table . ' 
 			WHERE ' . $this->db->sql_in_set('user_id', $accounts) . ' AND linked_user_id = ' . (int) $account;
-		
+
 		$result = $this->db->sql_query($sql);
-		
+
 		$output = array();
-		
+
 		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$output[] = $row;
@@ -341,12 +339,12 @@ class utils
 
 		$this->db->sql_freeresult($result);
 
-		$output = array_map(function($el) {
+		$output = array_map(function ($el) {
 			return $el['linked_user_id'];
 		}, $output);
 
 		return $output;
-		
+
 	}
 
 	/**
@@ -361,14 +359,14 @@ class utils
 	 */
 	public function get_user_auth_info($username)
 	{
-		
+
 		$sql = 'SELECT user_id, user_password, user_email, user_type
 			FROM ' . USERS_TABLE . "
 			WHERE username_clean = '" . $this->db->sql_escape(utf8_clean_string($username)) . "'";
 
 		$result = $this->db->sql_query($sql);
 		$output = $this->db->sql_fetchrow($result);
-		
+
 		$this->db->sql_freeresult($result);
 
 		return $output;
@@ -384,10 +382,10 @@ class utils
 	 */
 	public function switch_to_linked_account($account_id)
 	{
-		
+
 		$session_autologin = (bool) $this->user->data['session_autologin'];
 		$session_viewonline = (bool) $this->user->data['session_viewonline'];
-		
+
 		$this->user->session_kill(false);
 		$this->user->session_begin();
 		$this->user->session_create(
@@ -396,6 +394,6 @@ class utils
 			$session_autologin,
 			$session_viewonline
 		);
-		
+
 	}
 }

@@ -1,12 +1,12 @@
 <?php
 /**
-*
-* Linked Accounts extension for phpBB 3.2
-*
-* @copyright (c) 2018 Flerex
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * Linked Accounts extension for phpBB 3.2
+ *
+ * @copyright (c) 2018 Flerex
+ * @license       GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace flerex\linkedaccounts\migrations;
 
@@ -30,10 +30,10 @@ class release_0_1_0_schemas extends \phpbb\db\migration\migration
 		return array(
 			'add_tables' => array(
 				$this->table_prefix . 'flerex_linkedaccounts' => array(
-					'COLUMNS' => array(
-						'user_id' => array('UINT', 0),
+					'COLUMNS'     => array(
+						'user_id'        => array('UINT', 0),
 						'linked_user_id' => array('UINT', 0),
-						'created_at' => array('TIMESTAMP', 0),
+						'created_at'     => array('TIMESTAMP', 0),
 					),
 					'PRIMARY_KEY' => array('user_id', 'linked_user_id'),
 				),

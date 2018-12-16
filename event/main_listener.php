@@ -1,12 +1,12 @@
 <?php
 /**
-*
-* Linked Accounts extension for phpBB 3.2
-*
-* @copyright (c) 2018 Flerex
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * Linked Accounts extension for phpBB 3.2
+ *
+ * @copyright (c) 2018 Flerex
+ * @license       GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace flerex\linkedaccounts\event;
 
@@ -31,6 +31,24 @@ class main_listener implements EventSubscriberInterface
 	protected $utils;
 
 	/**
+	 * Constructor
+	 *
+	 * @param \phpbb\auth\auth                     $auth
+	 * @param \phpbb\config\config                 $config
+	 * @param \phpbb\template\template             $template
+	 * @param \phpbb\controller\helper             $helper
+	 * @param \flerex\linkedaccounts\service\utils $utils
+	 */
+	public function __construct(\phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\template\template $template, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils)
+	{
+		$this->auth = $auth;
+		$this->config = $config;
+		$this->template = $template;
+		$this->helper = $helper;
+		$this->utils = $utils;
+	}
+
+	/**
 	 * Assign functions defined in this class to event listeners in the core
 	 *
 	 * @return array
@@ -38,34 +56,16 @@ class main_listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.user_setup'			=> 'load_language_on_setup',
-			'core.permissions'			=> 'add_permissions',
-			'core.page_header'			=> 'add_switchable_accounts',
-			'core.delete_user_after'	=> 'cleanup_table',
+			'core.user_setup'        => 'load_language_on_setup',
+			'core.permissions'       => 'add_permissions',
+			'core.page_header'       => 'add_switchable_accounts',
+			'core.delete_user_after' => 'cleanup_table',
 		);
 	}
 
 	/**
-	 * Constructor
-	 *
-	 * @param \phpbb\auth\auth						$auth
-	 * @param \phpbb\config\config					$config
-	 * @param \phpbb\template\template				$template
-	 * @param \phpbb\controller\helper				$helper
-	 * @param \flerex\linkedaccounts\service\utils	$utils
-	 */
-	public function __construct(\phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\template\template $template, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils)
-	{
-		$this->auth		= $auth;
-		$this->config	= $config;
-		$this->template	= $template;
-		$this->helper	= $helper;
-		$this->utils	= $utils;
-	}
-
-	/**
 	 * Load the Linked Accounts language file
-	 *	 flerex/linkedaccounts/language/en/common.php
+	 *     flerex/linkedaccounts/language/en/common.php
 	 *
 	 * @param \phpbb\event\data $event The event object
 	 */
@@ -115,12 +115,12 @@ class main_listener implements EventSubscriberInterface
 
 		$this->template->assign_var('U_CAN_SWITCH_ACCOUNT', $can_switch);
 
-		foreach($linked_accounts as $linked_account)
+		foreach ($linked_accounts as $linked_account)
 		{
 			$this->template->assign_block_vars('switchable_account', array(
-				'SWITCH_LINK'	=> $this->helper->route('flerex_linkedaccounts_switch', array('account_id' => $linked_account['user_id'])),
-				'AVATAR'		=> phpbb_get_user_avatar($linked_account),
-				'NAME'			=> get_username_string('no_profile', $linked_account['user_id'], $linked_account['username'], $linked_account['user_colour']),
+				'SWITCH_LINK' => $this->helper->route('flerex_linkedaccounts_switch', array('account_id' => $linked_account['user_id'])),
+				'AVATAR'      => phpbb_get_user_avatar($linked_account),
+				'NAME'        => get_username_string('no_profile', $linked_account['user_id'], $linked_account['username'], $linked_account['user_colour']),
 			));
 
 			$this->template->assign_var('S_LINKEDACCOUNTS_AJAX', $this->config['flerex_linkedaccounts_ajax']);
