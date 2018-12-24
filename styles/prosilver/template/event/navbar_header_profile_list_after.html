@@ -1,29 +1,28 @@
 {% if switchable_account %}
 {% INCLUDECSS '@flerex_linkedaccounts/linkedaccounts.css' %}
 {% if S_LINKEDACCOUNTS_AJAX %}
-{% INCLUDEJS '@flerex_linkedaccounts/ajax.js' %}
+	{% INCLUDEJS '@flerex_linkedaccounts/ajax.js' %}
 {% endif %}
-<li class="bg1" id="linked_accounts">
+<li id="linked_accounts" class="bg1">
 	<ul>
 		{% for account in switchable_account %}
 		<li>
 			{% if U_CAN_SWITCH_ACCOUNT %}
-			<a %} %} S_LINKEDACCOUNTS_AJAX data-ajax="flerex.linked_accounts.switch" data-refresh="true" endif
-			   href="{{ account.SWITCH_LINK }}" if role="menuitem" {% {%>
+				<a href="{{ account.SWITCH_LINK }}" role="menuitem"{% if S_LINKEDACCOUNTS_AJAX %} data-ajax="flerex.linked_accounts.switch" data-refresh="true"{% endif %}>
+					{% if account.AVATAR %}
+						{{ account.AVATAR }}
+					{% else %}
+						<img src="{{ T_THEME_PATH }}/images/no_avatar.gif" class="avatar" alt="">
+					{% endif %}
+					{{ account.NAME }}
+				</a>
+			{% else %}
 				{% if account.AVATAR %}
-				{{ account.AVATAR }}
+					{{ account.AVATAR }}
 				{% else %}
-				<img alt="" class="avatar" src="{{ T_THEME_PATH }}/images/no_avatar.gif">
+					<img src="{{ T_THEME_PATH }}/images/no_avatar.gif" class="avatar" alt="">
 				{% endif %}
 				{{ account.NAME }}
-			</a>
-			{% else %}
-			{% if account.AVATAR %}
-			{{ account.AVATAR }}
-			{% else %}
-			<img alt="" class="avatar" src="{{ T_THEME_PATH }}/images/no_avatar.gif">
-			{% endif %}
-			{{ account.NAME }}
 			{% endif %}
 		</li>
 		{% endfor %}

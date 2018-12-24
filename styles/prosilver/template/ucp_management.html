@@ -1,6 +1,6 @@
 {% INCLUDE 'ucp_header.html' %}
 
-<form S_FORM_ENCTYPE action="{{ U_ACTION }}" id="ucp" method="post" {{ }}>
+<form id="ucp" method="post" action="{{ U_ACTION }}" {{ S_FORM_ENCTYPE }}>
 
 	<h2>{{ lang('LINKED_ACCOUNTS_MANAGEMENT') }}</h2>
 	<div class="panel">
@@ -9,8 +9,8 @@
 
 			<div class="action-bar bar-top">
 
-				<a class="button" href="{{ U_LINK_ACCOUNT }}" title="{{ lang('LINK_ACCOUNT') }}">
-					<span>{{ lang('LINK_ACCOUNT') }}</span> <i aria-hidden="true" class="icon fa-user-plus fa-fw"></i>
+				<a title="{{ lang('LINK_ACCOUNT') }}" href="{{ U_LINK_ACCOUNT }}" class="button">
+					<span>{{ lang('LINK_ACCOUNT') }}</span> <i class="icon fa-user-plus fa-fw" aria-hidden="true"></i>
 				</a>
 			</div>
 
@@ -27,12 +27,12 @@
 				<tr class="{% if account.S_ROW_COUNT is even %}bg1{% else %}bg2{% endif %}">
 					<td><label for="{{ account.ID }}">{{ account.NAME }}</label></td>
 					<td class="center date">{{ account.DATE }}</td>
-					<td class="center mark"><input id="{{ account.ID }}" name="keys[]" type="checkbox"
-												   value="{{ account.ID }}"></td>
+					<td class="center mark"><input type="checkbox" name="keys[]" value="{{ account.ID }}"
+												   id="{{ account.ID }}"></td>
 				</tr>
 				{% else %}
 				<tr>
-					<td class="bg1" colspan="3" style="text-align: center">{{ lang('NO_LINKED_ACCOUNTS') }}</td>
+					<td colspan="3" class="bg1" style="text-align: center">{{ lang('NO_LINKED_ACCOUNTS') }}</td>
 				</tr>
 				{% endfor %}
 				</tbody>
@@ -44,7 +44,7 @@
 	<fieldset class="display-actions">
 		{{ S_HIDDEN_FIELDS }}
 		{% if linkedaccounts|length %}
-		<input class="button1" name="unlink" type="submit" value="{{ lang('UNLINK_ACCOUNT') }}">
+		<input type="submit" name="unlink" value="{{ lang('UNLINK_ACCOUNT') }}" class="button1">
 		<div><a href="#"
 				onclick="$('#ucp input:checkbox').prop('checked', true); return false;">{{ lang('MARK_ALL') }}</a> &bull;
 			<a href="#"

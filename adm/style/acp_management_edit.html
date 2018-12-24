@@ -7,23 +7,21 @@
 	<table id="list" class="table1 zebra-table">
 		<caption>{{ lang('ACCOUNT_LINKS') }}</caption>
 		<thead>
-		<tr>
-			<th>{{ lang('ACCOUNT') }}</th>
-			<th>{{ lang('LINKED_ON') }}</th>
-			<th style="width: 7%; text-align: center;">{{ lang('MARK') }}</th>
-		</tr>
+			<tr>
+				<th>{{ lang('ACCOUNT') }}</th>
+				<th>{{ lang('LINKED_ON') }}</th>
+				<th style="width: 7%; text-align: center;">{{ lang('MARK') }}</th>
+			</tr>
 		</thead>
 		<tbody>
 		{% for account in accounts %}
-		<tr class="{% if account.S_ROW_COUNT is even %}bg1{% else %}bg2{% endif %}">
-			<td><a href="{{ account.URL_EDIT }}">{{ account.USERNAME }}</a></td>
-			<td>{{ account.DATE }}</td>
-			<td class="mark"><input type="checkbox" name="keys[]" value="{{ account.ID }}" id="{{ account.ID }}"></td>
-		</tr>
+			<tr class="{% if account.S_ROW_COUNT is even %}bg1{% else %}bg2{% endif %}">
+				<td><a href="{{ account.URL_EDIT }}">{{ account.USERNAME }}</a></td>
+				<td>{{ account.DATE }}</td>
+				<td class="mark"><input type="checkbox" name="keys[]" value="{{ account.ID }}" id="{{ account.ID }}"></td>
+			</tr>
 		{% else %}
-		<tr class="big-column">
-			<td colspan="3" class="bg1" style="text-align: center">{{ lang('NO_LINKED_ACCOUNTS') }}</td>
-		</tr>
+			<tr class="big-column"><td colspan="3" class="bg1" style="text-align: center">{{ lang('NO_LINKED_ACCOUNTS') }}</td></tr>
 		{% endfor %}
 		</tbody>
 	</table>
@@ -31,11 +29,7 @@
 	{% if accounts|length %}
 	<fieldset class="quick">
 		<input class="button1" type="submit" name="unlink" value="{{ lang('UNLINK_ACCOUNT') }}">
-		<div><a href="#"
-				onclick="$('#list input:checkbox').prop('checked', true); return false;">{{ lang('MARK_ALL') }}</a> &bull;
-			<a href="#"
-			   onclick="$('#list input:checkbox').prop('checked', false); return false;">{{ lang('UNMARK_ALL') }}</a>
-		</div>
+		<div><a href="#" onclick="$('#list input:checkbox').prop('checked', true); return false;">{{ lang('MARK_ALL') }}</a> &bull; <a href="#" onclick="$('#list input:checkbox').prop('checked', false); return false;">{{ lang('UNMARK_ALL') }}</a></div>
 	</fieldset>
 	{% endif %}
 
@@ -49,20 +43,19 @@
 		<dl>
 			<dt>
 				<label for="usernames">{{ lang('USERNAME') }}{{ lang('COLON') }}</label>
-				<br/><span>{{ lang('USERNAMES_EXPLAIN') }}</span>
+				<br /><span>{{ lang('USERNAMES_EXPLAIN') }}</span>
 			</dt>
 			<dd>
 				<textarea id="usernames" name="usernames" cols="40" rows="5"></textarea>
 
-			</dd>
+				</dd>
 			<dd>
-				[ <a href="{{ U_FIND_USERNAME }}"
-					 onclick="find_username(this.href); return false;">{{ lang('FIND_USERNAME') }}</a> ]
+				[ <a href="{{ U_FIND_USERNAME }}" onclick="find_username(this.href); return false;">{{ lang('FIND_USERNAME') }}</a> ]
 			</dd>
 		</dl>
 
 		<p class="quick">
-			<input class="button2" type="submit" name="createlinks" value="{{ lang('SUBMIT') }}"/>
+			<input class="button2" type="submit" name="createlinks" value="{{ lang('SUBMIT') }}" />
 		</p>
 	</fieldset>
 

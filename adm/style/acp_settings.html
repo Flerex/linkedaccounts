@@ -10,22 +10,22 @@
 
 		{% for option in loops.options %}
 
-		<dl>
-			<dt>
-				<label for="{option.KEY}">{option.TITLE}{L_COLON}</label>
-				{% if option.S_EXPLAIN %}<br/><span>{option.TITLE_EXPLAIN}</span>{% endif %}
-			</dt>
-			<dd>{option.CONTENT}</dd>
-		</dl>
+			<dl>
+				<dt>
+					<label for="{option.KEY}">{option.TITLE}{L_COLON}</label>
+					{% if option.S_EXPLAIN %}<br /><span>{option.TITLE_EXPLAIN}</span>{% endif %}
+				</dt>
+				<dd id="{option.KEY}">{option.CONTENT}</dd>
+			</dl>
 
 		{% endfor %}
 	</fieldset>
-
+	
 	<fieldset>
 		<legend>{L_ACP_SUBMIT_CHANGES}</legend>
 		<p class="submit-buttons">
-			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}"/>&nbsp;
-			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}"/>
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
 		</p>
 		{S_FORM_TOKEN}
 	</fieldset>
