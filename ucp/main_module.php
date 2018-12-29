@@ -31,7 +31,7 @@ class main_module
 
 	protected $phpbb_root_path;
 	protected $phpbb_container;
-	protected $phpExt;
+	protected $phpEx;
 
 	protected $utils;
 
@@ -47,7 +47,7 @@ class main_module
 		$this->template = $template;
 		$this->user = $user;
 		$this->db = $db;
-		$this->phpExt = $phpEx;
+		$this->phpEx = $phpEx;
 		$this->phpbb_container = $phpbb_container;
 		$this->phpbb_root_path = $phpbb_root_path;
 
