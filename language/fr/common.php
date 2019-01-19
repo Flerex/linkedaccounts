@@ -78,4 +78,7 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'Si non activé, le changement de compte retournera à la même page par défaut.',
 	'CONF_PRIVATE_LINKS'                    => 'Liens privés',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Si vous définissez cette option sur «oui», le menu de basculement sera masqué lorsqu’un utilisateur ne dispose pas d’autorisations de basculement, même lorsque le compte dispose de liens. Cela pourrait constituer un risque pour la sécurité et il est recommandé de le laisser désactivé.',
+
+	// Posting as
+	'POSTING_AS'                            => 'Posting as',
 ));

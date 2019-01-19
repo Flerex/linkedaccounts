@@ -78,4 +78,7 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'Se esta opción non está activa redirixirase á mesma páxina por defecto.',
 	'CONF_PRIVATE_LINKS'                    => 'Vínculos privados',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Marcar esta opción como “si” ocultará o menú de cambio de conta cando un usuario non teña permisos para cambiar de conta, incluso se a conta ten actualmente enlaces. Esto pode supoñer unha ameaza de seguridade e se recomenda mantela desactivada.',
+
+	// Posting as
+	'POSTING_AS'                            => 'Publicar coma',
 ));

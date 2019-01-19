@@ -78,4 +78,7 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'Ha nincs bekapcsolva fiókváltáskor ugyanarra az oldalra kerülnek alapból.',
 	'CONF_PRIVATE_LINKS'                    => 'Rejtett párosítások',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Ez a beállítás “igen” állapotban elrejti a fiókváltás menüt amikor egy felhasználónak nincsen fiókváltási joga, akkor is ha van párosított fiókja. Ez egy biztonsági rés lehet és javasolt kikapcsoltan hagyni.',
+
+	// Posting as
+	'POSTING_AS'                            => 'Posting as',
 ));

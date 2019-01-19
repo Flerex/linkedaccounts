@@ -10,7 +10,7 @@
 
 namespace flerex\linkedaccounts\migrations;
 
-class release_1_1_3_data extends \phpbb\db\migration\migration
+class release_1_1_4_data extends \phpbb\db\migration\migration
 {
 
 	static public function depends_on()
@@ -21,17 +21,17 @@ class release_1_1_3_data extends \phpbb\db\migration\migration
 	/**
 	 * Populate phpBB's tables with some needed
 	 * data for Linked Accounts to work with
-	 * features added on version 1.1.3
+	 * features added on version 1.1.4
 	 */
 	public function update_data()
 	{
 		return array(
 
-			// Create a new “can switch accounts” permission
-			array('permission.add', array('u_switch_accounts')),
+			// Create a new “can post as another account” permission
+			array('permission.add', array('u_post_as_account')),
 			// set it to yes in the Standard User role and Registered user group
-			array('permission.permission_set', array('REGISTERED', 'u_switch_accounts', 'group')),
-			array('permission.permission_set', array('ROLE_USER_STANDARD', 'u_switch_accounts')),
+			array('permission.permission_set', array('REGISTERED', 'u_post_as_account', 'group')),
+			array('permission.permission_set', array('ROLE_USER_STANDARD', 'u_post_as_account')),
 		);
 	}
 }

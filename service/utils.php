@@ -15,6 +15,9 @@ class utils
 	/** @var \phpbb\user */
 	protected $user;
 
+	/** @var \phpbb\auth\auth */
+	protected $auth;
+
 	/** @var \phpbb\db\driver\factory */
 	protected $db;
 
@@ -25,12 +28,14 @@ class utils
 	 * Constructor
 	 *
 	 * @param \phpbb\user              $user
+	 * @param \phpbb\auth\auth         $auth
 	 * @param \phpbb\db\driver\factory $db
 	 * @param string                   $linkedacconts_table
 	 */
-	public function __construct(\phpbb\user $user, \phpbb\db\driver\factory $db, $linkedacconts_table)
+	public function __construct(\phpbb\user $user, \phpbb\auth\auth $auth, \phpbb\db\driver\factory $db, $linkedacconts_table)
 	{
 		$this->user = $user;
+		$this->auth = $auth;
 		$this->db = $db;
 		$this->linkedacconts_table = $linkedacconts_table;
 	}
@@ -136,17 +141,13 @@ class utils
 	 */
 	public function can_switch_to($account_id)
 	{
-		$saved_account = null;
-		foreach ($this->get_linked_accounts() as $account)
-		{
-			if ($account['user_id'] == $account_id)
-			{
-				$saved_account = $account;
-				break;
-			}
-		}
 
-		if (!$saved_account || ($saved_account['user_type'] == USER_INACTIVE || $this->user->check_ban($account_id, false, $saved_account['user_email'], true) !== false))
+		$account = array_search($account_id, array_column($this->get_linked_accounts(), 'user_id'));
+
+		if ($account === false // must be linked
+			|| ($account['user_type'] == USER_INACTIVE // cannot be inactive
+			|| $this->user->check_ban($account_id, false, $account['user_email'], true) !== false) // Cannot be banned
+		)
 		{
 			return false;
 		}
@@ -394,6 +395,49 @@ class utils
 			$session_autologin,
 			$session_viewonline
 		);
+	}
+
+	/**
+	 * Checks whether the given user can post or reply
+	 * on a forum.
+	 *
+	 * @param int     $user_id       The id of the user
+	 * @param int     $forum_id      The id of the forum
+	 * @param string  $mode          The posting mode
+	 * @param boolean $is_first_post Whether we're
+	 *                               creating a new topic
+	 *
+	 * @return boolean
+	 */
+	public function user_can_post_on_forum($user_id, $forum_id, $mode, $is_first_post)
+	{
+
+
+		$permissions = $this->auth->acl_get_list($user_id, false, $forum_id);
+
+		if (empty($permissions))
+		{
+			return false;
+		}
+
+		$permissions = array_keys($permissions[$forum_id]);
+
+		switch ($mode)
+		{
+			case 'post':
+				return array_search('f_post', $permissions) !== false;
+
+			case 'reply':
+			case 'quote':
+				return array_search('f_reply', $permissions) !== false;
+
+			case 'edit':
+				return $is_first_post
+					? array_search('f_post', $permissions) !== false
+					: array_search('f_reply', $permissions) !== false;
+		}
+
+		return false;
 
 	}
 }

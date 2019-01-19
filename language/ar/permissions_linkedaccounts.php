@@ -25,4 +25,5 @@ $lang = array_merge($lang, array(
 	'ACL_U_SWITCH_ACCOUNTS' => 'يستطيع التحويل بين الحسابات',
 	'ACL_U_LINK_ACCOUNTS' => 'يستطيع ربط الحسابات',
 	'ACL_A_LINK_ACCOUNTS' => 'يستطيع إدارة حسابات العضو',
+	'ACL_U_POST_AS_ACCOUNT' => 'Can post as a one of their linked accounts',
 ));

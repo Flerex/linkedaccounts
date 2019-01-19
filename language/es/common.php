@@ -78,4 +78,7 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'Si esta opción no está activada se redirigirá a la misma página por defecto.',
 	'CONF_PRIVATE_LINKS'                    => 'Enlaces privados',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Marcar esta opción como “sí” ocultará el menú de cambio de cuenta cuando un usuario no tiene permisos para cambiar de cuenta, incluso si la cuenta tiene actualmente enlaces. Esto puede llegar a ser un problema de seguridad y se recomienda dejarlo desactivado.',
+
+	// Posting as
+	'POSTING_AS'                            => 'Publicar como',
 ));

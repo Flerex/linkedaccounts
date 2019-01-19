@@ -24,4 +24,5 @@ $lang = array_merge($lang, array(
 	'ACL_U_SWITCH_ACCOUNTS' => 'Can switch accounts',
 	'ACL_U_LINK_ACCOUNTS'   => 'Can link accounts',
 	'ACL_A_LINK_ACCOUNTS'   => 'Can manage account links',
+	'ACL_U_POST_AS_ACCOUNT' => 'Can post as a one of their linked accounts',
 ));

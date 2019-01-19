@@ -5,16 +5,21 @@ services:
         class: flerex\linkedaccounts\event\main_listener
         arguments:
             - '@auth'
+            - '@user'
+            - '@request'
             - '@config'
             - '@template'
             - '@controller.helper'
             - '@flerex.linkedaccounts.utils'
+            - '%core.root_path%'
+            - '%core.php_ext%'
         tags:
             - { name: event.listener }
     flerex.linkedaccounts.utils:
         class: flerex\linkedaccounts\service\utils
         arguments:
             - '@user'
+            - '@auth'
             - '@dbal.conn'
             - '%flerex.linkedaccounts.tables.links%'
     flerex.linkedaccounts.switcher:

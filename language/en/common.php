@@ -78,4 +78,7 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'If not enabled switching accounts will return to the same page by default.',
 	'CONF_PRIVATE_LINKS'                    => 'Private links',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Setting this option to “yes” will hide the switching menu when a user doesn’t have switching permissions, even when the account has links. This could be a security hazard and it is recommended to be left disabled.',
+
+	// Posting as
+	'POSTING_AS'                            => 'Posting as',
 ));

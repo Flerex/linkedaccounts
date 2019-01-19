@@ -1,0 +1,13 @@
+{% if U_CAN_POST_AS_ACCOUNT %}
+<dl>
+	<dt><label for="posting_as">{{ lang('POSTING_AS') }}{{ lang('COLON') }}</label></dt>
+	<dd>
+		<select id="posting_as" name="posting_as">
+			{% for account in available_accounts %}
+			<option value="{{ account.ID }}"{{ account.ATTR }}>{{ account.NAME }}</option>
+			{% endfor %}
+		</select>
+	</dd>
+</dl>
+<hr class="dashed">
+{% endif %}
