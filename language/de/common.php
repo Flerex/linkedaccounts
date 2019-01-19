@@ -80,6 +80,6 @@ $lang = array_merge($lang, array(
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Diese Option auf "Ja" zu setzen wird das Wechselmenü verstecken, wenn der Benutzer keine Berechtigungen für das Wechseln hat, auch wenn der Account bereits Verbindungen besitzt. Dies kann ein Sicherheitsrisiko darstellen und es wird empfohlen, diese Option deaktiviert zu lassen.',
 
 	// Posting as
-	'POSTING_AS'                            => 'Posting as',
+	'POSTING_AS'                            => 'Antworten als',
 
 ));
