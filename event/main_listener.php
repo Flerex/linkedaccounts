@@ -276,9 +276,9 @@ class main_listener implements EventSubscriberInterface
 		$this->user_backup = $this->user->data;
 
 
-		$userdata = $this->auth->obtain_user_data($poster_id);
-		$this->user->data = array_merge($this->user->data, $userdata);
+		$userdata = $this->utils->get_user($poster_id);
 
+		$this->user->data = array_merge($this->user->data, $userdata);
 		$this->auth->acl($userdata);
 	}
 

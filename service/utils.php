@@ -54,7 +54,7 @@ class utils
 	public function get_user($key)
 	{
 
-		$sql = 'SELECT user_id, username, username_clean, user_colour
+		$sql = 'SELECT user_id, username, username_clean, user_colour, user_permissions, user_type
 			FROM ' . USERS_TABLE . ' ';
 
 		if (is_numeric($key))
