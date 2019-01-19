@@ -1,0 +1,37 @@
+{% if U_CAN_VIEW_LINKED_ACCOUNTS %}
+	<h2>{{ lang('LINKED_ACCOUNTS') }}</h2>
+	<div id="profile_linked_accounts_list" class="forumbg forumbg-table">
+		<div class="inner">
+
+			<table class="table1">
+				<thead>
+				<tr>
+					<th class="avatar_col">{{ lang('USER_AVATAR') }}</th>
+					<th>{{ lang('USERNAME') }}</th>
+					<th>{{ lang('RANK') }}</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for account in linked_accounts %}
+					<tr class="{% if account.S_ROW_COUNT is even %}bg1{% else %}bg2{% endif %}">
+						<td class="avatar_col">
+							{% if account.AVATAR %}
+								{{ account.AVATAR }}
+							{% else %}
+								<img src="{{ T_THEME_PATH }}/images/no_avatar.gif" class="avatar" alt="">
+							{% endif %}
+						</td>
+						<td>{{ account.USERNAME }}</td>
+						<td>{% if account.RANK_IMG %}{{ account.RANK_IMG }}{% else %}{{ account.RANK_TITLE }}{% endif %}</td>
+					</tr>
+				{% else %}
+				<tr class="bg1">
+					<td colspan="3" class="center">{{ lang('NO_ACCOUNTS_LINKED') }}</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+{% endif %}

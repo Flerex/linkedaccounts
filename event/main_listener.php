@@ -92,6 +92,7 @@ class main_listener implements EventSubscriberInterface
 			'core.posting_modify_template_vars' => 'posting_as_template',
 			'core.modify_posting_parameters'    => 'posting_as_logic',
 			'core.modify_posting_auth'          => 'posting_as_error_override',
+			'core.memberlist_view_profile'      => 'profile_linked_accounts_list',
 		);
 	}
 
@@ -125,6 +126,7 @@ class main_listener implements EventSubscriberInterface
 		$permissions['u_link_accounts'] = array('lang' => 'ACL_U_LINK_ACCOUNTS', 'cat' => 'profile');
 		$permissions['a_link_accounts'] = array('lang' => 'ACL_A_LINK_ACCOUNTS', 'cat' => 'user_group');
 		$permissions['u_post_as_account'] = array('lang' => 'ACL_U_POST_AS_ACCOUNT', 'cat' => 'post');
+		$permissions['u_view_other_users_linked_accounts'] = array('lang' => 'ACL_U_VIEW_OTHER_USERS_LINKED_ACCOUNTS', 'cat' => 'profile');
 		$event['permissions'] = $permissions;
 	}
 
@@ -294,5 +296,30 @@ class main_listener implements EventSubscriberInterface
 			$this->user->data = $this->user_backup;
 			$this->auth->acl($this->user->data);
 		}
+	}
+
+	/**
+	 * Show list of linked accounts in every user profile.
+	 *
+	 * @param \phpbb\event\data $event The event object
+	 */
+	public function profile_linked_accounts_list($event)
+	{
+		// The user must have permission
+		$this->template->assign_var('U_CAN_VIEW_LINKED_ACCOUNTS', $this->auth->acl_get('u_view_other_users_linked_accounts'));
+
+		foreach ($this->utils->get_linked_accounts($event['member']['user_id']) as $account)
+		{
+			$user_rank_data = phpbb_get_user_rank($account, (($account['user_id'] == ANONYMOUS) ? false : $account['user_posts']));
+			$this->template->assign_block_vars('linked_accounts', array(
+				'ID'       => $account['user_id'],
+				'USERNAME' => get_username_string('full', $account['user_id'], $account['username'], $account['user_colour']),
+				'AVATAR'   => phpbb_get_user_avatar($account),
+				'RANK_TITLE'	=> $user_rank_data['title'],
+				'RANK_IMG'		=> $user_rank_data['img'],
+				'RANK_IMG_SRC'	=> $user_rank_data['img_src'],
+			));
+		}
+
 	}
 }

@@ -82,4 +82,5 @@ $lang = array_merge($lang, array(
 
 	// Posting as
 	'POSTING_AS'                            => 'Posting as',
+
 ));

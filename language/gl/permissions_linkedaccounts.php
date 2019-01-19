@@ -25,4 +25,6 @@ $lang = array_merge($lang, array(
 	'ACL_U_LINK_ACCOUNTS'   => 'Pode vincular contas',
 	'ACL_A_LINK_ACCOUNTS'   => 'Pode xestionar os enlaces entre contas',
 	'ACL_U_POST_AS_ACCOUNT' => 'Pode publicar coma unha das súas contas vinculadas',
+	'ACL_U_VIEW_OTHER_USERS_LINKED_ACCOUNTS' => 'Ver as contas vinculadas de outros usuarios',
+
 ));
