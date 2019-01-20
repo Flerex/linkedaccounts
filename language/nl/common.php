@@ -80,6 +80,6 @@ $lang = array_merge($lang, array(
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Als u deze optie instelt op “Ja”, wordt het account koppel menu verborgen als een gebruiker geen account koppel permissies heeft, ook niet als het account koppelingen bevat. Dit kan een veiligheidsrisico vormen en het wordt aanbevolen om uitgeschakeld te blijven.',
 
 	// Posting as
-	'POSTING_AS'                            => 'Posting as',
+	'POSTING_AS'                            => 'Posten als',
 
 ));
