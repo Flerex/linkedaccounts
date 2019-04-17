@@ -29,7 +29,7 @@ class main_module
 
 	protected $phpbb_root_path;
 	protected $phpbb_container;
-	protected $phpExt;
+	protected $phpEx;
 
 	protected $utils;
 
