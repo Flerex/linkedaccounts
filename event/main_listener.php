@@ -64,7 +64,7 @@ class main_listener implements EventSubscriberInterface
 	 * @param string                               $root_path
 	 * @param string                               $php_ext
 	 */
-	public function __construct(\phpbb\auth\auth $auth, \phpbb\user $user, \phpbb\request\request $request, \phpbb\config\config $config, \phpbb\template\template $template, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils, string $root_path, string $php_ext)
+	public function __construct(\phpbb\auth\auth $auth, \phpbb\user $user, \phpbb\request\request $request, \phpbb\config\config $config, \phpbb\template\template $template, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils, $root_path, $php_ext)
 	{
 		$this->auth = $auth;
 		$this->user = $user;
