@@ -24,6 +24,9 @@ class switcher
 	/** @var \phpbb\request\request $request */
 	protected $request;
 
+	/** @var \phpbb\controller\helper $helper */
+	protected $helper;
+
 	/** @var \flerex\linkedaccounts\service\utils $utils */
 	protected $utils;
 
@@ -40,16 +43,18 @@ class switcher
 	 * @param \phpbb\auth\auth                     $auth
 	 * @param \phpbb\config\config                 $config
 	 * @param \phpbb\request\request               $request
+	 * @param \phpbb\controller\helper             $helper
 	 * @param \flerex\linkedaccounts\service\utils $utils
 	 * @param string                               $phpbb_root_path
 	 * @param string                               $phpEx
 	 */
-	public function __construct(\phpbb\user $user, \phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\request\request $request, \flerex\linkedaccounts\service\utils $utils, $phpbb_root_path, $phpEx)
+	public function __construct(\phpbb\user $user, \phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\request\request $request, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils, $phpbb_root_path, $phpEx)
 	{
 		$this->user = $user;
 		$this->auth = $auth;
 		$this->config = $config;
 		$this->request = $request;
+		$this->helper = $helper;
 		$this->utils = $utils;
 		$this->phpbb_root_path = $phpbb_root_path;
 		$this->phpEx = $phpEx;
@@ -116,7 +121,8 @@ class switcher
 		$this->utils->switch_to_linked_account($account_id);
 
 		meta_refresh(3, $redirect);
-		throw new \phpbb\exception\http_exception(200, 'ACCOUNTS_SWITCHED');
+		
+		return $this->helper->message('ACCOUNTS_SWITCHED');
 	}
 
 }

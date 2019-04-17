@@ -29,6 +29,7 @@ services:
             - '@auth'
             - '@config'
             - '@request'
+            - '@controller.helper'
             - '@flerex.linkedaccounts.utils'
             - '%core.root_path%'
             - '%core.php_ext%'
