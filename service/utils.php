@@ -201,7 +201,7 @@ class utils
 	 */
 	public function get_link_count()
 	{
-		$sql = 'SELECT COUNT(user_id) AS count FROM ' . $this->linkedacconts_table . ';';
+		$sql = 'SELECT COUNT(user_id) AS count FROM ' . $this->linkedacconts_table . ' ';
 		$result = $this->db->sql_query($sql);
 		$count = $this->db->sql_fetchfield('count');
 
@@ -219,7 +219,7 @@ class utils
 	public function get_account_count()
 	{
 		$sql = 'SELECT count(*) AS count FROM (SELECT user_id FROM ' . $this->linkedacconts_table . '
-		UNION SELECT linked_user_id FROM ' . $this->linkedacconts_table . ') AS t;';
+		UNION SELECT linked_user_id FROM ' . $this->linkedacconts_table . ') AS t';
 
 		$result = $this->db->sql_query($sql);
 		$count = $this->db->sql_fetchfield('count');
