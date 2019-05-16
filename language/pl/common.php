@@ -78,4 +78,8 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'Jeśli wyłączone, przełączenie profili spowoduje powrót do wcześniej odwiedzonej strony.',
 	'CONF_PRIVATE_LINKS'                    => 'Prywatne połączenia',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Ustawienie TAK spowoduje, że menu przełączania zostanie ukryte w sytuacji, gdy użytkownik nie będzie posiadał niezbędnych uprawnień, nawet gdy jego konto posiada połączenia. Może to spowodować zmniejszenie bezpieczeństwa i dlatego zaleca się, aby pozostawić tę opcję wyłączoną.',
+
+	// Posting as
+	'POSTING_AS'                            => 'Posting as',
+
 ));

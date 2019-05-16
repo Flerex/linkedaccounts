@@ -21,7 +21,10 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 
-	'ACL_U_SWITCH_ACCOUNTS' => 'Może przełączać się między profilami',
-	'ACL_U_LINK_ACCOUNTS'   => 'Może łączyć profile',
-	'ACL_A_LINK_ACCOUNTS'   => 'Może zarządzać połączeniami między profilami',
+	'ACL_U_SWITCH_ACCOUNTS'                  => 'Może przełączać się między profilami',
+	'ACL_U_LINK_ACCOUNTS'                    => 'Może łączyć profile',
+	'ACL_A_LINK_ACCOUNTS'                    => 'Może zarządzać połączeniami między profilami',
+	'ACL_U_POST_AS_ACCOUNT'                  => 'Can post as a one of their linked accounts',
+	'ACL_U_VIEW_OTHER_USERS_LINKED_ACCOUNTS' => 'View other user’s linked accounts',
+
 ));
