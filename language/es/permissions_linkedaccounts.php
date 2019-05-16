@@ -21,10 +21,10 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 
-	'ACL_U_SWITCH_ACCOUNTS' => 'Puede cambiar cuentas',
-	'ACL_U_LINK_ACCOUNTS'   => 'Puede enlazar cuentas',
-	'ACL_A_LINK_ACCOUNTS'   => 'Puede gestionar los enlaces entre cuentas',
-	'ACL_U_POST_AS_ACCOUNT' => 'Puede publicar como una de sus cuentas enlazadas',
+	'ACL_U_SWITCH_ACCOUNTS'                  => 'Puede cambiar cuentas',
+	'ACL_U_LINK_ACCOUNTS'                    => 'Puede enlazar cuentas',
+	'ACL_A_LINK_ACCOUNTS'                    => 'Puede gestionar los enlaces entre cuentas',
+	'ACL_U_POST_AS_ACCOUNT'                  => 'Puede publicar como una de sus cuentas enlazadas',
 	'ACL_U_VIEW_OTHER_USERS_LINKED_ACCOUNTS' => 'Ver las cuentas enlazadas de otros usuarios',
 
 ));

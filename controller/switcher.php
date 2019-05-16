@@ -121,7 +121,7 @@ class switcher
 		$this->utils->switch_to_linked_account($account_id);
 
 		meta_refresh(3, $redirect);
-		
+
 		return $this->helper->message('ACCOUNTS_SWITCHED');
 	}
 

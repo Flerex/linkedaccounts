@@ -21,10 +21,10 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 
-	'ACL_U_SWITCH_ACCOUNTS' => 'Megválthat fiókokat',
-	'ACL_U_LINK_ACCOUNTS'   => 'Párosíthat fiókokat',
-	'ACL_A_LINK_ACCOUNTS'   => 'Kezelhet fiók párosításokat',
-	'ACL_U_POST_AS_ACCOUNT' => 'Can post as a one of their linked accounts',
+	'ACL_U_SWITCH_ACCOUNTS'                  => 'Megválthat fiókokat',
+	'ACL_U_LINK_ACCOUNTS'                    => 'Párosíthat fiókokat',
+	'ACL_A_LINK_ACCOUNTS'                    => 'Kezelhet fiók párosításokat',
+	'ACL_U_POST_AS_ACCOUNT'                  => 'Can post as a one of their linked accounts',
 	'ACL_U_VIEW_OTHER_USERS_LINKED_ACCOUNTS' => 'View other user’s linked accounts',
 
 ));

@@ -312,12 +312,12 @@ class main_listener implements EventSubscriberInterface
 		{
 			$user_rank_data = phpbb_get_user_rank($account, (($account['user_id'] == ANONYMOUS) ? false : $account['user_posts']));
 			$this->template->assign_block_vars('linked_accounts', array(
-				'ID'       => $account['user_id'],
-				'USERNAME' => get_username_string('full', $account['user_id'], $account['username'], $account['user_colour']),
-				'AVATAR'   => phpbb_get_user_avatar($account),
-				'RANK_TITLE'	=> $user_rank_data['title'],
-				'RANK_IMG'		=> $user_rank_data['img'],
-				'RANK_IMG_SRC'	=> $user_rank_data['img_src'],
+				'ID'           => $account['user_id'],
+				'USERNAME'     => get_username_string('full', $account['user_id'], $account['username'], $account['user_colour']),
+				'AVATAR'       => phpbb_get_user_avatar($account),
+				'RANK_TITLE'   => $user_rank_data['title'],
+				'RANK_IMG'     => $user_rank_data['img'],
+				'RANK_IMG_SRC' => $user_rank_data['img_src'],
 			));
 		}
 
