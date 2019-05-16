@@ -21,17 +21,35 @@ class main_module
 	public $page_title;
 
 
+	/** @var \phpbb\config\config $config */
 	protected $config;
+
+	/** @var \phpbb\request\request $request */
 	protected $request;
+
+	/** @var \phpbb\template\template $template */
 	protected $template;
+
+	/** @var \phpbb\user $user */
 	protected $user;
+
+	/** @var \phpbb\language\language $language */
+	protected $language;
+
+	/** @var \phpbb\db\driver\factory $db  */
 	protected $db;
 
-	protected $phpbb_root_path;
-	protected $phpbb_container;
-	protected $phpEx;
-
+	/** @var \flerex\linkedaccounts\service\utils $utils */
 	protected $utils;
+
+	/** @var string $phpbb_root_path */
+	protected $phpbb_root_path;
+
+	/** @var string $phpbb_container */
+	protected $phpbb_container;
+
+	/** @var string $phpEx */
+	protected $phpEx;
 
 	public function main($id, $mode)
 	{
@@ -49,25 +67,26 @@ class main_module
 		$this->phpbb_admin_path = $phpbb_admin_path;
 
 		$this->utils = $this->phpbb_container->get('flerex.linkedaccounts.utils');
+		$this->language = $this->phpbb_container->get('language');
 
 		switch ($mode)
 		{
 			case 'overview':
 			default:
 				$this->tpl_name = 'acp_overview';
-				$this->page_title = $this->user->lang('ADM_LINKED_ACCOUNTS_OVERVIEW');
+				$this->page_title = $this->language->lang('ADM_LINKED_ACCOUNTS_OVERVIEW');
 				$this->mode_overview();
 			break;
 
 			case 'settings':
 				$this->tpl_name = 'acp_settings';
-				$this->page_title = $this->user->lang('ADM_LINKED_ACCOUNTS_SETTINGS');
+				$this->page_title = $this->language->lang('ADM_LINKED_ACCOUNTS_SETTINGS');
 				$this->mode_settings();
 			break;
 
 			case 'management':
 				$this->tpl_name = 'acp_management';
-				$this->page_title = $this->user->lang('ADM_LINKED_ACCOUNTS_MANAGEMENT');
+				$this->page_title = $this->language->lang('ADM_LINKED_ACCOUNTS_MANAGEMENT');
 				$this->mode_management();
 			break;
 		}
@@ -149,7 +168,7 @@ class main_module
 
 		if ($submit && !check_form_key(self::FORM_KEY))
 		{
-			$error[] = $this->user->lang['FORM_INVALID'];
+			$error[] = $this->language->lang('FORM_INVALID');
 		}
 
 		if (count($error))
@@ -169,7 +188,7 @@ class main_module
 				$new_config[$config_name] = $config_value = $cfg_array[$config_name];
 				$this->config->set($config_name, $config_value);
 			}
-			trigger_error($this->user->lang('CONFIG_UPDATED') . adm_back_link($this->u_action), E_USER_NOTICE);
+			trigger_error($this->language->lang('CONFIG_UPDATED') . adm_back_link($this->u_action), E_USER_NOTICE);
 		}
 
 		$this->template->assign_vars(array(
@@ -184,11 +203,11 @@ class main_module
 			$l_explain = '';
 			if ($vars['explain'] && isset($vars['lang_explain']))
 			{
-				$l_explain = (isset($this->user->lang[$vars['lang_explain']])) ? $this->user->lang[$vars['lang_explain']] : $vars['lang_explain'];
+				$l_explain = ($this->language->is_set([$vars['lang_explain']])) ? $this->language->lang($vars['lang_explain']) : $vars['lang_explain'];
 			}
 			else if ($vars['explain'])
 			{
-				$l_explain = (isset($this->user->lang[$vars['lang'] . '_EXPLAIN'])) ? $this->user->lang[$vars['lang'] . '_EXPLAIN'] : '';
+				$l_explain = ($this->language->is_set($vars['lang'] . '_EXPLAIN')) ? $this->language->lang($vars['lang'] . '_EXPLAIN') : '';
 			}
 
 			$content = build_cfg_template($type, $config_key, $new_config, $config_key, $vars);
@@ -200,8 +219,8 @@ class main_module
 
 			$this->template->assign_block_vars('options', array(
 					'KEY'           => $config_key,
-					'TITLE'         => isset($this->user->lang[$vars['lang']])
-						? $this->user->lang[$vars['lang']]
+					'TITLE'         => $this->language->is_set([$vars['lang']])
+						? $this->language->lang($vars['lang'])
 						: $vars['lang'],
 					'S_EXPLAIN'     => $vars['explain'],
 					'TITLE_EXPLAIN' => $l_explain,
@@ -239,13 +258,12 @@ class main_module
 
 				if (empty($user))
 				{
-					trigger_error($this->user->lang['NO_USER'] . adm_back_link($this->u_action), E_USER_WARNING);
+					trigger_error($this->language->lang('NO_USER') . adm_back_link($this->u_action), E_USER_WARNING);
 				}
 
 				$this->tpl_name = 'acp_management_edit';
 
-				$this->page_title = sprintf($this->user->lang('MANAGING_USER'),
-					get_username_string('username', $user['user_id'], $user['username'], $user['user_colour']));
+				$this->page_title = $this->language->lang('MANAGING_USER', get_username_string('username', $user['user_id'], $user['username'], $user['user_colour']));
 
 				foreach ($this->utils->get_linked_accounts($user['user_id']) as $account)
 				{
@@ -258,7 +276,7 @@ class main_module
 				}
 
 				$this->template->assign_vars(array(
-					'EDITED_PAGE_TITLE' => sprintf($this->user->lang('MANAGING_USER'), get_username_string('no_profile', $user['user_id'], $user['username'], $user['user_colour'])),
+					'EDITED_PAGE_TITLE' => $this->language->lang('MANAGING_USER', get_username_string('no_profile', $user['user_id'], $user['username'], $user['user_colour'])),
 					'CURRENT_ACCOUNT'   => $user['user_id'],
 					'U_FIND_USERNAME'   => append_sid($this->phpbb_root_path . 'memberlist.' . $this->phpEx, 'mode=searchuser&amp;form=usermanagement&amp;field=usernames'),
 				));
@@ -284,7 +302,7 @@ class main_module
 			{
 				$this->utils->remove_links($keys, $current_account);
 			}
-			trigger_error($this->user->lang('SUCCESSFUL_UNLINKING') . adm_back_link($this->u_action));
+			trigger_error($this->language->lang('SUCCESSFUL_UNLINKING') . adm_back_link($this->u_action));
 
 
 		}
@@ -302,7 +320,7 @@ class main_module
 
 			if (!$name_ary)
 			{
-				trigger_error($this->user->lang['NO_USERS'] . adm_back_link($this->u_action), E_USER_WARNING);
+				trigger_error($this->language->lang('NO_USERS') . adm_back_link($this->u_action), E_USER_WARNING);
 			}
 
 			$name_ary = array_unique(explode("\n", $name_ary));
@@ -314,7 +332,7 @@ class main_module
 
 			$this->utils->create_links($current_account, $id_ary);
 
-			trigger_error($this->user->lang('SUCCESSFUL_MULTI_LINK_CREATION') . adm_back_link($this->u_action));
+			trigger_error($this->language->lang('SUCCESSFUL_MULTI_LINK_CREATION') . adm_back_link($this->u_action));
 
 		}
 
