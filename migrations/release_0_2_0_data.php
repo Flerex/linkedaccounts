@@ -41,9 +41,11 @@ class release_0_2_0_data extends \phpbb\db\migration\migration
 
 			// Create a new “can manage user's linked accounts” permission
 			array('permission.add', array('a_link_accounts')),
-			// set it to yes in the Stantard Admin role and Administrators group
+			// set it to yes in the Stantard Admin role and Administrators groups
 			array('permission.permission_set', array('ADMINISTRATORS', 'a_link_accounts', 'group')),
 			array('permission.permission_set', array('ROLE_ADMIN_STANDARD', 'a_link_accounts')),
+			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_link_accounts')),
+			array('permission.permission_set', array('ROLE_ADMIN_USERGROUP', 'a_link_accounts')),
 		);
 	}
 }

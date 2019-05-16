@@ -21,7 +21,7 @@ class release_1_2_0_data extends \phpbb\db\migration\migration
 	/**
 	 * Populate phpBB's tables with some needed
 	 * data for Linked Accounts to work with
-	 * features added on version 1.1.4
+	 * features added on version 1.2
 	 */
 	public function update_data()
 	{
@@ -45,14 +45,22 @@ class release_1_2_0_data extends \phpbb\db\migration\migration
 			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'u_view_other_users_linked_accounts')),
 			array('permission.permission_set', array('ROLE_MOD_FULL', 'u_view_other_users_linked_accounts')),
 			array('permission.permission_set', array('ROLE_MOD_STANDARD', 'u_view_other_users_linked_accounts')),
+		);
+	}
 
+	/**
+	 * Remove new default permissions that were added (as an exception) in release_0_2_0_data
+	 */
+	public function revert_data()
+	{
+		return array(
 			/*
 			 * Full admin and User-Group admin roles can manage user’s linked accounts by default.
 			 *
 			 * See release_0_2_0_data.php where the standard role is already set the permission.
 			 */
-			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_link_accounts')),
-			array('permission.permission_set', array('ROLE_ADMIN_USERGROUP', 'a_link_accounts')),
+			array('permission.permission_unset', array('ROLE_ADMIN_FULL', 'a_link_accounts')),
+			array('permission.permission_unset', array('ROLE_ADMIN_USERGROUP', 'a_link_accounts')),
 		);
 	}
 }
