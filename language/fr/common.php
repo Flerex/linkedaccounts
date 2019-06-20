@@ -45,8 +45,8 @@ $lang = array_merge($lang, array(
 
 	// UCP Management Module
 	'LINKED_ACCOUNTS_MANAGEMENT'            => 'Gestion des comptes utilisateurs',
-	'LINKED_ACCOUNTS_DESCRIPTION'           => 'Permet d’associer d’autres comptes utilisateur à celui actuellement utilisé. En associant ses comptes utilisateur il devient alors possible de permuter facilement entre eux sans avoir besoin de fournir ses identifiants de connexion.',
-	'LINK_ACCOUNT'                          => 'Associer des comptes utilisateur',
+	'LINKED_ACCOUNTS_DESCRIPTION'           => 'Permet d’associer d’autres comptes utilisateur à celui actuellement utilisé. En associant des comptes utilisateur il devient alors possible de permuter facilement entre eux sans avoir besoin de fournir ses identifiants de connexion.',
+	'LINK_ACCOUNT'                          => 'Associer un compte utilisateur',
 	'ACCOUNT'                               => 'Noms d’utilisateur des comptes associés',
 	'LINKED_ON'                             => 'Associé le',
 	'NO_LINKED_ACCOUNTS'                    => 'Il n’y a pas de comptes associés.',
@@ -81,7 +81,7 @@ $lang = array_merge($lang, array(
 	// ACP Management Module
 	'ADM_LINKED_ACCOUNTS_MANAGEMENT'        => 'Gérer les membres',
 	'SELECT_USER'                           => 'Sélectionner un membre',
-	'MANAGING_USER'                         => 'Gestion du membres :: %s',
+	'MANAGING_USER'                         => 'Gestion du membre :: %s',
 	'ACCOUNT_LINKS'                         => 'Comptes associés',
 	'LINK_ACCOUNTS'                         => 'Associer des comptes',
 	'LINK_ACCOUNTS_EXPLAIN'                 => 'Permet de créer des associations pour ce membre.',
