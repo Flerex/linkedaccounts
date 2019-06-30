@@ -90,7 +90,7 @@ class main_listener implements EventSubscriberInterface
 			'core.page_header'                  => 'add_switchable_accounts',
 			'core.delete_user_after'            => 'cleanup_table',
 			'core.posting_modify_template_vars' => 'posting_as_template',
-			'core.modify_posting_parameters'    => 'posting_as_logic',
+			'core.modify_posting_parameters'    => array('posting_as_logic', 100),
 			'core.modify_posting_auth'          => 'posting_as_error_override',
 			'core.memberlist_view_profile'      => 'profile_linked_accounts_list',
 		);
@@ -215,7 +215,7 @@ class main_listener implements EventSubscriberInterface
 		 *     - Can reply to a post in this forum (if we are replying to a topic)
 		 *     - Are accessible (are not banned or inactive)
 		*/
-		$available_accounts = array_filter($this->utils->get_linked_accounts(), function ($user) use (&$event, &$is_first_post) {
+		$available_accounts = array_filter($this->utils->get_linked_accounts(), function ($user) use ($event) {
 			return $this->utils->can_switch_to($user['user_id'])
 				&& $this->utils->user_can_post_on_forum(
 					$user['user_id'],

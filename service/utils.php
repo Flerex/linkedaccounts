@@ -159,6 +159,7 @@ class utils
 	 * Obtain a list of the accounts linked
 	 * to the current user.
 	 *
+	 * @param int|null $id
 	 * @return array An array of (int) IDs
 	 */
 	public function get_linked_accounts($id = null)
@@ -232,8 +233,9 @@ class utils
 	 * Returns an array with the accounts
 	 * that are part of a link
 	 *
+	 * @param int $start
+	 * @param int $limit
 	 * @return array
-	 *
 	 */
 	public function get_accounts($start, $limit)
 	{
@@ -354,7 +356,7 @@ class utils
 	 * ID, username, password,
 	 * email and type
 	 *
-	 * @param string $usename The user's name
+	 * @param string $username The user's name
 	 *
 	 * @return array
 	 */
@@ -379,7 +381,7 @@ class utils
 	 *
 	 * @param int $account_id The linked account id
 	 *
-	 * @return array
+	 * @return void
 	 */
 	public function switch_to_linked_account($account_id)
 	{

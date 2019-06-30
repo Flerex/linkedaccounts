@@ -51,6 +51,9 @@ class main_module
 	/** @var string $phpEx */
 	protected $phpEx;
 
+	/** @var string $phpbb_admin_path */
+	protected $phpbb_admin_path;
+
 	public function main($id, $mode)
 	{
 		global $config, $request, $template, $user, $db, $phpbb_container;
