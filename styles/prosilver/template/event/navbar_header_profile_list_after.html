@@ -1,7 +1,4 @@
 {% if switchable_account %}
-	{% if S_LINKEDACCOUNTS_AJAX %}
-		{% INCLUDEJS '@flerex_linkedaccounts/ajax.js' %}
-	{% endif %}
 	<li id="linked_accounts" class="bg1">
 		<ul>
 			{% for account in switchable_account %}

@@ -64,14 +64,12 @@ class switcher
 	 * Demo controller for route /switchaccount/{name}
 	 *
 	 * @param int $account_id
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 * @throws \phpbb\exception\http_exception
 	 */
 	public function handle($account_id)
 	{
 
-		$redirect = $this->config['flerex_linkedaccounts_return_to_index']
-			? append_sid($this->phpbb_root_path . 'index.' . $this->phpEx)
-			: append_sid($this->user->data['session_page']);
 
 		if ($this->request->is_ajax())
 		{
@@ -96,10 +94,12 @@ class switcher
 					'SUCCESS' => true,
 				);
 
-				if ($this->config['flerex_linkedaccounts_return_to_index'])
-				{
-					$data['REDIRECT'] = $redirect;
-				}
+				$data['REFRESH_DATA'] = [
+					'url'  => $this->config['flerex_linkedaccounts_return_to_index']
+							? append_sid($this->phpbb_root_path . 'index.' . $this->phpEx)
+							: append_sid($this->user->data['session_page']),
+					'time' => 0,
+				];
 
 				$this->utils->switch_to_linked_account($account_id);
 			}
