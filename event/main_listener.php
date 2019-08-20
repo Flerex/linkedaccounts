@@ -90,7 +90,7 @@ class main_listener implements EventSubscriberInterface
 			'core.page_header'                  => 'add_switchable_accounts',
 			'core.delete_user_after'            => 'cleanup_table',
 			'core.posting_modify_template_vars' => 'posting_as_template',
-			'core.modify_posting_parameters'    => array('posting_as_logic', 100),
+			'core.modify_posting_parameters'    => array('posting_as_logic', PHP_INT_MAX),
 			'core.modify_posting_auth'          => 'posting_as_error_override',
 			'core.memberlist_view_profile'      => 'profile_linked_accounts_list',
 		);
