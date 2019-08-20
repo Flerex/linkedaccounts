@@ -22,7 +22,7 @@ class utils
 	protected $db;
 
 	/** @var string */
-	protected $linkedacconts_table;
+	protected $linkedaccounts_table;
 
 	/**
 	 * Constructor
@@ -30,14 +30,14 @@ class utils
 	 * @param \phpbb\user              $user
 	 * @param \phpbb\auth\auth         $auth
 	 * @param \phpbb\db\driver\factory $db
-	 * @param string                   $linkedacconts_table
+	 * @param string                   $linkedaccounts_table
 	 */
-	public function __construct(\phpbb\user $user, \phpbb\auth\auth $auth, \phpbb\db\driver\factory $db, $linkedacconts_table)
+	public function __construct(\phpbb\user $user, \phpbb\auth\auth $auth, \phpbb\db\driver\factory $db, $linkedaccounts_table)
 	{
 		$this->user = $user;
 		$this->auth = $auth;
 		$this->db = $db;
-		$this->linkedacconts_table = $linkedacconts_table;
+		$this->linkedaccounts_table = $linkedaccounts_table;
 	}
 
 
@@ -100,7 +100,7 @@ class utils
 			}
 		}
 
-		$sql = 'DELETE FROM ' . $this->linkedacconts_table . '
+		$sql = 'DELETE FROM ' . $this->linkedaccounts_table . '
 			WHERE (user_id = ' . (int) $account . ' OR linked_user_id = ' . (int) $account . ')
 			AND (' . $sql_where . ')';
 
@@ -119,7 +119,7 @@ class utils
 	public function already_linked($linked_id)
 	{
 
-		$sql = 'SELECT COUNT(user_id) AS already_linked FROM ' . $this->linkedacconts_table . '
+		$sql = 'SELECT COUNT(user_id) AS already_linked FROM ' . $this->linkedaccounts_table . '
 			WHERE (user_id = ' . (int) $this->user->data['user_id'] . ' AND linked_user_id = ' . (int) $linked_id . ')
 			OR (user_id = ' . (int) $linked_id . ' AND linked_user_id = ' . (int) $this->user->data['user_id'] . ')';
 
@@ -171,13 +171,13 @@ class utils
 
 		$sql = 'SELECT u.user_id, u.user_type, u.user_email, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, u.user_posts, u.user_rank, l.created_at
 			FROM ' . USERS_TABLE . ' u
-			LEFT JOIN ' . $this->linkedacconts_table . ' l
+			LEFT JOIN ' . $this->linkedaccounts_table . ' l
 			ON u.user_id = l.linked_user_id
 			WHERE l.user_id = ' . (int) $id . '
 			UNION
 			SELECT u.user_id, u.user_type, u.user_email, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, u.user_posts, u.user_rank, l.created_at
 			FROM ' . USERS_TABLE . ' u
-			LEFT JOIN ' . $this->linkedacconts_table . ' l
+			LEFT JOIN ' . $this->linkedaccounts_table . ' l
 			ON u.user_id = l.user_id
 			WHERE l.linked_user_id = ' . (int) $id;
 
@@ -202,7 +202,7 @@ class utils
 	 */
 	public function get_link_count()
 	{
-		$sql = 'SELECT COUNT(user_id) AS count FROM ' . $this->linkedacconts_table . ' ';
+		$sql = 'SELECT COUNT(user_id) AS count FROM ' . $this->linkedaccounts_table . ' ';
 		$result = $this->db->sql_query($sql);
 		$count = $this->db->sql_fetchfield('count');
 
@@ -219,8 +219,8 @@ class utils
 	 */
 	public function get_account_count()
 	{
-		$sql = 'SELECT count(*) AS count FROM (SELECT user_id FROM ' . $this->linkedacconts_table . '
-		UNION SELECT linked_user_id FROM ' . $this->linkedacconts_table . ') AS t';
+		$sql = 'SELECT count(*) AS count FROM (SELECT user_id FROM ' . $this->linkedaccounts_table . '
+		UNION SELECT linked_user_id FROM ' . $this->linkedaccounts_table . ') AS t';
 
 		$result = $this->db->sql_query($sql);
 		$count = $this->db->sql_fetchfield('count');
@@ -240,7 +240,7 @@ class utils
 	public function get_accounts($start, $limit)
 	{
 		$sql = 'SELECT u.user_id, u.user_colour, u.username, COUNT(u.user_id) AS link_count
-			FROM ' . USERS_TABLE . ' AS u JOIN ' . $this->linkedacconts_table . ' AS l
+			FROM ' . USERS_TABLE . ' AS u JOIN ' . $this->linkedaccounts_table . ' AS l
 			ON u.user_id = l.user_id OR u.user_id = l.linked_user_id
 			GROUP BY u.user_id';
 
@@ -275,7 +275,7 @@ class utils
 		);
 
 		$sql = 'INSERT INTO '
-			. $this->linkedacconts_table . ' '
+			. $this->linkedaccounts_table . ' '
 			. $this->db->sql_build_array('INSERT', $sql_arr);
 
 		$this->db->sql_query($sql);
@@ -305,7 +305,7 @@ class utils
 			);
 		}
 
-		$this->db->sql_multi_insert($this->linkedacconts_table, $sql_ary);
+		$this->db->sql_multi_insert($this->linkedaccounts_table, $sql_ary);
 
 	}
 
@@ -324,11 +324,11 @@ class utils
 	{
 
 		$sql = 'SELECT linked_user_id
-			FROM ' . $this->linkedacconts_table . ' 
+			FROM ' . $this->linkedaccounts_table . ' 
 			WHERE user_id = ' . (int) $account . ' AND ' . $this->db->sql_in_set('linked_user_id', $accounts) . '
 			UNION
 			SELECT user_id
-			FROM ' . $this->linkedacconts_table . ' 
+			FROM ' . $this->linkedaccounts_table . ' 
 			WHERE ' . $this->db->sql_in_set('user_id', $accounts) . ' AND linked_user_id = ' . (int) $account;
 
 		$result = $this->db->sql_query($sql);
