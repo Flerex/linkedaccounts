@@ -206,11 +206,11 @@ class main_module
 			$l_explain = '';
 			if ($vars['explain'] && isset($vars['lang_explain']))
 			{
-				$l_explain = ($this->language->is_set([$vars['lang_explain']])) ? $this->language->lang($vars['lang_explain']) : $vars['lang_explain'];
+				$l_explain = $this->language->lang($vars['lang_explain']);
 			}
 			else if ($vars['explain'])
 			{
-				$l_explain = ($this->language->is_set($vars['lang'] . '_EXPLAIN')) ? $this->language->lang($vars['lang'] . '_EXPLAIN') : '';
+				$l_explain = $this->language->lang($vars['lang'] . '_EXPLAIN');
 			}
 
 			$content = build_cfg_template($type, $config_key, $new_config, $config_key, $vars);
@@ -222,9 +222,7 @@ class main_module
 
 			$this->template->assign_block_vars('options', array(
 					'KEY'           => $config_key,
-					'TITLE'         => $this->language->is_set([$vars['lang']])
-						? $this->language->lang($vars['lang'])
-						: $vars['lang'],
+					'TITLE'         => $this->language->lang($vars['lang']),
 					'S_EXPLAIN'     => $vars['explain'],
 					'TITLE_EXPLAIN' => $l_explain,
 					'CONTENT'       => $content,
