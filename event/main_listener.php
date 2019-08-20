@@ -85,14 +85,14 @@ class main_listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.user_setup'                   => 'load_language_on_setup',
-			'core.permissions'                  => 'add_permissions',
-			'core.page_header'                  => 'add_switchable_accounts',
-			'core.delete_user_after'            => 'cleanup_table',
-			'core.posting_modify_template_vars' => 'posting_as_template',
-			'core.modify_posting_parameters'    => array('posting_as_logic', PHP_INT_MAX),
-			'core.modify_posting_auth'          => 'posting_as_error_override',
-			'core.memberlist_view_profile'      => 'profile_linked_accounts_list',
+			'core.user_setup'                       => 'load_language_on_setup',
+			'core.permissions'                      => 'add_permissions',
+			'core.page_header'                      => 'add_switchable_accounts',
+			'core.delete_user_after'                => 'cleanup_table',
+			'core.posting_modify_template_vars'     => 'posting_as_template',
+			'core.modify_posting_parameters'        => array('posting_as_logic', PHP_INT_MAX),
+			'core.posting_modify_submission_errors' => 'posting_as_error_override',
+			'core.memberlist_view_profile'          => 'profile_linked_accounts_list',
 		);
 	}
 
@@ -290,7 +290,7 @@ class main_listener implements EventSubscriberInterface
 	 */
 	public function posting_as_error_override($event)
 	{
-		if (!$event['is_authed'])
+		if ((count($event['error']) || !$event['submit']) && $this->user_backup)
 		{
 			// We are back to the actual user doing the action
 			$this->user->data = $this->user_backup;
