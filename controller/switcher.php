@@ -70,10 +70,9 @@ class switcher
 	public function handle($account_id)
 	{
 
-
 		$redirect = $this->config['flerex_linkedaccounts_return_to_index']
 			? append_sid($this->phpbb_root_path . 'index.' . $this->phpEx)
-			: append_sid($this->user->data['session_page']);
+			: append_sid($this->phpbb_root_path . $this->user->data['session_page']);
 
 		if ($this->request->is_ajax())
 		{
