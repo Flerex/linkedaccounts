@@ -12,10 +12,10 @@
 
 			<dl>
 				<dt>
-					<label for="{option.KEY}">{option.TITLE}{L_COLON}</label>
+					<label>{option.TITLE}{L_COLON}</label>
 					{% if option.S_EXPLAIN %}<br /><span>{option.TITLE_EXPLAIN}</span>{% endif %}
 				</dt>
-				<dd id="{option.KEY}">{option.CONTENT}</dd>
+				<dd>{option.CONTENT}</dd>
 			</dl>
 
 		{% endfor %}
