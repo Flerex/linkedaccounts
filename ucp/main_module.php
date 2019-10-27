@@ -106,7 +106,7 @@ class main_module
 
 		$this->template->assign_vars(array(
 			'U_ACTION'       => $this->u_action,
-			'U_LINK_ACCOUNT' => append_sid($this->phpbb_root_path . 'ucp.' . $this->phpEx, 'i=' . $this->module_basename . '&amp;mode=link'),
+			'U_LINK_ACCOUNT' => $this->u_action . '&amp;mode=link',
 		));
 	}
 
@@ -185,7 +185,7 @@ class main_module
 				else
 				{
 					$this->utils->create_link($this->user->data['user_id'], $user['user_id']);
-					redirect(append_sid($this->phpbb_root_path . 'ucp.' . $this->phpEx, 'i=' . $this->module_basename . '&amp;mode=management'));
+					redirect($this->u_action . '&amp;mode=management');
 				}
 			}
 		}
