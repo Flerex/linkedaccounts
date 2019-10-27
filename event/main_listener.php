@@ -260,21 +260,20 @@ class main_listener implements EventSubscriberInterface
 		}
 
 		/*
-		 * We don't reassign the previous values because we want posting.php think that it's the other user. This
-		 * means that if there's another extension modifying some posting functionality in any of the events, it will
-		 * correctly trigger the events thinking is that other user.
+		 * We don't reassign the previous values because we want posting.php to think that it's the other user (the one
+		 * we are posting as) who is creating the post. This means that if there's another extension modifying some
+		 * posting functionality in any of the events, it will correctly trigger the events thinking it's that other user.
 		 *
 		 * Moreover, once posting.php is finished, loading phpBB again from another file will again recompute the data
 		 * for the correct user stored in the cookie, so changes will be overridden anyway.
 		 *
 		 * The only exception where we will reassign $user and $auth is when there was an error in posting.php, so the
-		 * error is shown as the current user (e.g. if we didn't do this and there was a error when posting without permissions
-		 * the navbar would show the wrong user's username).
+		 * error is shown as the current user (e.g. if we didn't do this and there was a error when posting without
+		 * permissions the navbar would show the wrong user's username).
 		 *
 		 */
 
-		$this->user_backup = $this->user->data;
-
+		$this->user_backup = $this->user;
 
 		$userdata = $this->utils->get_user($poster_id);
 
@@ -293,7 +292,7 @@ class main_listener implements EventSubscriberInterface
 		if ((count($event['error']) || !$event['submit']) && $this->user_backup)
 		{
 			// We are back to the actual user doing the action
-			$this->user->data = $this->user_backup;
+			$this->user = $this->user_backup;
 			$this->auth->acl($this->user->data);
 		}
 	}
