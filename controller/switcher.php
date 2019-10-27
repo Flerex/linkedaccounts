@@ -70,10 +70,17 @@ class switcher
 	public function handle($account_id)
 	{
 
-		$redirect = $this->config['flerex_linkedaccounts_return_to_index']
-			? append_sid('index.' . $this->phpEx)
-			: append_sid($this->user->data['session_page']);
+		$script_path = $this->config['script_path'] ;
 
+		// If the script path is not the root folder, we need to add a forward slash to build well-formed paths.
+		if($script_path !== '/')
+		{
+			$script_path .= '/';
+		}
+
+		$redirect = $this->config['flerex_linkedaccounts_return_to_index']
+			? append_sid($script_path . 'index.' . $this->phpEx)
+			: append_sid($script_path . $this->user->data['session_page']);
 
 		if ($this->request->is_ajax())
 		{
