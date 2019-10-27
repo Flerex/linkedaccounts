@@ -102,7 +102,7 @@ class utils
 
 		$sql = 'DELETE FROM ' . $this->linkedaccounts_table . '
 			WHERE (user_id = ' . (int) $account . ' OR linked_user_id = ' . (int) $account . ')
-			AND (' . $this->db->sql_escape($sql_where) . ')';
+			AND (' . $sql_where . ')';
 
 		$this->db->sql_query($sql);
 
@@ -119,7 +119,7 @@ class utils
 	public function already_linked($linked_id)
 	{
 
-		$sql = 'SELECT COUNT(user_id) AS already_linked FROM ' . $this->db->sql_escape($this->linkedaccounts_table) . '
+		$sql = 'SELECT COUNT(user_id) AS already_linked FROM ' . $this->linkedaccounts_table . '
 			WHERE (user_id = ' . (int) $this->user->data['user_id'] . ' AND linked_user_id = ' . (int) $linked_id . ')
 			OR (user_id = ' . (int) $linked_id . ' AND linked_user_id = ' . (int) $this->user->data['user_id'] . ')';
 
