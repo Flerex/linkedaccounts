@@ -78,6 +78,8 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'If not enabled switching accounts will return to the same page by default.',
 	'CONF_PRIVATE_LINKS'                    => 'Private links',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Setting this option to “yes” will hide the switching menu when a user doesn’t have switching permissions, even when the account has links. This could be a security hazard and it is recommended to be left disabled.',
+	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Preserve administration session',
+	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'When this option is enabled, if an administrator has already re-typed his password, they will not be asked for a password again when switching accounts. It is recommended to leave this setting disabled.',
 
 	// Posting as
 	'POSTING_AS'                            => 'Posting as',

@@ -78,6 +78,8 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'Se esta opción non está activa redirixirase á mesma páxina por defecto.',
 	'CONF_PRIVATE_LINKS'                    => 'Vínculos privados',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Marcar esta opción como “si” ocultará o menú de cambio de conta cando un usuario non teña permisos para cambiar de conta, incluso se a conta ten actualmente enlaces. Esto pode supoñer unha ameaza de seguridade e se recomenda mantela desactivada.',
+	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Manter a sesión de administración',
+	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'Con esta opción activa, se un administrador xa escribiu de novo o seu contrasinal para acceder ó ACP, non se lle preguntará de novo. Recoméndase manter esta opción desactivada.',
 
 	// Posting as
 	'POSTING_AS'                            => 'Publicar coma',

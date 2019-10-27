@@ -20,6 +20,7 @@ services:
         arguments:
             - '@user'
             - '@auth'
+            - '@config'
             - '@dbal.conn'
             - '%flerex.linkedaccounts.tables.links%'
     flerex.linkedaccounts.switcher:

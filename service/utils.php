@@ -18,6 +18,9 @@ class utils
 	/** @var \phpbb\auth\auth */
 	protected $auth;
 
+	/** @var \phpbb\config\config $config */
+	protected $config;
+
 	/** @var \phpbb\db\driver\factory */
 	protected $db;
 
@@ -29,13 +32,15 @@ class utils
 	 *
 	 * @param \phpbb\user              $user
 	 * @param \phpbb\auth\auth         $auth
+	 * @param \phpbb\config\config     $config
 	 * @param \phpbb\db\driver\factory $db
 	 * @param string                   $linkedaccounts_table
 	 */
-	public function __construct(\phpbb\user $user, \phpbb\auth\auth $auth, \phpbb\db\driver\factory $db, $linkedaccounts_table)
+	public function __construct(\phpbb\user $user, \phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\db\driver\factory $db, $linkedaccounts_table)
 	{
 		$this->user = $user;
 		$this->auth = $auth;
+		$this->config = $config;
 		$this->db = $db;
 		$this->linkedaccounts_table = $linkedaccounts_table;
 	}
@@ -388,15 +393,13 @@ class utils
 
 		$session_autologin = (bool) $this->user->data['session_autologin'];
 		$session_viewonline = (bool) $this->user->data['session_viewonline'];
+		$preserve_admin_login = $this->config['flerex_linkedaccounts_preserve_admin_session']
+			? (bool) $this->user->data['session_admin']
+			: false;
 
 		$this->user->session_kill(false);
 		$this->user->session_begin();
-		$this->user->session_create(
-			$account_id,
-			false, // for security reasons we always set this to false (admin login)
-			$session_autologin,
-			$session_viewonline
-		);
+		$this->user->session_create($account_id, $preserve_admin_login, $session_autologin, $session_viewonline);
 	}
 
 	/**

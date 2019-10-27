@@ -78,6 +78,8 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'Permet d’activer la redirection vers la page de l’index du forum après avoir permuté de compte utilisateur. Dans le cas contraire, si cette option est désactivée la redirection s’effectuera vers la même page qu’avant la permutation.',
 	'CONF_PRIVATE_LINKS'                    => 'Associations privés',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Permet de masquer l’option de permutation de comptes utilisateur pour les membres n’ayant pas l’autorisation de permuter et alors même que le membre aurait une association établie entre deux compte utilisateur. Il se peut que cela occasionne un risque pour la sécurité aussi il est recommandé de laisser cette option désactivée.',
+	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Preserve administration session',
+	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'When this option is enabled, if an administrator has already re-typed his password, they will not be asked for a password again when switching accounts. It is recommended to leave this setting disabled.',
 
 	// Posting as
 	'POSTING_AS'                            => 'Publié en tant que',

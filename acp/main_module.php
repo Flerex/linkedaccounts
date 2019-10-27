@@ -160,6 +160,13 @@ class main_module
 				'explain'  => true,
 			),
 
+			'flerex_linkedaccounts_preserve_admin_session' => array(
+				'lang'     => 'CONF_PRESERVE_ADMIN_SESSION',
+				'validate' => 'bool',
+				'type'     => 'radio:yes_no',
+				'explain'  => true,
+			),
+
 		);
 
 		$new_config = clone $this->config;

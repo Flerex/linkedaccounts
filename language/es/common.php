@@ -78,6 +78,8 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'Si esta opción no está activada se redirigirá a la misma página por defecto.',
 	'CONF_PRIVATE_LINKS'                    => 'Enlaces privados',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Marcar esta opción como “sí” ocultará el menú de cambio de cuenta cuando un usuario no tiene permisos para cambiar de cuenta, incluso si la cuenta tiene actualmente enlaces. Esto puede llegar a ser un problema de seguridad y se recomienda dejarlo desactivado.',
+	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Mantener la sesión de administración',
+	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'Con esta opción activa, si un administrador ya ha escrito de nuevo su contraseña para acceder al PCA, no se le preguntará de nuevo. Se recomienda mantener esta opción desactivada.',
 
 	// Posting as
 	'POSTING_AS'                            => 'Publicar como',

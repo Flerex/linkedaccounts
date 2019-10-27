@@ -78,6 +78,8 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'Wenn nicht aktiviert, werden wechselnde Accounts standardmäßig zur selben Seite zurückkehren.',
 	'CONF_PRIVATE_LINKS'                    => 'Private Verbindungen',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Diese Option auf "Ja" zu setzen wird das Wechselmenü verstecken, wenn der Benutzer keine Berechtigungen für das Wechseln hat, auch wenn der Account bereits Verbindungen besitzt. Dies kann ein Sicherheitsrisiko darstellen und es wird empfohlen, diese Option deaktiviert zu lassen.',
+	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Preserve administration session',
+	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'When this option is enabled, if an administrator has already re-typed his password, they will not be asked for a password again when switching accounts. It is recommended to leave this setting disabled.',
 
 	// Posting as
 	'POSTING_AS'                            => 'Antworten als',

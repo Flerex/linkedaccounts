@@ -78,6 +78,8 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'Ha nincs bekapcsolva fiókváltáskor ugyanarra az oldalra kerülnek alapból.',
 	'CONF_PRIVATE_LINKS'                    => 'Rejtett párosítások',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Ez a beállítás “igen” állapotban elrejti a fiókváltás menüt amikor egy felhasználónak nincsen fiókváltási joga, akkor is ha van párosított fiókja. Ez egy biztonsági rés lehet és javasolt kikapcsoltan hagyni.',
+	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Preserve administration session',
+	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'When this option is enabled, if an administrator has already re-typed his password, they will not be asked for a password again when switching accounts. It is recommended to leave this setting disabled.',
 
 	// Posting as
 	'POSTING_AS'                            => 'Posting as',

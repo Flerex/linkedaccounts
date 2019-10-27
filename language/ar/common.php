@@ -79,6 +79,8 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'اختيارك “نعم” يعني العودة إلى الصفحة الرئيسية للمنتدى عند الإنتقال بين الحسابات. اختيارك “لا” يعني العودة إلى نفس الصفحة بصورة افتراضية.',
 	'CONF_PRIVATE_LINKS'                    => 'إخفاء الحسابات ',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'اختيارك “نعم” يعني اخفاء الحسابات المربوطة من القائمة المنسدلة عند عدم امتلاك العضو لصلاحيات ربط الحسابات. ننصح بتعطيل هذا الخيار لكي تتجنب أي مخاطر أمنية.',
+	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Preserve administration session',
+	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'When this option is enabled, if an administrator has already re-typed his password, they will not be asked for a password again when switching accounts. It is recommended to leave this setting disabled.',
 
 	// Posting as
 	'POSTING_AS'                            => 'Posting as',

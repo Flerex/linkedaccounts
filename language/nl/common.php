@@ -78,6 +78,8 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'Als dit niet is ingeschakeld, keren accounts standaard naar dezelfde pagina terug.',
 	'CONF_PRIVATE_LINKS'                    => 'Private links',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Als u deze optie instelt op “Ja”, wordt het account koppel menu verborgen als een gebruiker geen account koppel permissies heeft, ook niet als het account koppelingen bevat. Dit kan een veiligheidsrisico vormen en het wordt aanbevolen om uitgeschakeld te blijven.',
+	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Preserve administration session',
+	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'When this option is enabled, if an administrator has already re-typed his password, they will not be asked for a password again when switching accounts. It is recommended to leave this setting disabled.',
 
 	// Posting as
 	'POSTING_AS'                            => 'Posten als',
