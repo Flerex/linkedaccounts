@@ -70,18 +70,6 @@ class switcher
 	public function handle($account_id)
 	{
 
-		$script_path = $this->config['script_path'] ;
-
-		// If the script path is not the root folder, we need to add a forward slash to build well-formed paths.
-		if($script_path !== '/')
-		{
-			$script_path .= '/';
-		}
-
-		$redirect = $this->config['flerex_linkedaccounts_return_to_index']
-			? append_sid($script_path . 'index.' . $this->phpEx)
-			: append_sid($script_path . $this->user->data['session_page']);
-
 		if ($this->request->is_ajax())
 		{
 
@@ -106,7 +94,7 @@ class switcher
 				);
 
 				$data['REFRESH_DATA'] = [
-					'url'  => $redirect,
+					'url'  => $this->get_redirect_path(),
 					'time' => 0,
 				];
 
@@ -129,9 +117,57 @@ class switcher
 
 		$this->utils->switch_to_linked_account($account_id);
 
-		meta_refresh(3, $redirect);
+		meta_refresh(3, $this->get_redirect_path());
 
 		return $this->helper->message('ACCOUNTS_SWITCHED');
+	}
+
+	/**
+	 * Returns the path of the page that the current user's session
+	 * is at.
+	 *
+	 * If mod_rewrite is enabled, a well-formed URL taking the rewrite
+	 * into account is returned instead.
+	 *
+	 * @return string
+	 */
+	private function get_session_page()
+	{
+
+		$session_page = $this->user->data['session_page'];
+		$rewrite_helper = 'app.php/';
+		$len = strlen($rewrite_helper);
+
+		// If mod_rewrite is enabled and the session page is rewritable (/app.php/whatever) then we correct it.
+		if ($this->config['enable_mod_rewrite'] && substr($session_page, 0, $len) === $rewrite_helper)
+		{
+			return substr($session_page, $len);
+		}
+
+		return $session_page;
+	}
+
+	/**
+	 * Generates the URL that the user will be redirected to
+	 * once the account switching is finished.
+	 *
+	 * @return mixed
+	 */
+	private function get_redirect_path()
+	{
+		$script_path = $this->config['script_path'];
+
+		// If the script path is not the root folder, we need to add a forward slash to build well-formed paths.
+		if ($script_path !== '/')
+		{
+			$script_path .= '/';
+		}
+
+		$redirect = $this->config['flerex_linkedaccounts_return_to_index']
+			? append_sid($script_path . 'index.' . $this->phpEx)
+			: append_sid($script_path . $this->get_session_page());
+
+		return $redirect;
 	}
 
 }
