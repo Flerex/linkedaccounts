@@ -69,6 +69,7 @@ class switcher
 	 */
 	public function handle($account_id)
 	{
+		$account_id = (int) $account_id;
 
 		if ($this->request->is_ajax())
 		{

@@ -147,17 +147,18 @@ class utils
 	public function can_switch_to($account_id)
 	{
 
-		$account = array_search($account_id, array_column($this->get_linked_accounts(), 'user_id'));
+		$linked_accounts = $this->get_linked_accounts();
+		$account = array_search($account_id, array_column($linked_accounts, 'user_id'));
 
-		if ($account === false // must be linked
-			|| ($account['user_type'] == USER_INACTIVE // cannot be inactive
-			|| $this->user->check_ban($account_id, false, $account['user_email'], true) !== false) // Cannot be banned
-		)
+		if ($account === false)
 		{
 			return false;
 		}
 
-		return true;
+		$account = $linked_accounts[$account];
+
+		return ($account['user_type'] != USER_INACTIVE // cannot be inactive
+			&& !$this->user->check_ban($account_id, false, $account['user_email'], true) !== false); // Cannot be banned
 	}
 
 	/**
