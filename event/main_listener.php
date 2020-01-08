@@ -64,7 +64,7 @@ class main_listener implements EventSubscriberInterface
 	 * @param string                               $root_path
 	 * @param string                               $php_ext
 	 */
-	public function __construct(\phpbb\auth\auth $auth, \phpbb\user $user, \phpbb\request\request $request, \phpbb\config\config $config, \phpbb\template\template $template, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils, $root_path, $php_ext)
+	public function __construct(\phpbb\auth\auth $auth, \phpbb\user $user, \phpbb\request\request $request, \phpbb\config\config $config, \phpbb\template\template $template, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils, string $root_path, string $php_ext)
 	{
 		$this->auth = $auth;
 		$this->user = $user;
@@ -82,7 +82,7 @@ class main_listener implements EventSubscriberInterface
 	 *
 	 * @return array
 	 */
-	static public function getSubscribedEvents()
+	static public function getSubscribedEvents(): array
 	{
 		return array(
 			'core.user_setup'                       => 'load_language_on_setup',
@@ -101,8 +101,10 @@ class main_listener implements EventSubscriberInterface
 	 *     flerex/linkedaccounts/language/en/common.php
 	 *
 	 * @param \phpbb\event\data $event The event object
+	 *
+	 * @return void
 	 */
-	public function load_language_on_setup($event)
+	public function load_language_on_setup(\phpbb\event\data $event): void
 	{
 
 		$lang_set_ext = $event['lang_set_ext'];
@@ -118,8 +120,10 @@ class main_listener implements EventSubscriberInterface
 	 * Make phpBB aware of Linked Accounts' permissions
 	 *
 	 * @param \phpbb\event\data $event The event object
+	 *
+	 * @return void
 	 */
-	public function add_permissions($event)
+	public function add_permissions(\phpbb\event\data $event): void
 	{
 		$permissions = $event['permissions'];
 		$permissions['u_switch_accounts'] = array('lang' => 'ACL_U_SWITCH_ACCOUNTS', 'cat' => 'profile');
@@ -135,8 +139,10 @@ class main_listener implements EventSubscriberInterface
 	 * to be used on the template event
 	 *
 	 * @param \phpbb\event\data $event The event object
+	 *
+	 * @return void
 	 */
-	public function add_switchable_accounts($event)
+	public function add_switchable_accounts(\phpbb\event\data $event): void
 	{
 
 		$can_switch = $this->auth->acl_get('u_switch_accounts');
@@ -167,8 +173,10 @@ class main_listener implements EventSubscriberInterface
 	 * Remove all links of a user when it is being deleted
 	 *
 	 * @param \phpbb\event\data $event The event object
+	 *
+	 * @return void
 	 */
-	public function cleanup_table($event)
+	public function cleanup_table(\phpbb\event\data $event): void
 	{
 		$this->utils->remove_links($event['user_ids']);
 	}
@@ -178,8 +186,10 @@ class main_listener implements EventSubscriberInterface
 	 *  the posting as menu.
 	 *
 	 * @param \phpbb\event\data $event The event object
+	 *
+	 * @return void
 	 */
-	public function posting_as_template($event)
+	public function posting_as_template(\phpbb\event\data $event): void
 	{
 
 		// The “posting as” feature is only available when creating posting, replying or quoting
@@ -243,8 +253,10 @@ class main_listener implements EventSubscriberInterface
 	 * as” menu.
 	 *
 	 * @param \phpbb\event\data $event The event object
+	 *
+	 * @return void
 	 */
-	public function posting_as_logic($event)
+	public function posting_as_logic(\phpbb\event\data $event): void
 	{
 		$default_value = $this->user->data['user_id'];
 
@@ -286,8 +298,10 @@ class main_listener implements EventSubscriberInterface
 	 * because of posting_as_logic's $auth and $user overrides.
 	 *
 	 * @param \phpbb\event\data $event The event object
+	 *
+	 * @return void
 	 */
-	public function posting_as_error_override($event)
+	public function posting_as_error_override(\phpbb\event\data $event): void
 	{
 		if ((count($event['error']) || !$event['submit']) && $this->user_backup)
 		{
@@ -301,8 +315,10 @@ class main_listener implements EventSubscriberInterface
 	 * Show list of linked accounts in every user profile.
 	 *
 	 * @param \phpbb\event\data $event The event object
+	 *
+	 * @return void
 	 */
-	public function profile_linked_accounts_list($event)
+	public function profile_linked_accounts_list(\phpbb\event\data $event): void
 	{
 		// The user must have permission
 		$this->template->assign_var('U_CAN_VIEW_LINKED_ACCOUNTS', $this->auth->acl_get('u_view_other_users_linked_accounts'));

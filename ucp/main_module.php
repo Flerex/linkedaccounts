@@ -37,7 +37,11 @@ class main_module
 
 	protected $module_basename;
 
-	public function main($id, $mode)
+	/**
+	 * @param $id
+	 * @param $mode
+	 */
+	public function main($id, $mode) : void
 	{
 		global $config, $request, $template, $user, $db, $phpbb_container;
 		global $phpbb_root_path, $phpEx;
@@ -74,8 +78,10 @@ class main_module
 
 	/**
 	 * Controller for the management mode
+	 *
+	 * @return void
 	 */
-	private function mode_management()
+	private function mode_management() : void
 	{
 		add_form_key('flerex_linkedaccounts_ucp_management');
 
@@ -112,8 +118,10 @@ class main_module
 
 	/**
 	 * Controller for the linking mode
+	 *
+	 * @return void
 	 */
-	private function mode_link()
+	private function mode_link() : void
 	{
 		add_form_key('flerex_linkedaccounts_ucp_link');
 

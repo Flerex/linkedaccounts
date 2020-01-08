@@ -13,8 +13,8 @@ namespace flerex\linkedaccounts\acp;
 class main_module
 {
 
-	const ACCOUNTS_PER_PAGE = 10;
-	const FORM_KEY = 'flerex_linkedaccounts_ucp_management';
+	private const ACCOUNTS_PER_PAGE = 10;
+	private const FORM_KEY = 'flerex_linkedaccounts_ucp_management';
 
 	public $u_action;
 	public $tpl_name;
@@ -54,7 +54,11 @@ class main_module
 	/** @var string $phpbb_admin_path */
 	protected $phpbb_admin_path;
 
-	public function main($id, $mode)
+	/**
+	 * @param $id
+	 * @param $mode
+	 */
+	public function main($id, $mode) : void
 	{
 		global $config, $request, $template, $user, $db, $phpbb_container;
 		global $phpbb_root_path, $phpEx, $phpbb_admin_path;
@@ -98,8 +102,10 @@ class main_module
 
 	/**
 	 * Controller for the overview mode
+	 *
+	 * @return void
 	 */
-	private function mode_overview()
+	private function mode_overview() : void
 	{
 		add_form_key(self::FORM_KEY);
 
@@ -132,7 +138,7 @@ class main_module
 	/**
 	 * Controller for the settings mode
 	 */
-	private function mode_settings()
+	private function mode_settings() : void
 	{
 
 		$submit = $this->request->is_set_post('submit');
@@ -243,8 +249,10 @@ class main_module
 
 	/**
 	 * Controller for the management mode
+	 *
+	 * @return void
 	 */
-	private function mode_management()
+	private function mode_management() : void
 	{
 
 		add_form_key(self::FORM_KEY);

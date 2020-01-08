@@ -48,7 +48,7 @@ class switcher
 	 * @param string                               $phpbb_root_path
 	 * @param string                               $phpEx
 	 */
-	public function __construct(\phpbb\user $user, \phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\request\request $request, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils, $phpbb_root_path, $phpEx)
+	public function __construct(\phpbb\user $user, \phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\request\request $request, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils, string $phpbb_root_path, string $phpEx)
 	{
 		$this->user = $user;
 		$this->auth = $auth;
@@ -67,10 +67,8 @@ class switcher
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 * @throws \phpbb\exception\http_exception
 	 */
-	public function handle($account_id)
+	public function handle(int $account_id) : \phpbb\exception\http_exception
 	{
-		$account_id = (int) $account_id;
-
 		if ($this->request->is_ajax())
 		{
 
@@ -132,7 +130,7 @@ class switcher
 	 *
 	 * @return string
 	 */
-	private function get_session_page()
+	private function get_session_page() : string
 	{
 
 		$session_page = $this->user->data['session_page'];
@@ -152,9 +150,9 @@ class switcher
 	 * Generates the URL that the user will be redirected to
 	 * once the account switching is finished.
 	 *
-	 * @return mixed
+	 * @return string
 	 */
-	private function get_redirect_path()
+	private function get_redirect_path() : string
 	{
 		$script_path = $this->config['script_path'];
 

@@ -36,7 +36,8 @@ class utils
 	 * @param \phpbb\db\driver\factory $db
 	 * @param string                   $linkedaccounts_table
 	 */
-	public function __construct(\phpbb\user $user, \phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\db\driver\factory $db, $linkedaccounts_table)
+	public function __construct(\phpbb\user $user, \phpbb\auth\auth $auth, \phpbb\config\config $config,
+		\phpbb\db\driver\factory $db, string $linkedaccounts_table)
 	{
 		$this->user = $user;
 		$this->auth = $auth;
@@ -50,13 +51,13 @@ class utils
 	 * Get a user's ID by their
 	 * cleaned username or user id
 	 *
-	 * @param string|int $key The cleaned username
+	 * @param int $key        The cleaned username
 	 *                        or user's id
 	 *
 	 * @return array The user
 	 */
 
-	public function get_user($key)
+	public function get_user(int $key): array
 	{
 
 		$sql = 'SELECT user_id, username, username_clean, user_colour, user_permissions, user_type
@@ -85,8 +86,9 @@ class utils
 	 * @param int   $account The id of the account whose links
 	 *                       to accounts in $links will be removed
 	 *
+	 * @return void
 	 */
-	public function remove_links($links, $account = null)
+	public function remove_links(array $links, int $account = null): void
 	{
 
 		if (!$account)
@@ -121,7 +123,7 @@ class utils
 	 * @return bool
 	 *
 	 */
-	public function already_linked($linked_id)
+	public function already_linked(int $linked_id): bool
 	{
 
 		$sql = 'SELECT COUNT(user_id) AS already_linked FROM ' . $this->linkedaccounts_table . '
@@ -144,7 +146,7 @@ class utils
 	 * @return bool
 	 *
 	 */
-	public function can_switch_to($account_id)
+	public function can_switch_to(int $account_id): bool
 	{
 
 		$linked_accounts = $this->get_linked_accounts();
@@ -165,10 +167,10 @@ class utils
 	 * Obtain a list of the accounts linked
 	 * to the current user.
 	 *
-	 * @param int|null $id
+	 * @param int $id
 	 * @return array An array of (int) IDs
 	 */
-	public function get_linked_accounts($id = null)
+	public function get_linked_accounts(int $id = null): array
 	{
 		if (!$id)
 		{
@@ -206,7 +208,7 @@ class utils
 	 * @return int
 	 *
 	 */
-	public function get_link_count()
+	public function get_link_count(): int
 	{
 		$sql = 'SELECT COUNT(user_id) AS count FROM ' . $this->linkedaccounts_table . ' ';
 		$result = $this->db->sql_query($sql);
@@ -223,7 +225,7 @@ class utils
 	 * @return int
 	 *
 	 */
-	public function get_account_count()
+	public function get_account_count(): int
 	{
 		$sql = 'SELECT count(*) AS count FROM (SELECT user_id FROM ' . $this->linkedaccounts_table . '
 		UNION SELECT linked_user_id FROM ' . $this->linkedaccounts_table . ') AS t';
@@ -243,7 +245,7 @@ class utils
 	 * @param int $limit
 	 * @return array
 	 */
-	public function get_accounts($start, $limit)
+	public function get_accounts(int $start, int $limit): array
 	{
 		$sql = 'SELECT u.user_id, u.user_colour, u.username, COUNT(u.user_id) AS link_count
 			FROM ' . USERS_TABLE . ' AS u JOIN ' . $this->linkedaccounts_table . ' AS l
@@ -270,19 +272,18 @@ class utils
 	 * @param int $account1 ID of account1
 	 * @param int $account2 ID of account2
 	 *
+	 * @return void
 	 */
-	public function create_link($account1, $account2)
+	public function create_link(int $account1, int $account2): void
 	{
 
 		$sql_arr = array(
-			'user_id'        => (int) $account1,
-			'linked_user_id' => (int) $account2,
-			'created_at'     => (int) time(),
+			'user_id'        => $account1,
+			'linked_user_id' => $account2,
+			'created_at'     => time(),
 		);
 
-		$sql = 'INSERT INTO '
-			. $this->linkedaccounts_table . ' '
-			. $this->db->sql_build_array('INSERT', $sql_arr);
+		$sql = 'INSERT INTO ' . $this->linkedaccounts_table . ' ' . $this->db->sql_build_array('INSERT', $sql_arr);
 
 		$this->db->sql_query($sql);
 	}
@@ -295,9 +296,10 @@ class utils
 	 * @param int   $account  ID of account
 	 * @param array $accounts IDs of the accounts
 	 *
+	 * @return void
 	 */
 
-	public function create_links($account, $accounts)
+	public function create_links(int $account, array $accounts): void
 	{
 
 		$sql_ary = array();
@@ -326,7 +328,7 @@ class utils
 	 *
 	 */
 
-	public function get_linked_accounts_of_array($account, $accounts)
+	public function get_linked_accounts_of_array(int $account, array $accounts): array
 	{
 
 		$sql = 'SELECT linked_user_id
@@ -366,7 +368,7 @@ class utils
 	 *
 	 * @return array
 	 */
-	public function get_user_auth_info($username)
+	public function get_user_auth_info(string $username): array
 	{
 
 		$sql = 'SELECT user_id, user_password, user_email, user_type
@@ -389,7 +391,7 @@ class utils
 	 *
 	 * @return void
 	 */
-	public function switch_to_linked_account($account_id)
+	public function switch_to_linked_account(int $account_id): void
 	{
 
 		$session_autologin = (bool) $this->user->data['session_autologin'];
@@ -407,15 +409,15 @@ class utils
 	 * Checks whether the given user can post or reply
 	 * on a forum.
 	 *
-	 * @param int     $user_id       The id of the user
-	 * @param int     $forum_id      The id of the forum
-	 * @param string  $mode          The posting mode
-	 * @param boolean $is_first_post Whether we're
+	 * @param int    $user_id        The id of the user
+	 * @param int    $forum_id       The id of the forum
+	 * @param string $mode           The posting mode
+	 * @param bool   $is_first_post  Whether we're
 	 *                               creating a new topic
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
-	public function user_can_post_on_forum($user_id, $forum_id, $mode, $is_first_post)
+	public function user_can_post_on_forum(int $user_id, int $forum_id, string $mode, bool $is_first_post): bool
 	{
 
 
