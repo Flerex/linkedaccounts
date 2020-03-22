@@ -30,6 +30,7 @@ services:
             - '@auth'
             - '@config'
             - '@request'
+            - '@symfony_request'
             - '@controller.helper'
             - '@flerex.linkedaccounts.utils'
             - '%core.root_path%'
