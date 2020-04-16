@@ -67,7 +67,7 @@ class switcher
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 * @throws \phpbb\exception\http_exception
 	 */
-	public function handle(int $account_id) : \phpbb\exception\http_exception
+	public function handle(int $account_id)
 	{
 		if ($this->request->is_ajax())
 		{
