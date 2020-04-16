@@ -2,7 +2,7 @@
 Linked Accounts is a new phpBB 3.2 extension that allows your users to link all their owned accounts so they can switch between them without having to type the password every time.
 
 ## Requirements
-- phpBB 3.2
+- phpBB 3.3
 
 ## Features
 - **Account linking**. Link all your owned accounts to easily switch between them without having to type your password
