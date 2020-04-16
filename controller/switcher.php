@@ -24,9 +24,6 @@ class switcher
 	/** @var \phpbb\request\request $request */
 	protected $request;
 
-	/* @var $symfony_request \phpbb\symfony_request */
-	protected $symfony_request;
-
 	/** @var \phpbb\controller\helper $helper */
 	protected $helper;
 
@@ -46,29 +43,17 @@ class switcher
 	 * @param \phpbb\auth\auth                     $auth
 	 * @param \phpbb\config\config                 $config
 	 * @param \phpbb\request\request               $request
-	 * @param \phpbb\symfony_request               $symfony_request
 	 * @param \phpbb\controller\helper             $helper
 	 * @param \flerex\linkedaccounts\service\utils $utils
 	 * @param string                               $phpbb_root_path
 	 * @param string                               $phpEx
 	 */
-	public function __construct(
-		\phpbb\user $user,
-		\phpbb\auth\auth $auth,
-		\phpbb\config\config $config,
-		\phpbb\request\request $request,
-		\phpbb\symfony_request $symfony_request,
-		\phpbb\controller\helper $helper,
-		\flerex\linkedaccounts\service\utils $utils,
-		string $phpbb_root_path,
-		string $phpEx
-	)
+	public function __construct(\phpbb\user $user, \phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\request\request $request, \phpbb\controller\helper $helper, \flerex\linkedaccounts\service\utils $utils, string $phpbb_root_path, string $phpEx)
 	{
 		$this->user = $user;
 		$this->auth = $auth;
 		$this->config = $config;
 		$this->request = $request;
-		$this->symfony_request = $symfony_request;
 		$this->helper = $helper;
 		$this->utils = $utils;
 		$this->phpbb_root_path = $phpbb_root_path;
@@ -169,11 +154,10 @@ class switcher
 	 */
 	private function get_redirect_path() : string
 	{
-		$script_path	= $this->config['script_path'];
-		$script_name	= $this->symfony_request->getScriptName();
-		$page_name		= substr($script_name, -1, 1) == '/' ? '' : utf8_basename($script_name);
+		$script_path = $this->config['script_path'];
 
-		if ($page_name !== 'app.php')
+		// If the script path is not the root folder, we need to add a forward slash to build well-formed paths.
+		if ($script_path !== '/')
 		{
 			$script_path .= '/';
 		}

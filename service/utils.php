@@ -57,7 +57,7 @@ class utils
 	 * @return array The user
 	 */
 
-	public function get_user($key): array
+	public function get_user(int $key): array
 	{
 
 		$sql = 'SELECT user_id, username, username_clean, user_colour, user_permissions, user_type
