@@ -27,14 +27,12 @@ services:
     flerex.linkedaccounts.auth_service:
         class: flerex\linkedaccounts\service\auth_service
         arguments:
-            - '@user'
             - '@auth'
             - '@dbal.conn'
     flerex.linkedaccounts.switcher:
         class: flerex\linkedaccounts\controller\switcher
         arguments:
             - '@user'
-            - '@auth'
             - '@config'
             - '@request'
             - '@symfony_request'

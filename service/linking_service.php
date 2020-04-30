@@ -9,7 +9,6 @@
 
 namespace flerex\linkedaccounts\service;
 
-use phpbb\auth\auth;
 use phpbb\config\config;
 use phpbb\db\driver\factory;
 use phpbb\user;
@@ -19,9 +18,6 @@ class linking_service
 
 	/** @var user */
 	protected $user;
-
-	/** @var auth */
-	protected $auth;
 
 	/** @var config $config */
 	protected $config;
@@ -36,15 +32,13 @@ class linking_service
 	 * Constructor
 	 *
 	 * @param user    $user
-	 * @param auth    $auth
 	 * @param config  $config
 	 * @param factory $db
 	 * @param string  $linkedaccounts_table
 	 */
-	public function __construct(user $user, auth $auth, config $config, factory $db, string $linkedaccounts_table)
+	public function __construct(user $user, config $config, factory $db, string $linkedaccounts_table)
 	{
 		$this->user = $user;
-		$this->auth = $auth;
 		$this->config = $config;
 		$this->db = $db;
 		$this->linkedaccounts_table = $linkedaccounts_table;

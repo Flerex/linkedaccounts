@@ -1,31 +1,27 @@
 <?php
 
-
 namespace flerex\linkedaccounts\service;
 
+use phpbb\auth\auth;
+use phpbb\db\driver\factory;
 
 class auth_service
 {
-	/** @var \phpbb\user */
-	protected $user;
-
-	/** @var \phpbb\auth\auth */
+	/** @var auth */
 	protected $auth;
 
-	/** @var \phpbb\db\driver\factory */
+	/** @var factory */
 	protected $db;
 
 
 	/**
 	 * auth_service constructor.
 	 *
-	 * @param \phpbb\user              $user
-	 * @param \phpbb\auth\auth         $auth
-	 * @param \phpbb\db\driver\factory $db
+	 * @param auth    $auth
+	 * @param factory $db
 	 */
-	public function __construct(\phpbb\user $user, \phpbb\auth\auth $auth, \phpbb\db\driver\factory $db)
+	public function __construct(auth $auth, factory $db)
 	{
-		$this->user = $user;
 		$this->auth = $auth;
 		$this->db = $db;
 	}
