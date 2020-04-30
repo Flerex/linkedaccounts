@@ -28,6 +28,7 @@ class main_module
 	protected $template;
 	protected $user;
 	protected $db;
+	protected $captcha;
 
 	protected $phpbb_root_path;
 	protected $phpbb_container;
@@ -37,6 +38,7 @@ class main_module
 	protected $auth_service;
 
 	protected $module_basename;
+	protected $passwords_manager;
 
 	/**
 	 * @param $id
@@ -56,9 +58,11 @@ class main_module
 		$this->phpbb_container = $phpbb_container;
 		$this->phpbb_root_path = $phpbb_root_path;
 
-		$this->linking_service = $this->phpbb_container->get('flerex.linkedaccounts.linkingservice');
+		$this->linking_service = $this->phpbb_container->get('flerex.linkedaccounts.linking_service');
 		$this->auth_service = $this->phpbb_container->get('flerex.linkedaccounts.auth_service');
+		$this->captcha = $this->phpbb_container->get('captcha.factory');
 		$this->module_basename = str_replace('\\', '-', $id);
+		$this->passwords_manager = $this->phpbb_container->get('passwords.manager');
 
 		switch ($mode)
 		{
@@ -128,84 +132,185 @@ class main_module
 	{
 		add_form_key('flerex_linkedaccounts_ucp_link');
 
-		$template_vars = array(
+		$this->template->assign_vars([
 			'U_ACTION'        => $this->u_action,
 			'U_FIND_USERNAME' => append_sid("{$this->phpbb_root_path}memberlist.$this->phpEx",
 				"mode=searchuser&amp;form=ucp&amp;field=username&amp;select_single=1"),
-		);
+		]);
 
-		if ($this->request->is_set_post('link'))
+		// Up to this point we handle only the POST request.
+		if (!$this->request->is_set_post('link'))
 		{
-
-			if (!check_form_key('flerex_linkedaccounts_ucp_link'))
-			{
-				trigger_error('FORM_INVALID', E_USER_WARNING);
-			}
-
-			$username = $this->request->variable('username', '', true);
-			$password = $this->request->variable('password', '', true);
-			$cur_password = $this->request->variable('cur_password', '', true);
-
-			$passwords_manager = $this->phpbb_container->get('passwords.manager');
-
-			$errors = array();
-			if (!(empty($password) && empty($cur_password) && empty($username)))
-			{
-				if (empty($cur_password))
-				{
-					$errors[] = $this->user->lang('CUR_PASSWORD_EMPTY');
-				}
-				else if (!$passwords_manager->check($cur_password, $this->user->data['user_password']))
-				{
-					$errors[] = $this->user->lang('CUR_PASSWORD_ERROR');
-				}
-
-				if (empty($username) || empty($password))
-				{
-					$errors[] = $this->user->lang('EMPTY_FIELDS');
-				}
-				else if (utf8_clean_string($username) == $this->user->data['username_clean'])
-				{
-					$errors[] = $this->user->lang('SAME_ACCOUNT');
-				}
-				else
-				{
-					$user = $this->auth_service->get_user_auth_info($username);
-
-					if (!$user || !$passwords_manager->check($password, $user['user_password']))
-					{
-						$errors[] = $this->user->lang('INCORRECT_LINKED_ACCOUNT_CREDENTIALS');
-					}
-					else if ($user['user_type'] == 1)
-					{
-						$errors[] = $this->user->lang('INACTIVE_ACCOUNT');
-					}
-					/*
-					 * we set $return to true because otherwise if the account to link was banned
-					 * we would be kicked out of the current account
-					 */
-					else if ($this->user->check_ban($user['user_id'], false, $user['user_email'], true) !== false)
-					{
-						$errors[] = $this->user->lang('BANNED_ACCOUNT');
-					}
-					else if ($this->linking_service->already_linked($user['user_id']))
-					{
-						$errors[] = $this->user->lang('ALREADY_LINKED');
-					}
-				}
-
-				if (count($errors))
-				{
-					$template_vars['ERROR'] = implode('<br />', $errors);
-				}
-				else
-				{
-					$this->linking_service->create_link($this->user->data['user_id'], $user['user_id']);
-					redirect($this->u_action . '&amp;mode=management');
-				}
-			}
+			return;
 		}
 
-		$this->template->assign_vars($template_vars);
+
+		if (!check_form_key('flerex_linkedaccounts_ucp_link'))
+		{
+			trigger_error('FORM_INVALID', E_USER_WARNING);
+		}
+
+
+		$username = $this->request->variable('username', '', true);
+
+		// We find whether there are errors on the fields themselves or regarding the current user.
+		$errors = $this->get_form_errors();
+		if (count($errors))
+		{
+			$this->template->assign_vars($errors);
+			return;
+		}
+
+		// Now that we know the user we are tying to link is real, we retrieve its data.
+		$user = $this->auth_service->get_user_auth_info($username);
+
+
+		// Once the form is well formed (no pun intended), if the login attempts are exceeded, we show and check the CAPTCHA.
+		if ($this->form_needs_captcha($user))
+		{
+			// We also create a new captcha to be filled by the user
+			$captcha = $this->captcha->get_instance($this->config['captcha_plugin']);
+			$captcha->init(CONFIRM_LOGIN);
+
+			$this->template->assign_vars([
+				'CAPTCHA_TEMPLATE' => $captcha->get_template(),
+				'ERROR'            => $this->user->lang('LOGIN_ERROR_ATTEMPTS'),
+			]);
+
+			if ($captcha->validate())
+			{
+				return; // Captcha is wrong!
+			}
+
+			// We reset the CAPTCHA so that future sending of the form has to complete a new one.
+			$captcha->reset();
+
+		}
+
+		// We ensure that we can login into that account. The password might not match, the account might be banned…
+		$errors = $this->get_auth_errors($user);
+		if (count($errors))
+		{
+			$this->auth_service->add_ip_login_attempt($username, $user['user_id']);
+			$this->auth_service->add_login_attempt_for_user($user['user_id']);
+			$this->assign_errors($errors);
+			return;
+		}
+
+		// Success! Cleanup all possible login attempts.
+		$this->auth_service->remove_ip_login_attempt_for_user($user['user_id']);
+		if ($user['user_login_attempts'] != 0)
+		{
+			$this->auth_service->restore_login_attempt_for_user($user['user_id']);
+		}
+
+		// Create link and redirect.
+		$this->linking_service->create_link($this->user->data['user_id'], $user['user_id']);
+		redirect($this->u_action . '&amp;mode=management');
+
+
+	}
+
+	/**
+	 * Returns a list of errors related to the current user and the form itself.
+	 *
+	 * @return array
+	 */
+	private function get_form_errors(): array
+	{
+
+		$errors = array();
+
+		$username = $this->request->variable('username', '', true);
+		$password = $this->request->variable('password', '', true);
+		$cur_password = $this->request->variable('cur_password', '', true);
+
+		if (empty($cur_password))
+		{
+			$errors[] = $this->user->lang('CUR_PASSWORD_EMPTY');
+		}
+		else if (!$this->passwords_manager->check($cur_password, $this->user->data['user_password']))
+		{
+			$errors[] = $this->user->lang('CUR_PASSWORD_ERROR');
+		}
+
+		if (empty($username) || empty($password))
+		{
+			$errors[] = $this->user->lang('EMPTY_FIELDS');
+		}
+		else if (utf8_clean_string($username) == $this->user->data['username_clean'])
+		{
+			$errors[] = $this->user->lang('SAME_ACCOUNT');
+		}
+
+		return $errors;
+	}
+
+	/**
+	 * Returns a list of errors related to the ability to log in to the account to be linked.
+	 *
+	 * @param array $user The user data of the account to be linked
+	 * @return array
+	 */
+	private function get_auth_errors(array $user): array
+	{
+		$password = $this->request->variable('password', '', true);
+
+		$errors = [];
+
+		if (!$user)
+		{
+			$errors[] = $this->user->lang('INCORRECT_LINKED_ACCOUNT_CREDENTIALS');
+		}
+		else if (!$this->passwords_manager->check($password, $user['user_password']))
+		{
+			$errors[] = $this->user->lang('INCORRECT_LINKED_ACCOUNT_CREDENTIALS');
+		}
+		else if ($user['user_type'] == 1)
+		{
+			$errors[] = $this->user->lang('INACTIVE_ACCOUNT');
+		}
+		/*
+		 * we set $return to true because otherwise if the account to link was banned
+		 * we would be kicked out of the current account
+		 */
+		else if ($this->user->check_ban($user['user_id'], false, $user['user_email'], true) !== false)
+		{
+			$errors[] = $this->user->lang('BANNED_ACCOUNT');
+		}
+		else if ($this->linking_service->already_linked($user['user_id']))
+		{
+			$errors[] = $this->user->lang('ALREADY_LINKED');
+		}
+
+		return $errors;
+	}
+
+
+	/**
+	 * Assigns an array with errors to the template.
+	 *
+	 * @param array $errors
+	 */
+	private function assign_errors(array $errors): void
+	{
+		$this->template->assign_vars([
+			'ERROR' => implode('<br />', $errors),
+		]);
+	}
+
+
+	/**
+	 * Returns whether the form should show a CAPTCHA.
+	 *
+	 * @param array $user
+	 */
+	private function form_needs_captcha(array $user): bool
+	{
+
+		$attempts = $this->auth_service->get_ip_login_attempts();
+
+		return $this->config['ip_login_limit_max'] && $attempts >= $this->config['ip_login_limit_max']
+			|| $this->config['max_login_attempts'] && $user['user_login_attempts'] >= $this->config['max_login_attempts'];
 	}
 }

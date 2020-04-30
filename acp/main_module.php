@@ -85,7 +85,7 @@ class main_module
 		$this->phpbb_root_path = $phpbb_root_path;
 		$this->phpbb_admin_path = $phpbb_admin_path;
 
-		$this->linking_service = $this->phpbb_container->get('flerex.linkedaccounts.linkingservice');
+		$this->linking_service = $this->phpbb_container->get('flerex.linkedaccounts.linking_service');
 		$this->auth_service = $this->phpbb_container->get('flerex.linkedaccounts.auth_service');
 		$this->language = $this->phpbb_container->get('language');
 

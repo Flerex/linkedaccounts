@@ -21,6 +21,10 @@
 					<dd><input type="password" name="password" id="password" maxlength="255" value="{{ NEW_PASSWORD }}"
 							   class="inputbox" title="{{ lang('CHANGE_PASSWORD') }}" autocomplete="off"></dd>
 				</dl>
+				{% if CAPTCHA_TEMPLATE && S_CONFIRM_CODE %}
+				{% DEFINE CAPTCHA_TAB_INDEX = 0 %}
+				{% include CAPTCHA_TEMPLATE %}
+				{% endif %}
 			</fieldset>
 		</div>
 	</div>
