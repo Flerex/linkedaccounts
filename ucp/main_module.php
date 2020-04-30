@@ -34,6 +34,7 @@ class main_module
 	protected $phpEx;
 
 	protected $utils;
+	protected $auth_service;
 
 	protected $module_basename;
 
@@ -41,7 +42,7 @@ class main_module
 	 * @param $id
 	 * @param $mode
 	 */
-	public function main($id, $mode) : void
+	public function main($id, $mode): void
 	{
 		global $config, $request, $template, $user, $db, $phpbb_container;
 		global $phpbb_root_path, $phpEx;
@@ -56,6 +57,7 @@ class main_module
 		$this->phpbb_root_path = $phpbb_root_path;
 
 		$this->utils = $this->phpbb_container->get('flerex.linkedaccounts.utils');
+		$this->auth_service = $this->phpbb_container->get('flerex.linkedaccounts.auth_service');
 		$this->module_basename = str_replace('\\', '-', $id);
 
 		switch ($mode)
@@ -81,7 +83,7 @@ class main_module
 	 *
 	 * @return void
 	 */
-	private function mode_management() : void
+	private function mode_management(): void
 	{
 		add_form_key('flerex_linkedaccounts_ucp_management');
 
@@ -105,7 +107,8 @@ class main_module
 		{
 			$this->template->assign_block_vars('linkedaccounts', array(
 				'ID'   => $linked_account['user_id'],
-				'NAME' => get_username_string('full', $linked_account['user_id'], $linked_account['username'], $linked_account['user_colour']),
+				'NAME' => get_username_string('full', $linked_account['user_id'], $linked_account['username'],
+					$linked_account['user_colour']),
 				'DATE' => $this->user->format_date($linked_account['created_at']),
 			));
 		}
@@ -121,13 +124,14 @@ class main_module
 	 *
 	 * @return void
 	 */
-	private function mode_link() : void
+	private function mode_link(): void
 	{
 		add_form_key('flerex_linkedaccounts_ucp_link');
 
 		$template_vars = array(
 			'U_ACTION'        => $this->u_action,
-			'U_FIND_USERNAME' => append_sid("{$this->phpbb_root_path}memberlist.$this->phpEx", "mode=searchuser&amp;form=ucp&amp;field=username&amp;select_single=1"),
+			'U_FIND_USERNAME' => append_sid("{$this->phpbb_root_path}memberlist.$this->phpEx",
+				"mode=searchuser&amp;form=ucp&amp;field=username&amp;select_single=1"),
 		);
 
 		if ($this->request->is_set_post('link'))
@@ -166,7 +170,7 @@ class main_module
 				}
 				else
 				{
-					$user = $this->utils->get_user_auth_info($username);
+					$user = $this->auth_service->get_user_auth_info($username);
 
 					if (!$user || !$passwords_manager->check($password, $user['user_password']))
 					{
@@ -176,7 +180,11 @@ class main_module
 					{
 						$errors[] = $this->user->lang('INACTIVE_ACCOUNT');
 					}
-					else if ($this->user->check_ban($user['user_id'], false, $user['user_email'], true) !== false) // we set $return to true because otherwise if the account to link was banned we would be kicked out of the current account
+					/*
+					 * we set $return to true because otherwise if the account to link was banned
+					 * we would be kicked out of the current account
+					 */
+					else if ($this->user->check_ban($user['user_id'], false, $user['user_email'], true) !== false)
 					{
 						$errors[] = $this->user->lang('BANNED_ACCOUNT');
 					}

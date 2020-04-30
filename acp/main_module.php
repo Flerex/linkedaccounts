@@ -42,6 +42,9 @@ class main_module
 	/** @var \flerex\linkedaccounts\service\utils $utils */
 	protected $utils;
 
+	/** @var \flerex\linkedaccounts\service\auth_service $auth_service */
+	protected $auth_service;
+
 	/** @var string $phpbb_root_path */
 	protected $phpbb_root_path;
 
@@ -74,6 +77,7 @@ class main_module
 		$this->phpbb_admin_path = $phpbb_admin_path;
 
 		$this->utils = $this->phpbb_container->get('flerex.linkedaccounts.utils');
+		$this->auth_service = $this->phpbb_container->get('flerex.linkedaccounts.auth_service');
 		$this->language = $this->phpbb_container->get('language');
 
 		switch ($mode)
@@ -270,7 +274,7 @@ class main_module
 			if ($user_id || $username)
 			{
 
-				$user = $this->utils->get_user($user_id ?: $username);
+				$user = $this->auth_service->get_user($user_id ?: $username);
 
 				if (empty($user))
 				{
