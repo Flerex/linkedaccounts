@@ -33,7 +33,7 @@ class main_module
 	protected $phpbb_container;
 	protected $phpEx;
 
-	protected $utils;
+	protected $linking_service;
 	protected $auth_service;
 
 	protected $module_basename;
@@ -56,7 +56,7 @@ class main_module
 		$this->phpbb_container = $phpbb_container;
 		$this->phpbb_root_path = $phpbb_root_path;
 
-		$this->utils = $this->phpbb_container->get('flerex.linkedaccounts.utils');
+		$this->linking_service = $this->phpbb_container->get('flerex.linkedaccounts.linkingservice');
 		$this->auth_service = $this->phpbb_container->get('flerex.linkedaccounts.auth_service');
 		$this->module_basename = str_replace('\\', '-', $id);
 
@@ -98,12 +98,12 @@ class main_module
 
 			if (!empty($keys))
 			{
-				$this->utils->remove_links($keys);
+				$this->linking_service->remove_links($keys);
 			}
 
 		}
 
-		foreach ($this->utils->get_linked_accounts() as $linked_account)
+		foreach ($this->linking_service->get_linked_accounts() as $linked_account)
 		{
 			$this->template->assign_block_vars('linkedaccounts', array(
 				'ID'   => $linked_account['user_id'],
@@ -188,7 +188,7 @@ class main_module
 					{
 						$errors[] = $this->user->lang('BANNED_ACCOUNT');
 					}
-					else if ($this->utils->already_linked($user['user_id']))
+					else if ($this->linking_service->already_linked($user['user_id']))
 					{
 						$errors[] = $this->user->lang('ALREADY_LINKED');
 					}
@@ -200,7 +200,7 @@ class main_module
 				}
 				else
 				{
-					$this->utils->create_link($this->user->data['user_id'], $user['user_id']);
+					$this->linking_service->create_link($this->user->data['user_id'], $user['user_id']);
 					redirect($this->u_action . '&amp;mode=management');
 				}
 			}

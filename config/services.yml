@@ -10,14 +10,14 @@ services:
             - '@config'
             - '@template'
             - '@controller.helper'
-            - '@flerex.linkedaccounts.utils'
+            - '@flerex.linkedaccounts.linkingservice'
             - '@flerex.linkedaccounts.auth_service'
             - '%core.root_path%'
             - '%core.php_ext%'
         tags:
             - { name: event.listener }
-    flerex.linkedaccounts.utils:
-        class: flerex\linkedaccounts\service\utils
+    flerex.linkedaccounts.linking_service:
+        class: flerex\linkedaccounts\service\linking_service
         arguments:
             - '@user'
             - '@auth'
@@ -39,6 +39,6 @@ services:
             - '@request'
             - '@symfony_request'
             - '@controller.helper'
-            - '@flerex.linkedaccounts.utils'
+            - '@flerex.linkedaccounts.linkingservice'
             - '%core.root_path%'
             - '%core.php_ext%'

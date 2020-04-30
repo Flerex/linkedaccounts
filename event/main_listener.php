@@ -11,7 +11,7 @@
 namespace flerex\linkedaccounts\event;
 
 use flerex\linkedaccounts\service\auth_service;
-use flerex\linkedaccounts\service\utils;
+use flerex\linkedaccounts\service\linking_service;
 use phpbb\auth\auth;
 use phpbb\config\config;
 use phpbb\controller\helper;
@@ -42,8 +42,8 @@ class main_listener implements EventSubscriberInterface
 	/** @var helper */
 	protected $helper;
 
-	/** @var utils */
-	protected $utils;
+	/** @var linking_service */
+	protected $linking_service;
 
 	/** @var auth_service */
 	protected $auth_service;
@@ -72,13 +72,13 @@ class main_listener implements EventSubscriberInterface
 	 * @param config           $config
 	 * @param template         $template
 	 * @param helper           $helper
-	 * @param utils            $utils
+	 * @param linking_service  $linking_service
 	 * @param auth_service     $auth_service
 	 * @param string           $root_path
 	 * @param string           $php_ext
 	 */
 	public function __construct(auth $auth, user $user, request $request, config $config, template $template,
-		helper $helper, utils $utils, auth_service $auth_service, string $root_path, string $php_ext)
+		helper $helper, linking_service $linking_service, auth_service $auth_service, string $root_path, string $php_ext)
 	{
 		$this->auth = $auth;
 		$this->user = $user;
@@ -86,7 +86,7 @@ class main_listener implements EventSubscriberInterface
 		$this->config = $config;
 		$this->template = $template;
 		$this->helper = $helper;
-		$this->utils = $utils;
+		$this->linking_service = $linking_service;
 		$this->auth_service = $auth_service;
 		$this->root_path = $root_path;
 		$this->php_ext = $php_ext;
@@ -162,7 +162,7 @@ class main_listener implements EventSubscriberInterface
 
 		$can_switch = $this->auth->acl_get('u_switch_accounts');
 
-		$linked_accounts = $this->utils->get_linked_accounts();
+		$linked_accounts = $this->linking_service->get_linked_accounts();
 
 		if (!$can_switch && $this->config['flerex_linkedaccounts_private_links'])
 		{
@@ -193,7 +193,7 @@ class main_listener implements EventSubscriberInterface
 	 */
 	public function cleanup_table(data $event): void
 	{
-		$this->utils->remove_links($event['user_ids']);
+		$this->linking_service->remove_links($event['user_ids']);
 	}
 
 	/**
@@ -240,8 +240,8 @@ class main_listener implements EventSubscriberInterface
 		 *     - Can reply to a post in this forum (if we are replying to a topic)
 		 *     - Are accessible (are not banned or inactive)
 		*/
-		$available_accounts = array_filter($this->utils->get_linked_accounts(), function ($user) use ($event) {
-			return $this->utils->can_switch_to($user['user_id'])
+		$available_accounts = array_filter($this->linking_service->get_linked_accounts(), function ($user) use ($event) {
+			return $this->linking_service->can_switch_to($user['user_id'])
 				&& $this->auth_service->user_can_post_on_forum(
 					$user['user_id'],
 					$event['post_data']['forum_id'],
@@ -280,7 +280,7 @@ class main_listener implements EventSubscriberInterface
 
 		if (!$this->auth->acl_get('u_post_as_account') // user must have permissions
 			|| $poster_id == $default_value // “poster as” should be changed
-			|| !$this->utils->can_switch_to($poster_id) // the new account should be linked && login-able (not banned, inactive, etc.)
+			|| !$this->linking_service->can_switch_to($poster_id) // the new account should be linked && login-able (not banned, inactive, etc.)
 		)
 		{
 			return;
@@ -338,7 +338,7 @@ class main_listener implements EventSubscriberInterface
 		// The user must have permission
 		$this->template->assign_var('U_CAN_VIEW_LINKED_ACCOUNTS', $this->auth->acl_get('u_view_other_users_linked_accounts'));
 
-		foreach ($this->utils->get_linked_accounts($event['member']['user_id']) as $account)
+		foreach ($this->linking_service->get_linked_accounts($event['member']['user_id']) as $account)
 		{
 			$user_rank_data = phpbb_get_user_rank($account, (($account['user_id'] == ANONYMOUS) ? false : $account['user_posts']));
 			$this->template->assign_block_vars('linked_accounts', array(

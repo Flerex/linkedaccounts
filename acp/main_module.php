@@ -10,6 +10,15 @@
 
 namespace flerex\linkedaccounts\acp;
 
+use \phpbb\config\config;
+use \phpbb\request\request;
+use \phpbb\template\template;
+use \phpbb\user;
+use \phpbb\language\language;
+use \phpbb\db\driver\factory;
+use \flerex\linkedaccounts\service\linking_service;
+use \flerex\linkedaccounts\service\auth_service;
+
 class main_module
 {
 
@@ -21,28 +30,28 @@ class main_module
 	public $page_title;
 
 
-	/** @var \phpbb\config\config $config */
+	/** @var config $config */
 	protected $config;
 
-	/** @var \phpbb\request\request $request */
+	/** @var request $request */
 	protected $request;
 
-	/** @var \phpbb\template\template $template */
+	/** @var template $template */
 	protected $template;
 
-	/** @var \phpbb\user $user */
+	/** @var user $user */
 	protected $user;
 
-	/** @var \phpbb\language\language $language */
+	/** @var language $language */
 	protected $language;
 
-	/** @var \phpbb\db\driver\factory $db  */
+	/** @var factory $db  */
 	protected $db;
 
-	/** @var \flerex\linkedaccounts\service\utils $utils */
-	protected $utils;
+	/** @var linking_service $linking_service */
+	protected $linking_service;
 
-	/** @var \flerex\linkedaccounts\service\auth_service $auth_service */
+	/** @var auth_service $auth_service */
 	protected $auth_service;
 
 	/** @var string $phpbb_root_path */
@@ -76,7 +85,7 @@ class main_module
 		$this->phpbb_root_path = $phpbb_root_path;
 		$this->phpbb_admin_path = $phpbb_admin_path;
 
-		$this->utils = $this->phpbb_container->get('flerex.linkedaccounts.utils');
+		$this->linking_service = $this->phpbb_container->get('flerex.linkedaccounts.linkingservice');
 		$this->auth_service = $this->phpbb_container->get('flerex.linkedaccounts.auth_service');
 		$this->language = $this->phpbb_container->get('language');
 
@@ -116,7 +125,7 @@ class main_module
 		$start = $this->request->variable('start', 0);
 		$limit = $this->request->variable('limit', main_module::ACCOUNTS_PER_PAGE);
 
-		$accounts = $this->utils->get_accounts($start, $limit);
+		$accounts = $this->linking_service->get_accounts($start, $limit);
 		foreach ($accounts as $account)
 		{
 			$this->template->assign_block_vars('accounts', array(
@@ -128,13 +137,13 @@ class main_module
 		}
 
 		$pagination = $this->phpbb_container->get('pagination');
-		$account_count = $this->utils->get_account_count();
+		$account_count = $this->linking_service->get_account_count();
 		$pagination->generate_template_pagination($this->u_action, 'pagination', 'start', $account_count, $limit, $start);
 
 		$this->template->assign_vars(array(
 			'U_ACTION'              => str_replace('mode=overview', 'mode=management', $this->u_action),
 			'LINKED_ACCOUNTS_COUNT' => $account_count,
-			'LINK_COUNT'            => $this->utils->get_link_count(),
+			'LINK_COUNT'            => $this->linking_service->get_link_count(),
 			'PAGE_NUMBER'           => $pagination->on_page($account_count, $limit, $start),
 		));
 	}
@@ -285,7 +294,7 @@ class main_module
 
 				$this->page_title = $this->language->lang('MANAGING_USER', get_username_string('username', $user['user_id'], $user['username'], $user['user_colour']));
 
-				foreach ($this->utils->get_linked_accounts($user['user_id']) as $account)
+				foreach ($this->linking_service->get_linked_accounts($user['user_id']) as $account)
 				{
 					$this->template->assign_block_vars('accounts', array(
 						'ID'       => $account['user_id'],
@@ -320,7 +329,7 @@ class main_module
 
 			if (!empty($keys))
 			{
-				$this->utils->remove_links($keys, $current_account);
+				$this->linking_service->remove_links($keys, $current_account);
 			}
 			trigger_error($this->language->lang('SUCCESSFUL_UNLINKING') . adm_back_link($this->u_action));
 
@@ -348,9 +357,9 @@ class main_module
 			include($this->phpbb_root_path . 'includes/functions_user.' . $this->phpEx);
 			user_get_id_name($id_ary, $name_ary);
 
-			$id_ary = array_diff($id_ary, $this->utils->get_linked_accounts_of_array($current_account, $id_ary));
+			$id_ary = array_diff($id_ary, $this->linking_service->get_linked_accounts_of_array($current_account, $id_ary));
 
-			$this->utils->create_links($current_account, $id_ary);
+			$this->linking_service->create_links($current_account, $id_ary);
 
 			trigger_error($this->language->lang('SUCCESSFUL_MULTI_LINK_CREATION') . adm_back_link($this->u_action));
 
