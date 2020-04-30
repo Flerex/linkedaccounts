@@ -138,19 +138,23 @@ class main_module
 				"mode=searchuser&amp;form=ucp&amp;field=username&amp;select_single=1"),
 		]);
 
-		// Up to this point we handle only the POST request.
-		if (!$this->request->is_set_post('link'))
+		// Handle the POST request
+		if ($this->request->is_set_post('link'))
 		{
-			return;
+			if (!check_form_key('flerex_linkedaccounts_ucp_link'))
+			{
+				trigger_error('FORM_INVALID', E_USER_WARNING);
+			}
+
+			$this->linking_request();
 		}
+	}
 
-
-		if (!check_form_key('flerex_linkedaccounts_ucp_link'))
-		{
-			trigger_error('FORM_INVALID', E_USER_WARNING);
-		}
-
-
+	/**
+	 * Takes care of the POST request for the linking functionality.
+	 */
+	private function linking_request()
+	{
 		$username = $this->request->variable('username', '', true);
 
 		// We find whether there are errors on the fields themselves or regarding the current user.
@@ -166,48 +170,25 @@ class main_module
 
 
 		// Once the form is well formed (no pun intended), if the login attempts are exceeded, we show and check the CAPTCHA.
-		if ($this->form_needs_captcha($user))
+		$wrong_captcha = $this->with_captcha($user);
+		if ($wrong_captcha)
 		{
-			// We also create a new captcha to be filled by the user
-			$captcha = $this->captcha->get_instance($this->config['captcha_plugin']);
-			$captcha->init(CONFIRM_LOGIN);
-
-			$this->template->assign_vars([
-				'CAPTCHA_TEMPLATE' => $captcha->get_template(),
-				'ERROR'            => $this->user->lang('LOGIN_ERROR_ATTEMPTS'),
-			]);
-
-			if ($captcha->validate())
-			{
-				return; // Captcha is wrong!
-			}
-
-			// We reset the CAPTCHA so that future sending of the form has to complete a new one.
-			$captcha->reset();
-
+			return;
 		}
 
 		// We ensure that we can login into that account. The password might not match, the account might be banned…
 		$errors = $this->get_auth_errors($user);
 		if (count($errors))
 		{
-			$this->auth_service->add_ip_login_attempt($username, $user['user_id']);
-			$this->auth_service->add_login_attempt_for_user($user['user_id']);
+			$this->add_login_attempts($username, $user['user_id']);
 			$this->assign_errors($errors);
 			return;
 		}
-
-		// Success! Cleanup all possible login attempts.
-		$this->auth_service->remove_ip_login_attempt_for_user($user['user_id']);
-		if ($user['user_login_attempts'] != 0)
-		{
-			$this->auth_service->restore_login_attempt_for_user($user['user_id']);
-		}
-
-		// Create link and redirect.
+		
+		// Remove previous attempts, create link and redirect.
+		$this->remove_login_attempts($username, $user);
 		$this->linking_service->create_link($this->user->data['user_id'], $user['user_id']);
 		redirect($this->u_action . '&amp;mode=management');
-
 
 	}
 
@@ -312,5 +293,77 @@ class main_module
 
 		return $this->config['ip_login_limit_max'] && $attempts >= $this->config['ip_login_limit_max']
 			|| $this->config['max_login_attempts'] && $user['user_login_attempts'] >= $this->config['max_login_attempts'];
+	}
+
+
+	/**
+	 * Creates a captcha and sets the CAPTCHA mode, sending the necessary data to the template.
+	 */
+	private function create_captcha()
+	{
+		// We also create a new captcha to be filled by the user
+		$captcha = $this->captcha->get_instance($this->config['captcha_plugin']);
+		$captcha->init(CONFIRM_LOGIN);
+
+		$this->template->assign_vars([
+			'CAPTCHA_TEMPLATE' => $captcha->get_template(),
+			'ERROR'            => $this->user->lang('LOGIN_ERROR_ATTEMPTS'),
+		]);
+
+		return $captcha;
+	}
+
+
+	/**
+	 * Manages all the captcha process for the current session by login attemtps to the given user.
+	 *
+	 * Returns true if the captcha was needed and was not introduced correctly.
+	 *
+	 * @param $user
+	 * @return bool
+	 */
+	private function with_captcha($user): bool
+	{
+		if ($this->form_needs_captcha($user))
+		{
+			$captcha = $this->create_captcha();
+
+			if ($captcha->validate())
+			{
+				return true; // Captcha is wrong!
+			}
+
+			// We reset the CAPTCHA so that future sending of the form has to complete a new one.
+			$captcha->reset();
+
+			return false;
+		}
+	}
+
+	/**
+	 * Adds a new login attempt for the given user.
+	 *
+	 * @param string $username
+	 * @param int    $user_id
+	 */
+	private function add_login_attempts(string $username, int $user_id)
+	{
+		$this->auth_service->add_ip_login_attempt($username, $user_id);
+		$this->auth_service->add_login_attempt_for_user($user_id);
+	}
+
+	/**
+	 * Adds a new login attempt for the given user.
+	 *
+	 * @param string $username
+	 * @param array  $user
+	 */
+	private function remove_login_attempts(string $username, array $user)
+	{
+		$this->auth_service->remove_ip_login_attempt_for_user($user['user_id']);
+		if ($user['user_login_attempts'] != 0)
+		{
+			$this->auth_service->restore_login_attempt_for_user($user['user_id']);
+		}
 	}
 }
