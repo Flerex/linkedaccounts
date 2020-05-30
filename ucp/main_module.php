@@ -184,7 +184,7 @@ class main_module
 			$this->assign_errors($errors);
 			return;
 		}
-		
+
 		// Remove previous attempts, create link and redirect.
 		$this->remove_login_attempts($username, $user);
 		$this->linking_service->create_link($this->user->data['user_id'], $user['user_id']);
@@ -336,8 +336,8 @@ class main_module
 			// We reset the CAPTCHA so that future sending of the form has to complete a new one.
 			$captcha->reset();
 
-			return false;
 		}
+		return false;
 	}
 
 	/**

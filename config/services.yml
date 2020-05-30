@@ -34,6 +34,7 @@ services:
         class: flerex\linkedaccounts\controller\switcher
         arguments:
             - '@user'
+            - '@auth'
             - '@config'
             - '@request'
             - '@symfony_request'
