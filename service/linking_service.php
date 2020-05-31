@@ -31,10 +31,10 @@ class linking_service
 	/**
 	 * Constructor
 	 *
-	 * @param user    $user
-	 * @param config  $config
-	 * @param db $db
-	 * @param string  $linkedaccounts_table
+	 * @param user   $user
+	 * @param config $config
+	 * @param db     $db
+	 * @param string $linkedaccounts_table
 	 */
 	public function __construct(user $user, config $config, db $db, string $linkedaccounts_table)
 	{
@@ -341,9 +341,13 @@ class linking_service
 			? (bool) $this->user->data['session_admin']
 			: false;
 
+		$session_page = $this->user->data['session_page']; // We retrieve the current page before switching users
+
 		$this->user->session_kill(false);
 		$this->user->session_begin();
 		$this->user->session_create($account_id, $preserve_admin_login, $session_autologin, $session_viewonline);
+		$this->user->update_session(compact('session_page'));
+		$this->user->data['session_page'] = $session_page;
 	}
 
 }

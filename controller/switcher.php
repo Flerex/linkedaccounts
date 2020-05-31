@@ -149,7 +149,6 @@ class switcher
 	 */
 	private function get_session_page(): string
 	{
-
 		$session_page = $this->user->data['session_page'];
 		$rewrite_helper = 'app.php/';
 		$len = strlen($rewrite_helper);
