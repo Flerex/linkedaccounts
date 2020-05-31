@@ -171,7 +171,7 @@ class switcher
 	 */
 	private function get_redirect_path(): string
 	{
-		$script_path = $this->config['script_path'];
+		$script_path = rtrim($this->config['script_path'], '/')  . '/';
 		$script_name = $this->symfony_request->getScriptName();
 		$page_name = substr($script_name, -1, 1) == '/' ? '' : utf8_basename($script_name);
 
