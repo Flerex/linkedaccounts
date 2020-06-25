@@ -44,10 +44,10 @@ class auth_service
 	 *
 	 * @param int $key The cleaned username or user's id
 	 *
-	 * @return array The user
+	 * @return array|null user
 	 */
 
-	public function get_user($key): array
+	public function get_user($key) : ?array
 	{
 
 		$sql = 'SELECT user_id, username, username_clean, user_colour, user_permissions, user_type
@@ -64,9 +64,10 @@ class auth_service
 
 		$result = $this->db->sql_query($sql);
 		$user = $this->db->sql_fetchrow();
+
 		$this->db->sql_freeresult($result);
 
-		return $user;
+		return $user ?: null;
 	}
 
 	/**
