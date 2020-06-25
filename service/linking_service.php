@@ -346,7 +346,7 @@ class linking_service
 		$this->user->session_kill(false);
 		$this->user->session_begin();
 		$this->user->session_create($account_id, $preserve_admin_login, $session_autologin, $session_viewonline);
-		$this->user->update_session(compact('session_page'));
+		$this->user->update_session(['session_page' => $session_page]);
 		$this->user->data['session_page'] = $session_page;
 	}
 

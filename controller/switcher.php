@@ -150,7 +150,7 @@ class switcher
 	private function get_session_page(): string
 	{
 		$session_page = $this->user->data['session_page'];
-		$rewrite_helper = 'app.php/';
+		$rewrite_helper = 'app.' . $this->phpEx . '/';
 		$len = strlen($rewrite_helper);
 
 		// If mod_rewrite is enabled and the session page is rewritable (/app.php/whatever) then we correct it.
