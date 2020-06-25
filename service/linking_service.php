@@ -74,7 +74,7 @@ class linking_service
 		}
 
 		$sql = 'DELETE FROM ' . $this->linkedaccounts_table . '
-			WHERE (user_id = ' . $account . ' OR linked_user_id = ' . $account . ')
+			WHERE (user_id = ' . (int) $account . ' OR linked_user_id = ' . (int) $account . ')
 			AND (' . $sql_where . ')';
 
 		$this->db->sql_query($sql);
@@ -147,13 +147,13 @@ class linking_service
 			FROM ' . USERS_TABLE . ' u
 			LEFT JOIN ' . $this->linkedaccounts_table . ' l
 			ON u.user_id = l.linked_user_id
-			WHERE l.user_id = ' . $id . '
+			WHERE l.user_id = ' . (int) $id . '
 			UNION
 			SELECT u.user_id, u.user_type, u.user_email, u.user_colour, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_height, u.user_avatar_width, u.user_posts, u.user_rank, l.created_at
 			FROM ' . USERS_TABLE . ' u
 			LEFT JOIN ' . $this->linkedaccounts_table . ' l
 			ON u.user_id = l.user_id
-			WHERE l.linked_user_id = ' . $id;
+			WHERE l.linked_user_id = ' . (int) $id;
 
 		$result = $this->db->sql_query($sql);
 
