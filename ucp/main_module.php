@@ -161,12 +161,17 @@ class main_module
 		$errors = $this->get_form_errors();
 		if (count($errors))
 		{
-			$this->template->assign_vars($errors);
+			$this->assign_errors($errors);
 			return;
 		}
 
-		// Now that we know the user we are tying to link is real, we retrieve its data.
+		// We check the user exists and return it
 		$user = $this->auth_service->get_user_auth_info($username);
+
+		if(empty($user)) {
+			$this->assign_errors([$this->user->lang('NO_USER')]);
+			return;
+		}
 
 
 		// Once the form is well formed (no pun intended), if the login attempts are exceeded, we show and check the CAPTCHA.

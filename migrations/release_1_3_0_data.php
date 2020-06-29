@@ -21,7 +21,7 @@ class release_1_3_0_data extends \phpbb\db\migration\migration
 	/**
 	 * Populate phpBB's tables with some needed
 	 * data for Linked Accounts to work with
-	 * features added on version 0.2.0
+	 * features added on version 1.3.0
 	 */
 	public function update_data()
 	{
