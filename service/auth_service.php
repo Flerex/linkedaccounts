@@ -176,7 +176,7 @@ class auth_service
 	 */
 	public function add_login_attempt_for_user(int $user_id): void
 	{
-		$sql = 'UPDATE ' . USERS_TABLE . ' SET user_login_attempts = user_login_attempts + 1 WHERE user_id = ' . $user_id;
+		$sql = 'UPDATE ' . USERS_TABLE . ' SET user_login_attempts = user_login_attempts + 1 WHERE user_id = ' . (int) $user_id;
 		$this->db->sql_query($sql);
 	}
 
@@ -187,7 +187,7 @@ class auth_service
 	 */
 	public function restore_login_attempt_for_user(int $user_id): void
 	{
-		$sql = 'UPDATE ' . USERS_TABLE . ' SET user_login_attempts = 0 WHERE user_id = ' . $user_id;
+		$sql = 'UPDATE ' . USERS_TABLE . ' SET user_login_attempts = 0 WHERE user_id = ' . (int) $user_id;
 		$this->db->sql_query($sql);
 	}
 
@@ -222,7 +222,7 @@ class auth_service
 	 */
 	public function remove_ip_login_attempt_for_user(int $user_id = 0): void
 	{
-		$sql = 'DELETE FROM ' . LOGIN_ATTEMPT_TABLE . ' WHERE user_id = ' . $user_id;
+		$sql = 'DELETE FROM ' . LOGIN_ATTEMPT_TABLE . ' WHERE user_id = ' . (int) $user_id;
 		$this->db->sql_query($sql);
 	}
 
