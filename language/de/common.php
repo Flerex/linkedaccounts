@@ -46,6 +46,7 @@ $lang = array_merge($lang, array(
 	'INACTIVE_ACCOUNT'                      => 'Der Account, den du verbinden möchtest, scheint inaktiv zu sein.',
 	'BANNED_ACCOUNT'                        => 'Der Account, den du verbinden möchtest, scheint gebannt zu sein.',
 	'ALREADY_LINKED'                        => 'Du bist schon mit diesem Account verbunden.',
+	'MAX_LINKS_EXCEEDED'                    => 'You have exceeded the maximum number of links allowed.',
 
 	// Switching process
 	'ACCOUNTS_SWITCHED'                     => 'Accounts erfolgreich gewechselt.',
@@ -80,6 +81,8 @@ $lang = array_merge($lang, array(
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Diese Option auf "Ja" zu setzen wird das Wechselmenü verstecken, wenn der Benutzer keine Berechtigungen für das Wechseln hat, auch wenn der Account bereits Verbindungen besitzt. Dies kann ein Sicherheitsrisiko darstellen und es wird empfohlen, diese Option deaktiviert zu lassen.',
 	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Preserve administration session',
 	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'When this option is enabled, if an administrator has already re-typed his password, they will not be asked for a password again when switching accounts. It is recommended to leave this setting disabled.',
+	'CONF_MAX_LINKS'                        => 'Maximum links',
+	'CONF_MAX_LINKS_EXPLAIN'                => 'The maximum allowed links per account. Reducing this number will not remove already created links. Use 0 to allow infinite links (default).',
 
 	// Posting as
 	'POSTING_AS'                            => 'Antworten als',

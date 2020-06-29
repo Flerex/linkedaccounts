@@ -47,6 +47,7 @@ $lang = array_merge($lang, array(
 	'INACTIVE_ACCOUNT'                      => 'يبدو أن الحساب الذي تحاول الربط به غير مفعل.',
 	'BANNED_ACCOUNT'                        => 'يبدو أن الحساب الذي تحاول الربط به محظور.',
 	'ALREADY_LINKED'                        => 'حسابك مرتبط مسبقاً بهذا الحساب.',
+	'MAX_LINKS_EXCEEDED'                    => 'You have exceeded the maximum number of links allowed.',
 
 	// Switching process
 	'ACCOUNTS_SWITCHED'                     => 'تم التحويل بين الحسابات بنجاح.',
@@ -81,6 +82,8 @@ $lang = array_merge($lang, array(
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'اختيارك “نعم” يعني اخفاء الحسابات المربوطة من القائمة المنسدلة عند عدم امتلاك العضو لصلاحيات ربط الحسابات. ننصح بتعطيل هذا الخيار لكي تتجنب أي مخاطر أمنية.',
 	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Preserve administration session',
 	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'When this option is enabled, if an administrator has already re-typed his password, they will not be asked for a password again when switching accounts. It is recommended to leave this setting disabled.',
+	'CONF_MAX_LINKS'                        => 'Maximum links',
+	'CONF_MAX_LINKS_EXPLAIN'                => 'The maximum allowed links per account. Reducing this number will not remove already created links. Use 0 to allow infinite links (default).',
 
 	// Posting as
 	'POSTING_AS'                            => 'Posting as',

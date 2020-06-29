@@ -76,9 +76,9 @@ class auth_service
 	 *
 	 * @param string $username The user's name
 	 *
-	 * @return array
+	 * @return array|null
 	 */
-	public function get_user_auth_info(string $username): array
+	public function get_user_auth_info(string $username): ?array
 	{
 
 		$sql = 'SELECT user_id, user_password, user_email, user_type, user_login_attempts FROM ' . USERS_TABLE . "
@@ -89,7 +89,7 @@ class auth_service
 
 		$this->db->sql_freeresult($result);
 
-		return $output;
+		return $output ?: null;
 	}
 
 	/**

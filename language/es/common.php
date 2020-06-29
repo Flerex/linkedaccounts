@@ -46,6 +46,7 @@ $lang = array_merge($lang, array(
 	'INACTIVE_ACCOUNT'                      => 'La cuenta a la que se intenta vincular parece estar inactiva.',
 	'BANNED_ACCOUNT'                        => 'La cuenta a la que se intenta vincular parece estar sancionada.',
 	'ALREADY_LINKED'                        => 'Ya estaba enlazado a esa cuenta.',
+	'MAX_LINKS_EXCEEDED'                    => 'Has superado el límite de enlaces permitidos.',
 
 	// Switching process
 	'ACCOUNTS_SWITCHED'                     => 'Se ha cambiado de cuenta satisfactoriamente.',
@@ -80,6 +81,8 @@ $lang = array_merge($lang, array(
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Marcar esta opción como “sí” ocultará el menú de cambio de cuenta cuando un usuario no tiene permisos para cambiar de cuenta, incluso si la cuenta tiene actualmente enlaces. Esto puede llegar a ser un problema de seguridad y se recomienda dejarlo desactivado.',
 	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Mantener la sesión de administración',
 	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'Con esta opción activa, si un administrador ya ha escrito de nuevo su contraseña para acceder al PCA, no se le preguntará de nuevo. Se recomienda mantener esta opción desactivada.',
+	'CONF_MAX_LINKS'                        => 'Número máximo de enlaces',
+	'CONF_MAX_LINKS_EXPLAIN'                => 'El número máximo de enlaces permitidos por cada cuenta. Reducir este número no eliminará enlaces ya creados. Utiliza el valor 0 para permitir infinitos enlaces (valor por defecto).',
 
 	// Posting as
 	'POSTING_AS'                            => 'Publicar como',

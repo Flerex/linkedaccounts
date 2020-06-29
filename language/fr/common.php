@@ -46,6 +46,7 @@ $lang = array_merge($lang, array(
 	'INACTIVE_ACCOUNT'                      => 'Le compte auquel vous essayez de vous connecter semble être inactif.',
 	'BANNED_ACCOUNT'                        => 'Le compte auquel vous essayez de vous connecter semble être banni.',
 	'ALREADY_LINKED'                        => 'Vous êtes déjà lié à ce compte.',
+	'MAX_LINKS_EXCEEDED'                    => 'You have exceeded the maximum number of links allowed.',
 
 	// Switching process
 	'ACCOUNTS_SWITCHED'                     => 'Comptes permutés avec succès !',
@@ -80,6 +81,8 @@ $lang = array_merge($lang, array(
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Permet de masquer l’option de permutation de comptes utilisateur pour les membres n’ayant pas l’autorisation de permuter et alors même que le membre aurait une association établie entre deux compte utilisateur. Il se peut que cela occasionne un risque pour la sécurité aussi il est recommandé de laisser cette option désactivée.',
 	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Preserve administration session',
 	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'When this option is enabled, if an administrator has already re-typed his password, they will not be asked for a password again when switching accounts. It is recommended to leave this setting disabled.',
+	'CONF_MAX_LINKS'                        => 'Maximum links',
+	'CONF_MAX_LINKS_EXPLAIN'                => 'The maximum allowed links per account. Reducing this number will not remove already created links. Use 0 to allow infinite links (default).',
 
 	// Posting as
 	'POSTING_AS'                            => 'Publié en tant que',

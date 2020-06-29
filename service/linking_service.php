@@ -9,6 +9,7 @@
 
 namespace flerex\linkedaccounts\service;
 
+use flerex\linkedaccounts\constants\constants;
 use phpbb\config\config;
 use phpbb\db\driver\factory as db;
 use phpbb\user;
@@ -130,6 +131,25 @@ class linking_service
 	}
 
 	/**
+	 * Return whether the user of the provided $id can create more accounts.
+	 *
+	 * @param int|null $id
+	 * @return bool
+	 */
+	public function user_exceeds_max_links(int $id = null): bool
+	{
+
+		$max_links = (int) $this->config['flerex_linkedaccounts_max_links'];
+
+		if ($max_links === constants::INFINITE_ACCOUNTS)
+		{
+			return false;
+		}
+
+		return $this->get_linked_accounts($id) >= $max_links;
+	}
+
+	/**
 	 * Obtain a list of the accounts linked
 	 * to the current user.
 	 *
@@ -169,7 +189,7 @@ class linking_service
 	}
 
 	/**
-	 * Returns the amount of links created
+	 * Returns the amount of links created throughout the forum.
 	 *
 	 * @return int
 	 *
@@ -185,8 +205,10 @@ class linking_service
 	}
 
 	/**
-	 * Returns the amount of accounts that
-	 * are part of a link
+	 * Returns the amount of accounts that are part of a link.
+	 *
+	 * For example, if there's one link in the forum (account A linked with account B) then this function would
+	 * return 2, one for every account on each side of the link.
 	 *
 	 * @return int
 	 *

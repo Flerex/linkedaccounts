@@ -199,12 +199,20 @@ class main_module
 	 */
 	private function get_form_errors(): array
 	{
-
 		$errors = array();
 
 		$username = $this->request->variable('username', '', true);
 		$password = $this->request->variable('password', '', true);
 		$cur_password = $this->request->variable('cur_password', '', true);
+
+
+		// If the maximum amount of links allowed is exceeded, we will stop checking for anything else.
+		if ($this->linking_service->user_exceeds_max_links())
+		{
+			$errors[] = $this->user->lang('MAX_LINKS_EXCEEDED');
+			return $errors;
+		}
+		
 
 		if (empty($cur_password))
 		{

@@ -45,7 +45,7 @@ class main_module
 	/** @var language $language */
 	protected $language;
 
-	/** @var factory $db  */
+	/** @var factory $db */
 	protected $db;
 
 	/** @var linking_service $linking_service */
@@ -70,7 +70,7 @@ class main_module
 	 * @param $id
 	 * @param $mode
 	 */
-	public function main($id, $mode) : void
+	public function main($id, $mode): void
 	{
 		global $config, $request, $template, $user, $db, $phpbb_container;
 		global $phpbb_root_path, $phpEx, $phpbb_admin_path;
@@ -118,7 +118,7 @@ class main_module
 	 *
 	 * @return void
 	 */
-	private function mode_overview() : void
+	private function mode_overview(): void
 	{
 		add_form_key(self::FORM_KEY);
 
@@ -151,7 +151,7 @@ class main_module
 	/**
 	 * Controller for the settings mode
 	 */
-	private function mode_settings() : void
+	private function mode_settings(): void
 	{
 
 		$submit = $this->request->is_set_post('submit');
@@ -183,6 +183,13 @@ class main_module
 				'lang'     => 'CONF_PRESERVE_ADMIN_SESSION',
 				'validate' => 'bool',
 				'type'     => 'radio:yes_no',
+				'explain'  => true,
+			),
+
+			'flerex_linkedaccounts_max_links' => array(
+				'lang'     => 'CONF_MAX_LINKS',
+				'validate' => 'int:0',
+				'type'     => 'number:0',
 				'explain'  => true,
 			),
 
@@ -265,7 +272,7 @@ class main_module
 	 *
 	 * @return void
 	 */
-	private function mode_management() : void
+	private function mode_management(): void
 	{
 
 		add_form_key(self::FORM_KEY);

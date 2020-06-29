@@ -46,6 +46,7 @@ $lang = array_merge($lang, array(
 	'INACTIVE_ACCOUNT'                      => 'The account you are trying to link to appears to be inactive.',
 	'BANNED_ACCOUNT'                        => 'The account you are trying to link to appears to be banned.',
 	'ALREADY_LINKED'                        => 'You are already linked to this account.',
+	'MAX_LINKS_EXCEEDED'                    => 'You have exceeded the maximum number of links allowed.',
 
 	// Switching process
 	'ACCOUNTS_SWITCHED'                     => 'Accounts switched successfully.',
@@ -78,8 +79,10 @@ $lang = array_merge($lang, array(
 	'CONF_RETURN_TO_INDEX_EXPLAIN'          => 'If not enabled switching accounts will return to the same page by default.',
 	'CONF_PRIVATE_LINKS'                    => 'Private links',
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Setting this option to “yes” will hide the switching menu when a user doesn’t have switching permissions, even when the account has links. This could be a security hazard and it is recommended to be left disabled.',
-	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Preserve administration session',
-	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'When this option is enabled, if an administrator has already re-typed his password, they will not be asked for a password again when switching accounts. It is recommended to leave this setting disabled.',
+	'CONF_PRESERVE_ADMIN_SESSION'           => 'Preserve administration session',
+	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'   => 'When this option is enabled, if an administrator has already re-typed his password, they will not be asked for a password again when switching accounts. It is recommended to leave this setting disabled.',
+	'CONF_MAX_LINKS'                        => 'Maximum links',
+	'CONF_MAX_LINKS_EXPLAIN'                => 'The maximum allowed links per account. Reducing this number will not remove already created links. Use 0 to allow infinite links (default).',
 
 	// Posting as
 	'POSTING_AS'                            => 'Posting as',

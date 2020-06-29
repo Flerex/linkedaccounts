@@ -46,6 +46,7 @@ $lang = array_merge($lang, array(
 	'INACTIVE_ACCOUNT'                      => 'Het account dat u probeert te koppelen lijkt inactief te zijn.',
 	'BANNED_ACCOUNT'                        => 'Het account dat u probeert te koppelen lijkt verbannen te zijn.',
 	'ALREADY_LINKED'                        => 'U bent al gekoppeld aan dit account.',
+	'MAX_LINKS_EXCEEDED'                    => 'You have exceeded the maximum number of links allowed.',
 
 	// Switching process
 	'ACCOUNTS_SWITCHED'                     => 'Accounts werden succesvol overgeschakeld.',
@@ -80,6 +81,8 @@ $lang = array_merge($lang, array(
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Als u deze optie instelt op “Ja”, wordt het account koppel menu verborgen als een gebruiker geen account koppel permissies heeft, ook niet als het account koppelingen bevat. Dit kan een veiligheidsrisico vormen en het wordt aanbevolen om uitgeschakeld te blijven.',
 	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Preserve administration session',
 	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'When this option is enabled, if an administrator has already re-typed his password, they will not be asked for a password again when switching accounts. It is recommended to leave this setting disabled.',
+	'CONF_MAX_LINKS'                        => 'Maximum links',
+	'CONF_MAX_LINKS_EXPLAIN'                => 'The maximum allowed links per account. Reducing this number will not remove already created links. Use 0 to allow infinite links (default).',
 
 	// Posting as
 	'POSTING_AS'                            => 'Posten als',

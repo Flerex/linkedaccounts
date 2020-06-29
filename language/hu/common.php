@@ -46,6 +46,7 @@ $lang = array_merge($lang, array(
 	'INACTIVE_ACCOUNT'                      => 'A kiválasztott fiók inaktívnak tűnik.',
 	'BANNED_ACCOUNT'                        => 'A kiválasztott fiók kitiltottnak tűnik.',
 	'ALREADY_LINKED'                        => 'A kiválasztott fiók már párosított.',
+	'MAX_LINKS_EXCEEDED'                    => 'You have exceeded the maximum number of links allowed.',
 
 	// Switching process
 	'ACCOUNTS_SWITCHED'                     => 'Sikeres fiókváltás.',
@@ -80,6 +81,8 @@ $lang = array_merge($lang, array(
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Ez a beállítás “igen” állapotban elrejti a fiókváltás menüt amikor egy felhasználónak nincsen fiókváltási joga, akkor is ha van párosított fiókja. Ez egy biztonsági rés lehet és javasolt kikapcsoltan hagyni.',
 	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Admin munkamenet megtartása',
 	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'Amikor ez az opció engedélyezett, ha egy adminisztrátor már újra megadta a jelszavát, nem kell megint megadniuk amikor fiókot váltanak. Javasolt ezt a beállítást kikapcsolva hagyni.',
+	'CONF_MAX_LINKS'                        => 'Maximum links',
+	'CONF_MAX_LINKS_EXPLAIN'                => 'The maximum allowed links per account. Reducing this number will not remove already created links. Use 0 to allow infinite links (default).',
 
 	// Posting as
 	'POSTING_AS'                            => 'Küldés mint',

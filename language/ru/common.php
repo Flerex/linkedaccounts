@@ -46,6 +46,7 @@ $lang = array_merge($lang, array(
 	'INACTIVE_ACCOUNT'                      => 'Аккаунт, который вы пытаетесь привязать, неактивен.',
 	'BANNED_ACCOUNT'                        => 'Аккаунт, который вы пытаетесь привязать, заблокирован.',
 	'ALREADY_LINKED'                        => 'Вы уже привязаны к этому аккаунту.',
+	'MAX_LINKS_EXCEEDED'                    => 'You have exceeded the maximum number of links allowed.',
 
 	// Switching process
 	'ACCOUNTS_SWITCHED'                     => 'Аккаунт успешно переключен.',
@@ -80,6 +81,8 @@ $lang = array_merge($lang, array(
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Изменение этой настройки на “да” скроет настройку переключения аккаунтов, даже если у него есть привязки. Это может привести к проблемам безопасности, желательно использовать значение “нет”',
 	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Высший приоритет сессии администратора',
 	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'Если эта опция включена, и администратор уже ввёл свой пароль, он не будет заново запрошен при переключении аккаунта. Рекомендовано оставить эту настройку отключенной.',
+	'CONF_MAX_LINKS'                        => 'Maximum links',
+	'CONF_MAX_LINKS_EXPLAIN'                => 'The maximum allowed links per account. Reducing this number will not remove already created links. Use 0 to allow infinite links (default).',
 
 	// Posting as
 	'POSTING_AS'                            => 'Ответить как',

@@ -46,6 +46,7 @@ $lang = array_merge($lang, array(
 	'INACTIVE_ACCOUNT'                      => 'A conta á que tratas de vincularte parece estar inactiva.',
 	'BANNED_ACCOUNT'                        => 'A conta á que tratas de vincularte parece estar prohibida.',
 	'ALREADY_LINKED'                        => 'Xa estabas vinculado a esta conta.',
+	'MAX_LINKS_EXCEEDED'                    => 'Superaches o límite de vínculos permitido.',
 
 	// Switching process
 	'ACCOUNTS_SWITCHED'                     => 'Cambiouse de conta satisfactoriamente.',
@@ -80,6 +81,8 @@ $lang = array_merge($lang, array(
 	'CONF_PRIVATE_LINKS_EXPLAIN'            => 'Marcar esta opción como “si” ocultará o menú de cambio de conta cando un usuario non teña permisos para cambiar de conta, incluso se a conta ten actualmente enlaces. Esto pode supoñer unha ameaza de seguridade e se recomenda mantela desactivada.',
 	'CONF_PRESERVE_ADMIN_SESSION'			=> 'Manter a sesión de administración',
 	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'	=> 'Con esta opción activa, se un administrador xa escribiu de novo o seu contrasinal para acceder ó ACP, non se lle preguntará de novo. Recoméndase manter esta opción desactivada.',
+	'CONF_MAX_LINKS'                        => 'Maximo número de vínculos',
+	'CONF_MAX_LINKS_EXPLAIN'                => 'O número máximo de vínculos permitidos por conta. Reducir este número non eliminará vínculos xa creados. Emprega o valor 0 para permitir infinitos vínculos (valor por defecto).',
 
 	// Posting as
 	'POSTING_AS'                            => 'Publicar coma',
