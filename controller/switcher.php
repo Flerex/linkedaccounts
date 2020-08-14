@@ -174,7 +174,7 @@ class switcher
 		$script_name = $this->symfony_request->getScriptName();
 		$page_name = substr($script_name, -1, 1) == '/' ? '' : utf8_basename($script_name);
 
-		if ($page_name !== 'app.php')
+		if ($page_name !== 'app.' . $this->phpEx)
 		{
 			$script_path .= '/';
 		}
