@@ -358,7 +358,9 @@ class linking_service
 	{
 
 		$session_autologin = (bool) $this->user->data['session_autologin'];
-		$session_viewonline = (bool) $this->user->data['session_viewonline'];
+		$session_viewonline = $this->config['flerex_linkedaccounts_preserve_view_online_session']
+			? (bool) $this->user->data['session_viewonline']
+			: true;
 		$preserve_admin_login = $this->config['flerex_linkedaccounts_preserve_admin_session']
 			? (bool) $this->user->data['session_admin']
 			: false;

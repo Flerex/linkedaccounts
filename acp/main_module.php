@@ -186,6 +186,13 @@ class main_module
 				'explain'  => true,
 			),
 
+			'flerex_linkedaccounts_preserve_view_online_session' => array(
+				'lang'     => 'CONF_PRESERVE_VIEW_ONLINE_SESSION',
+				'validate' => 'bool',
+				'type'     => 'radio:yes_no',
+				'explain'  => true,
+			),
+
 			'flerex_linkedaccounts_max_links' => array(
 				'lang'     => 'CONF_MAX_LINKS',
 				'validate' => 'int:0',
