@@ -146,7 +146,7 @@ class linking_service
 			return false;
 		}
 
-		return $this->get_linked_accounts($id) >= $max_links;
+		return count($this->get_linked_accounts($id)) >= $max_links;
 	}
 
 	/**
