@@ -3,8 +3,8 @@
 	"type": "phpbb-extension",
 	"description": "A phpBB extension that allows users to switch between their accounts with ease.",
 	"homepage": "https://github.com/flerex/linkedaccounts",
-	"version": "2.2.0",
-	"time": "2022-08-14",
+	"version": "2.2.1",
+	"time": "2024-07-17",
 	"keywords": [
 		"flerex",
 		"topic",
