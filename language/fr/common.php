@@ -16,10 +16,15 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
-$lang = array_merge($lang, array(
+//
+// Some characters you may want to copy&paste:
+// ’ « » “ ” …
+//
+
+$lang = array_merge($lang, [
 
 	// General translations
 	'LINKED_ACCOUNTS'                           => 'Comptes utilisateur liés',
@@ -46,7 +51,7 @@ $lang = array_merge($lang, array(
 	'INACTIVE_ACCOUNT'                          => 'Le compte auquel vous essayez de vous connecter semble être inactif.',
 	'BANNED_ACCOUNT'                            => 'Le compte auquel vous essayez de vous connecter semble être banni.',
 	'ALREADY_LINKED'                            => 'Vous êtes déjà lié à ce compte.',
-	'MAX_LINKS_EXCEEDED'                        => 'You have exceeded the maximum number of links allowed.',
+	'MAX_LINKS_EXCEEDED'                        => 'Vous avez dépassé le nombre maximum de liens autorisés.',
 
 	// Switching process
 	'ACCOUNTS_SWITCHED'                         => 'Comptes permutés avec succès !',
@@ -73,20 +78,20 @@ $lang = array_merge($lang, array(
 	// ACP Settings Module
 	'ADM_LINKED_ACCOUNTS_SETTINGS'              => 'Paramètres',
 	'ADM_LINKED_ACCOUNTS_SETTINGS_EXPLAIN'      => 'Permet de personnaliser certaines fonctionnalités de l’extension.',
-	'CONF_AJAX'                                 => 'Utiliser le langage AJAX pour permuter entre les comptes utilisateur',
-	'CONF_AJAX_EXPLAIN'                         => 'Permet d’activer cette option qui permettera automatiquement le membre vers un autre compte utilisateur sans avoir à s’identifier. Les utilisateurs n’ayant pas activé le support du langage AJAX seront eux aussi redirigés vers cette page.',
+	'CONF_AJAX'                                 => 'Utiliser la méthode AJAX pour permuter entre les comptes utilisateur',
+	'CONF_AJAX_EXPLAIN'                         => 'En activant cette option, vous serez redirigé automatiquement, sans avoir à passer par la page « Informations ». Les utilisateurs qui ne disposent pas de la compatibilité AJAX seront redirigés vers cette page.',
 	'CONF_RETURN_TO_INDEX'                      => 'Retourner vers la page de l’index du forum lors de la permutation entre comptes utilisateurs',
 	'CONF_RETURN_TO_INDEX_EXPLAIN'              => 'Permet d’activer la redirection vers la page de l’index du forum après avoir permuté de compte utilisateur. Dans le cas contraire, si cette option est désactivée la redirection s’effectuera vers la même page qu’avant la permutation.',
 	'CONF_PRIVATE_LINKS'                        => 'Associations privés',
-	'CONF_PRIVATE_LINKS_EXPLAIN'                => 'Permet de masquer l’option de permutation de comptes utilisateur pour les membres n’ayant pas l’autorisation de permuter et alors même que le membre aurait une association établie entre deux compte utilisateur. Il se peut que cela occasionne un risque pour la sécurité aussi il est recommandé de laisser cette option désactivée.',
-	'CONF_PRESERVE_ADMIN_SESSION'               => 'Preserve administration session',
-	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'       => 'When this option is enabled, if an administrator has already re-typed his password, they will not be asked for a password again when switching accounts. It is recommended to leave this setting disabled.',
-	'CONF_PRESERVE_VIEW_ONLINE_SESSION'         => 'Preserve online status visibility',
-	'CONF_PRESERVE_VIEW_ONLINE_SESSION_EXPLAIN' => 'When this option is enabled, if an account that is hidden switches to a linked account, the linked account will continue being hidden, regardless of its preference.',
-	'CONF_MAX_LINKS'                            => 'Maximum links',
-	'CONF_MAX_LINKS_EXPLAIN'                    => 'The maximum allowed links per account. Reducing this number will not remove already created links. Use 0 to allow infinite links (default).',
+	'CONF_PRIVATE_LINKS_EXPLAIN'                => 'Si cette option est définie sur « oui », le menu de permutation sera masqué lorsqu’un utilisateur n’a pas les permissions de commuter, même si le compte possède des liens. Cela peut constituer un risque pour la sécurité et il est recommandé de laisser cette option désactivée.',
+	'CONF_PRESERVE_ADMIN_SESSION'               => 'Préserver la session d’administration',
+	'CONF_PRESERVE_ADMIN_SESSION_EXPLAIN'       => 'Lorsque cette option est activée, si un administrateur a déjà retapé son mot de passe, il ne lui sera pas redemandé de mot de passe lors d’une permutation de compte. Il est recommandé de laisser ce paramètre désactivé.',
+	'CONF_PRESERVE_VIEW_ONLINE_SESSION'         => 'Préserver la visibilité du statut en ligne',
+	'CONF_PRESERVE_VIEW_ONLINE_SESSION_EXPLAIN' => 'Lorsque cette option est activée, si un compte masqué commute vers un compte lié, le compte lié continuera d’être masqué, quelle que soit sa préférence.',
+	'CONF_MAX_LINKS'                            => 'Nombre maximum de liens',
+	'CONF_MAX_LINKS_EXPLAIN'                    => 'Le nombre maximum de liens autorisés par compte. La réduction de ce nombre ne supprimera pas les liens déjà créés. Utilisez 0 pour autoriser un nombre infini de liens (valeur par défaut).',
 
 	// Posting as
 	'POSTING_AS'                                => 'Publié en tant que',
 
-));
+]);
